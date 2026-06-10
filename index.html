@@ -34,21 +34,20 @@ radial-gradient(circle at 80% 80%, rgba(140,0,255,.15), transparent 30%);
 nav{
 display:flex;
 justify-content:space-between;
-align-items:center; /* লোগো সোজা রাখার জন্য */
+align-items:center;
 padding:15px 8%;
 backdrop-filter:blur(20px);
 background:rgba(255,255,255,.05);
 border-bottom:1px solid rgba(255,255,255,.1);
 }
 
-/* লোগোর সাইজ সুন্দর করার জন্য স্টাইল */
 .logo-container {
 display: flex;
 align-items: center;
 }
 
 .site-logo {
-height: 50px; /* লোগো বেশি বড় বা ছোট মনে হলে এখান থেকে পরিবর্তন করতে পারবে */
+height: 50px;
 width: auto;
 object-fit: contain;
 }
@@ -86,6 +85,34 @@ color:white;
 background:linear-gradient(90deg,#00e5ff,#8b5cf6);
 }
 
+/* --- ক্যাটাগরি ফিল্টার বাটন স্টাইল --- */
+.filter-container {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin-bottom: 40px;
+}
+
+.filter-btn {
+background: rgba(255, 255, 255, 0.05);
+color: white;
+border: 1px solid rgba(255, 255, 255, 0.1);
+padding: 10px 24px;
+font-size: 16px;
+font-weight: bold;
+border-radius: 30px;
+cursor: pointer;
+backdrop-filter: blur(10px);
+transition: all 0.3s ease;
+}
+
+/* মাউস নিলে বা বাটন একটিভ থাকলে যে কালার হবে */
+.filter-btn:hover, .filter-btn.active {
+background: linear-gradient(90deg, #00e5ff, #8b5cf6);
+border-color: transparent;
+box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+}
+
 .gallery{
 padding:80px 8%;
 }
@@ -105,7 +132,12 @@ backdrop-filter: blur(15px);
 border-radius: 20px;
 overflow: hidden;
 cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease;
+transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+/* ফিল্টার করার সময় হাইড হওয়া ছবির অ্যানিমেশন */
+.card.hide {
+display: none;
 }
 
 .card:hover {
@@ -182,7 +214,6 @@ border-top:1px solid rgba(255,255,255,.1);
 
 <div class="bg"></div>
 
-<!-- নেভিগেশন বার যেখানে লোগো ইমেজটি বসানো হয়েছে -->
 <nav>
 <div class="logo-container">
     <img src="logo.png" alt="2 Stock Logo" class="site-logo">
@@ -193,29 +224,38 @@ border-top:1px solid rgba(255,255,255,.1);
 <div class="glass">
 <h1>2 Stock</h1>
 <p>Premium AI Photos & Vectors</p>
-<a href="#" class="btn">Explore</a>
+<a href="#gallery-section" class="btn">Explore</a> <!-- এখানে ক্লিক করলে গ্যালারিতে স্ক্রল হবে -->
 </div>
 </section>
 
-<section class="gallery">
+<!-- আইডি যোগ করা হলো যাতে এক্সপ্লোর বাটনে ক্লিক করলে এখানে আসে -->
+<section class="gallery" id="gallery-section">
 <h2 style="text-align:center;margin-bottom:30px;">Featured Collection</h2>
 
+<!-- ক্যাটাগরি ফিল্টার বাটনসমূহ -->
+<div class="filter-container">
+    <button class="filter-btn active" data-name="all">All</button>
+    <button class="filter-btn" data-name="photo">Photos</button>
+    <button class="filter-btn" data-name="vector">Vectors</button>
+</div>
+
+<!-- গ্যালারি এবং প্রতিটি কার্ডে ক্যাটাগরি সেট (data-category) -->
 <div class="grid">
-<div class="card"><img src="photo1.png" alt="AI Portfolio"></div>
-<div class="card"><img src="photo2.jpg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo3.jpg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo4.jpeg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo5.jpg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo6.jpg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo7.jpg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo8.jpg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo9.jpg" alt="AI Portfolio"></div>
-<div class="card"><img src="photo10.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="photo"><img src="photo1.png" alt="AI Portfolio"></div>
+    <div class="card" data-category="photo"><img src="photo2.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="photo"><img src="photo3.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="vector"><img src="photo4.jpeg" alt="AI Portfolio"></div>
+    <div class="card" data-category="photo"><img src="photo5.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="vector"><img src="photo6.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="vector"><img src="photo7.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="photo"><img src="photo8.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="vector"><img src="photo9.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-category="vector"><img src="photo10.jpg" alt="AI Portfolio"></div>
 </div>
 
 </section>
 
-<!-- ছবি ক্লিক করলে বড় করে দেখার পপআপ উইন্ডো -->
+<!-- পপআপ উইন্ডো -->
 <div class="popup-overlay" id="popupOverlay">
 <span class="close-btn" id="closeBtn">&times;</span>
 <img class="popup-img" id="popupImg" src="" alt="Popup View">
@@ -225,8 +265,9 @@ border-top:1px solid rgba(255,255,255,.1);
 © 2026 2 Stock
 </footer>
 
-<!-- জাভাস্ক্রিপ্ট কোড -->
+<!-- জাভাস্ক্রিপ্ট (পপআপ এবং ফিল্টারিং উভয়ের জন্য) -->
 <script>
+// --- ইমেজ পপআপ কোড ---
 const cards = document.querySelectorAll('.card img');
 const overlay = document.getElementById('popupOverlay');
 const popupImg = document.getElementById('popupImg');
@@ -247,6 +288,31 @@ overlay.addEventListener('click', (e) => {
     if (e.target === overlay) {
         overlay.classList.remove('active');
     }
+});
+
+// --- ক্যাটাগরি ফিল্টার কোড ---
+const filterButtons = document.querySelectorAll('.filter-btn');
+const filterableCards = document.querySelectorAll('.grid .card');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        // একটিভ ক্লাস চেইঞ্জ করার জন্য
+        document.querySelector('.filter-btn.active').classList.remove('active');
+        button.classList.add('active');
+
+        let filterName = button.getAttribute('data-name');
+
+        filterableCards.forEach(card => {
+            let cardCategory = card.getAttribute('data-category');
+            
+            // ফিল্টার লজিক
+            if(filterName === 'all' || filterName === cardCategory) {
+                card.classList.remove('hide');
+            } else {
+                card.classList.add('hide');
+            }
+        });
+    });
 });
 </script>
 
