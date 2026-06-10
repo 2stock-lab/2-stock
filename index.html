@@ -87,7 +87,6 @@ background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
 -webkit-text-fill-color: transparent;
 }
 
-/* --- Apple Premium CTA বাটন --- */
 .btn{
 display:inline-block;
 margin-top:20px;
@@ -97,7 +96,6 @@ text-decoration:none;
 color:black;
 font-weight: 500;
 font-size: 15px;
-/* অ্যাপলের ক্লাসিক হোয়াইট সলিড-গ্লাস বাটন */
 background: rgba(255, 255, 255, 0.95);
 border: 1px solid rgba(255, 255, 255, 1);
 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -134,7 +132,6 @@ animation: fadeIn 0.4s ease forwards;
 display: flex;
 }
 
-/* --- Apple সিগনেচার মিনিমাল গ্লাস বাটন স্টাইল --- */
 .filter-btn {
 background: rgba(255, 255, 255, 0.06);
 color: rgba(255, 255, 255, 0.85);
@@ -150,14 +147,12 @@ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* বাটন হোভার করলে সূক্ষ্ম ও প্রিমিয়াম পরিবর্তন */
 .filter-btn:hover {
 background: rgba(255, 255, 255, 0.15);
 border-color: rgba(255, 255, 255, 0.25);
 color: #fff;
 }
 
-/* বাটন একটিভ বা সিলেক্টেড থাকলে ব্লার-হোয়াইট গ্লাস লুক */
 .filter-btn.active {
 background: rgba(255, 255, 255, 0.22);
 color: white;
@@ -166,7 +161,6 @@ box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15),
             inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
-/* সাব-ফিল্টারের অ্যাপল বাটন লিকুইড এফেক্ট */
 .sub-btn {
 padding: 8px 20px;
 font-size: 13px;
@@ -198,14 +192,14 @@ gap:25px;
 
 /* --- Apple রিফ্লেক্টিভ গ্লাস কার্ড --- */
 .card {
-height: 260px;
+position: relative; /* ডাউনলোড বাটন পজিশন করার জন্য */
+height: 310px; /* বাটনের জন্য হাইট সামান্য বাড়ানো হয়েছে */
 background: rgba(255, 255, 255, 0.03);
 border: 1px solid rgba(255, 255, 255, 0.15);
 backdrop-filter: blur(25px) saturate(160%);
 -webkit-backdrop-filter: blur(25px) saturate(160%);
 border-radius: 24px;
 overflow: hidden;
-cursor: pointer;
 box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
             box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
@@ -217,10 +211,18 @@ display: none;
 }
 
 .card:hover {
-transform: translateY(-10px) scale(1.02);
+transform: translateY(-8px);
 box-shadow: 0 20px 40px rgba(0, 240, 255, 0.25), 
             0 0 30px rgba(112, 0, 255, 0.15);
 border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ইমেজ কন্টেইনার (ক্লিক করলে পপআপ হবে) */
+.img-container {
+width: 100%;
+height: 240px; /* ইমেজ এরিয়া */
+overflow: hidden;
+cursor: pointer;
 }
 
 .card img {
@@ -231,8 +233,59 @@ display: block;
 transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.card:hover img {
-transform: scale(1.06);
+.img-container:hover img {
+transform: scale(1.05);
+}
+
+/* --- Apple ফ্রস্টেড গ্লাস ডাউনলোড বাটন --- */
+.download-btn {
+position: absolute;
+bottom: 12px;
+left: 50%;
+transform: translateX(-50%) translateY(10px);
+width: 90%;
+padding: 10px 0;
+text-align: center;
+text-decoration: none;
+font-size: 13px;
+font-weight: 600;
+color: rgba(255, 255, 255, 0.9);
+background: rgba(255, 255, 255, 0.08);
+border: 1px solid rgba(255, 255, 255, 0.15);
+border-radius: 14px;
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
+opacity: 0; /* নরমালি হাইড থাকবে */
+visibility: hidden;
+transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 6px;
+}
+
+/* ছবিতে মাউস নিলে ডাউনলোড বাটন স্মুথলি ভেসে উঠবে */
+.card:hover .download-btn {
+opacity: 1;
+visibility: visible;
+transform: translateX(-50%) translateY(0);
+}
+
+.download-btn:hover {
+background: rgba(255, 255, 255, 0.2);
+border-color: rgba(255, 255, 255, 0.3);
+color: #fff;
+box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* মোবাইল ও ট্যাবলেটের জন্য ডাউনলোড বাটন সবসময় শো করবে */
+@media (max-width: 768px) {
+    .download-btn {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+        background: rgba(255, 255, 255, 0.12);
+    }
 }
 
 /* --- ইমেজ পপআপ (Lightbox) --- */
@@ -319,7 +372,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.1);
 <section class="gallery" id="gallery-section">
 <h2 style="text-align:center; margin-bottom:30px; font-size: 28px; background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Featured Collection</h2>
 
-<!-- ডাবল লেয়ার অ্যাপল ফিল্টার বাটনসমূহ -->
+<!-- ফিল্টার বাটনসমূহ -->
 <div class="filter-wrapper">
     <div class="main-filter">
         <button class="filter-btn active" data-main="all">All</button>
@@ -334,18 +387,51 @@ border-top: 1px solid rgba(255, 255, 255, 0.1);
     </div>
 </div>
 
+<!-- কার্ড গ্রিড (ডাউনলোড বাটনসহ) -->
 <div class="grid">
-    <div class="card" data-type="photo" data-status="new"><img src="photo1.png" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="new"><img src="photo2.jpg" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="popular"><img src="photo3.jpg" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="new"><img src="photo4.jpeg" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="popular"><img src="photo5.jpg" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="new"><img src="photo6.jpg" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="popular"><img src="photo7.jpg" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="popular"><img src="photo8.jpg" alt="AI Artwork"></div>
-    <div class="card" data-type="photo" data-status="new"><img src="photo9.jpg" alt="AI Artwork"></div>
+    <!-- ১ থেকে ৯ নম্বর ফটো ক্যাটাগরি -->
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo1.png" alt="AI Artwork"></div>
+        <a href="photo1.png" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo2.jpg" alt="AI Artwork"></div>
+        <a href="photo2.jpg" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="popular">
+        <div class="img-container"><img src="photo3.jpg" alt="AI Artwork"></div>
+        <a href="photo3.jpg" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo4.jpeg" alt="AI Artwork"></div>
+        <a href="photo4.jpeg" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="popular">
+        <div class="img-container"><img src="photo5.jpg" alt="AI Artwork"></div>
+        <a href="photo5.jpg" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo6.jpg" alt="AI Artwork"></div>
+        <a href="photo6.jpg" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="popular">
+        <div class="img-container"><img src="photo7.jpg" alt="AI Artwork"></div>
+        <a href="photo7.jpg" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="popular">
+        <div class="img-container"><img src="photo8.jpg" alt="AI Artwork"></div>
+        <a href="photo8.jpg" download class="download-btn">⬇ Download</a>
+    </div>
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo9.jpg" alt="AI Artwork"></div>
+        <a href="photo9.jpg" download class="download-btn">⬇ Download</a>
+    </div>
     
-    <div class="card" data-type="vector" data-status="popular"><img src="photo10.jpg" alt="AI Vector Artwork"></div>
+    <!-- ১০ নম্বর স্পেশাল ভেক্টর ছবি -->
+    <div class="card" data-type="vector" data-status="popular">
+        <div class="img-container"><img src="photo10.jpg" alt="AI Vector Artwork"></div>
+        <a href="photo10.jpg" download class="download-btn">⬇ Download Vector</a>
+    </div>
 </div>
 
 </section>
@@ -361,12 +447,12 @@ border-top: 1px solid rgba(255, 255, 255, 0.1);
 
 <script>
 // --- ইমেজ পপআপ কোড ---
-const cards = document.querySelectorAll('.card img');
+const imageContainers = document.querySelectorAll('.img-container img');
 const overlay = document.getElementById('popupOverlay');
 const popupImg = document.getElementById('popupImg');
 const closeBtn = document.getElementById('closeBtn');
 
-cards.forEach(img => {
+imageContainers.forEach(img => {
     img.addEventListener('click', () => {
         popupImg.src = img.src;
         overlay.classList.add('active');
