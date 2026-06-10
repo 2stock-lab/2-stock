@@ -10,15 +10,16 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body{
-background:#050505;
+background:#05070f;
 color:white;
 overflow-x:hidden;
 }
 
+/* --- Apple Liquid Glass ব্যাকগ্রাউন্ড --- */
 .bg{
 position:fixed;
 width:100%;
@@ -26,9 +27,12 @@ height:100%;
 top:0;
 left:0;
 z-index:-1;
-background:
-radial-gradient(circle at 20% 20%, rgba(0,255,255,.15), transparent 30%),
-radial-gradient(circle at 80% 80%, rgba(140,0,255,.15), transparent 30%);
+background: 
+    radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.25), transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(255, 0, 128, 0.2), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.25), transparent 50%),
+    #070b19;
+background-size: cover;
 }
 
 nav{
@@ -36,9 +40,10 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px 8%;
-backdrop-filter:blur(20px);
-background:rgba(255,255,255,.05);
-border-bottom:1px solid rgba(255,255,255,.1);
+backdrop-filter: blur(30px) saturate(180%);
+-webkit-backdrop-filter: blur(30px) saturate(180%);
+background: rgba(255, 255, 255, 0.03);
+border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .logo-container {
@@ -53,7 +58,7 @@ object-fit: contain;
 }
 
 .hero{
-height:90vh;
+height:85vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -62,88 +67,137 @@ padding:20px;
 }
 
 .glass{
-background:rgba(255,255,255,.06);
-border:1px solid rgba(255,255,255,.12);
-backdrop-filter:blur(20px);
-padding:50px;
-border-radius:25px;
-max-width:800px;
+background: rgba(255, 255, 255, 0.03);
+border: 1px solid rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(25px) saturate(160%);
+-webkit-backdrop-filter: blur(25px) saturate(160%);
+padding: 50px;
+border-radius: 30px;
+max-width: 800px;
+box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 h1{
 font-size:60px;
 margin-bottom:10px;
+background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
 
 .btn{
 display:inline-block;
 margin-top:20px;
-padding:12px 30px;
+padding:14px 35px;
 border-radius:50px;
 text-decoration:none;
 color:white;
-background:linear-gradient(90deg,#00e5ff,#8b5cf6);
+font-weight: bold;
+background: linear-gradient(90deg, rgba(0,229,255,0.8), rgba(139,92,246,0.8));
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255,255,255,0.2);
+box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+transition: all 0.3s ease;
 }
 
-/* --- ক্যাটাগরি ফিল্টার বাটন স্টাইল --- */
-.filter-container {
+.btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 25px rgba(0, 229, 255, 0.5);
+background: linear-gradient(90deg, rgba(0,229,255,1), rgba(139,92,246,1));
+}
+
+/* --- ফিল্টার কন্টেইনার --- */
+.filter-wrapper {
 display: flex;
-justify-content: center;
+flex-direction: column;
+align-items: center;
 gap: 15px;
 margin-bottom: 40px;
 }
 
+.main-filter, .sub-filter {
+display: flex;
+justify-content: center;
+gap: 12px;
+}
+
+.sub-filter {
+display: none;
+animation: fadeIn 0.4s ease forwards;
+}
+
+.sub-filter.show {
+display: flex;
+}
+
 .filter-btn {
-background: rgba(255, 255, 255, 0.05);
-color: white;
-border: 1px solid rgba(255, 255, 255, 0.1);
+background: rgba(255, 255, 255, 0.03);
+color: rgba(255, 255, 255, 0.7);
+border: 1px solid rgba(255, 255, 255, 0.08);
 padding: 10px 24px;
-font-size: 16px;
+font-size: 14px;
 font-weight: bold;
 border-radius: 30px;
 cursor: pointer;
-backdrop-filter: blur(10px);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
 transition: all 0.3s ease;
 }
 
-/* মাউস নিলে বা বাটন একটিভ থাকলে যে কালার হবে */
 .filter-btn:hover, .filter-btn.active {
-background: linear-gradient(90deg, #00e5ff, #8b5cf6);
+background: linear-gradient(90deg, rgba(0, 229, 255, 0.8), rgba(139, 92, 246, 0.8));
+color: white;
 border-color: transparent;
-box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+box-shadow: 0 6px 15px rgba(0, 229, 255, 0.25);
+}
+
+.sub-btn {
+padding: 8px 20px;
+font-size: 13px;
+background: rgba(255, 255, 255, 0.01);
+border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sub-btn:hover, .sub-btn.active {
+background: linear-gradient(90deg, rgba(139, 92, 246, 0.7), rgba(255, 0, 128, 0.7));
+box-shadow: 0 6px 15px rgba(139, 92, 246, 0.25);
 }
 
 .gallery{
-padding:80px 8%;
+padding:60px 8%;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
 }
 
-/* --- ইমেজ কার্ড এবং হোভার ইফেক্ট --- */
+/* --- Apple Liquid Glass কার্ড স্টাইল --- */
 .card {
-height: 250px;
-background: rgba(255,255,255,.05);
-border: 1px solid rgba(255,255,255,.1);
-backdrop-filter: blur(15px);
-border-radius: 20px;
+height: 260px;
+background: rgba(255, 255, 255, 0.02);
+border: 1px solid rgba(255, 255, 255, 0.08);
+backdrop-filter: blur(20px) saturate(140%);
+-webkit-backdrop-filter: blur(20px) saturate(140%);
+border-radius: 24px;
 overflow: hidden;
 cursor: pointer;
-transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+            box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+            border-color 0.4s ease, opacity 0.3s ease;
 }
 
-/* ফিল্টার করার সময় হাইড হওয়া ছবির অ্যানিমেশন */
 .card.hide {
 display: none;
 }
 
 .card:hover {
-transform: translateY(-8px);
-box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
-border-color: rgba(0, 229, 255, 0.4);
+transform: translateY(-10px) scale(1.02);
+box-shadow: 0 20px 40px rgba(0, 229, 255, 0.15), 
+            0 0 25px rgba(139, 92, 246, 0.1);
+border-color: rgba(255, 255, 255, 0.25);
 }
 
 .card img {
@@ -151,11 +205,11 @@ width: 100%;
 height: 100%;
 object-fit: cover;
 display: block;
-transition: transform 0.3s ease;
+transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .card:hover img {
-transform: scale(1.05);
+transform: scale(1.06);
 }
 
 /* --- ইমেজ পপআপ (Lightbox) স্টাইল --- */
@@ -165,7 +219,9 @@ top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background-color: rgba(0, 0, 0, 0.9);
+background-color: rgba(3, 5, 15, 0.85);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
 display: flex;
 justify-content: center;
 align-items: center;
@@ -181,10 +237,11 @@ pointer-events: auto;
 .popup-img {
 max-width: 90%;
 max-height: 80%;
-border-radius: 12px;
-box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
-transform: scale(0.8);
-transition: transform 0.3s ease;
+border-radius: 20px;
+border: 1px solid rgba(255, 255, 255, 0.15);
+box-shadow: 0 0 50px rgba(0, 229, 255, 0.2);
+transform: scale(0.85);
+transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .popup-overlay.active .popup-img {
 transform: scale(1);
@@ -194,18 +251,26 @@ position: absolute;
 top: 20px;
 right: 30px;
 font-size: 45px;
-color: #fff;
+color: rgba(255, 255, 255, 0.6);
 cursor: pointer;
-transition: color 0.2s;
+transition: color 0.2s, transform 0.2s;
 }
 .close-btn:hover {
 color: #00e5ff;
+transform: scale(1.1);
 }
 
 footer{
 text-align:center;
-padding:30px;
-border-top:1px solid rgba(255,255,255,.1);
+padding:40px;
+color: rgba(255, 255, 255, 0.4);
+font-size: 14px;
+border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -223,51 +288,55 @@ border-top:1px solid rgba(255,255,255,.1);
 <section class="hero">
 <div class="glass">
 <h1>2 Stock</h1>
-<p>Premium AI Photos & Vectors</p>
-<a href="#gallery-section" class="btn">Explore</a> <!-- এখানে ক্লিক করলে গ্যালারিতে স্ক্রল হবে -->
+<p style="color: #94a3b8; font-size: 18px; letter-spacing: 0.5px;">Premium AI Photos & Artworks</p>
+<a href="#gallery-section" class="btn">Explore Gallery</a>
 </div>
 </section>
 
-<!-- আইডি যোগ করা হলো যাতে এক্সপ্লোর বাটনে ক্লিক করলে এখানে আসে -->
 <section class="gallery" id="gallery-section">
-<h2 style="text-align:center;margin-bottom:30px;">Featured Collection</h2>
+<h2 style="text-align:center; margin-bottom:30px; font-size: 28px; background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Featured Collection</h2>
 
-<!-- ক্যাটাগরি ফিল্টার বাটনসমূহ -->
-<div class="filter-container">
-    <button class="filter-btn active" data-name="all">All</button>
-    <button class="filter-btn" data-name="photo">Photos</button>
-    <button class="filter-btn" data-name="vector">Vectors</button>
+<div class="filter-wrapper">
+    <div class="main-filter">
+        <button class="filter-btn active" data-main="all">All</button>
+        <button class="filter-btn" data-main="photo">Photos</button>
+        <button class="filter-btn" data-main="vector">Vectors</button>
+    </div>
+    
+    <div class="sub-filter" id="subFilterContainer">
+        <button class="filter-btn sub-btn active" data-sub="all">All</button>
+        <button class="filter-btn sub-btn" data-sub="new">New</button>
+        <button class="filter-btn sub-btn" data-sub="popular">Popular</button>
+    </div>
 </div>
 
-<!-- গ্যালারি এবং প্রতিটি কার্ডে ক্যাটাগরি সেট (data-category) -->
 <div class="grid">
-    <div class="card" data-category="photo"><img src="photo1.png" alt="AI Portfolio"></div>
-    <div class="card" data-category="photo"><img src="photo2.jpg" alt="AI Portfolio"></div>
-    <div class="card" data-category="photo"><img src="photo3.jpg" alt="AI Portfolio"></div>
-    <div class="card" data-category="vector"><img src="photo4.jpeg" alt="AI Portfolio"></div>
-    <div class="card" data-category="photo"><img src="photo5.jpg" alt="AI Portfolio"></div>
-    <div class="card" data-category="vector"><img src="photo6.jpg" alt="AI Portfolio"></div>
-    <div class="card" data-category="vector"><img src="photo7.jpg" alt="AI Portfolio"></div>
-    <div class="card" data-category="photo"><img src="photo8.jpg" alt="AI Portfolio"></div>
-    <div class="card" data-category="vector"><img src="photo9.jpg" alt="AI Portfolio"></div>
-    <div class="card" data-category="vector"><img src="photo10.jpg" alt="AI Portfolio"></div>
+    <div class="card" data-type="photo" data-status="new"><img src="photo1.png" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="new"><img src="photo2.jpg" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="popular"><img src="photo3.jpg" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="new"><img src="photo4.jpeg" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="popular"><img src="photo5.jpg" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="new"><img src="photo6.jpg" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="popular"><img src="photo7.jpg" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="popular"><img src="photo8.jpg" alt="AI Artwork"></div>
+    <div class="card" data-type="photo" data-status="new"><img src="photo9.jpg" alt="AI Artwork"></div>
+    
+    <div class="card" data-type="vector" data-status="popular"><img src="photo10.jpg" alt="AI Vector Artwork"></div>
 </div>
 
 </section>
 
-<!-- পপআপ উইন্ডো -->
 <div class="popup-overlay" id="popupOverlay">
 <span class="close-btn" id="closeBtn">&times;</span>
 <img class="popup-img" id="popupImg" src="" alt="Popup View">
 </div>
 
 <footer>
-© 2026 2 Stock
+© 2026 2 Stock • Designed with Liquid Glass Effect
 </footer>
 
-<!-- জাভাস্ক্রিপ্ট (পপআপ এবং ফিল্টারিং উভয়ের জন্য) -->
 <script>
-// --- ইমেজ পপআপ কোড ---
+// --- ইমেজ পপআপ ---
 const cards = document.querySelectorAll('.card img');
 const overlay = document.getElementById('popupOverlay');
 const popupImg = document.getElementById('popupImg');
@@ -290,30 +359,63 @@ overlay.addEventListener('click', (e) => {
     }
 });
 
-// --- ক্যাটাগরি ফিল্টার কোড ---
-const filterButtons = document.querySelectorAll('.filter-btn');
+// --- ডাবল লেয়ার ফিল্টার লজিক ---
+const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
+const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
+const subFilterContainer = document.getElementById('subFilterContainer');
 const filterableCards = document.querySelectorAll('.grid .card');
 
-filterButtons.forEach(button => {
+let currentMainFilter = 'all';
+let currentSubFilter = 'all';
+
+mainButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // একটিভ ক্লাস চেইঞ্জ করার জন্য
-        document.querySelector('.filter-btn.active').classList.remove('active');
+        document.querySelector('.main-filter .filter-btn.active').classList.remove('active');
         button.classList.add('active');
 
-        let filterName = button.getAttribute('data-name');
+        currentMainFilter = button.getAttribute('data-main');
+        
+        // সাব-ফিল্টার বাটন রিসেট টু 'All'
+        document.querySelector('.sub-filter .sub-btn.active').classList.remove('active');
+        subButtons[0].classList.add('active');
+        currentSubFilter = 'all';
 
-        filterableCards.forEach(card => {
-            let cardCategory = card.getAttribute('data-category');
-            
-            // ফিল্টার লজিক
-            if(filterName === 'all' || filterName === cardCategory) {
-                card.classList.remove('hide');
-            } else {
-                card.classList.add('hide');
-            }
-        });
+        if (currentMainFilter === 'all') {
+            subFilterContainer.classList.remove('show');
+        } else {
+            subFilterContainer.classList.add('show');
+        }
+
+        applyFilters();
     });
 });
+
+subButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.sub-filter .sub-btn.active').classList.remove('active');
+        button.classList.add('active');
+
+        currentSubFilter = button.getAttribute('data-sub');
+        applyFilters();
+    });
+});
+
+// মেইন এবং সাব ফিল্টার একুরেটলি কাজ করানোর মূল ফাংশন
+function applyFilters() {
+    filterableCards.forEach(card => {
+        let cardType = card.getAttribute('data-type');
+        let cardStatus = card.getAttribute('data-status');
+
+        let matchMain = (currentMainFilter === 'all' || currentMainFilter === cardType);
+        let matchSub = (currentSubFilter === 'all' || currentSubFilter === cardStatus);
+
+        if (matchMain && matchSub) {
+            card.classList.remove('hide');
+        } else {
+            card.classList.add('hide');
+        }
+    });
+}
 </script>
 
 </body>
