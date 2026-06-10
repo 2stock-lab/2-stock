@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2 Stock</title>
+<title>2 Stock - Apple Global Edition</title>
 
 <style>
 *{
@@ -14,12 +14,12 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, A
 }
 
 body{
-background: #0f1123;
+background: #060713;
 color: white;
 overflow-x: hidden;
 }
 
-/* --- Apple Liquid Glass ব্যাকগ্রাউন্ড --- */
+/* --- Apple Liquid Aurora Background --- */
 .bg{
 position:fixed;
 width:100%;
@@ -28,13 +28,10 @@ top:0;
 left:0;
 z-index:-1;
 background: 
-    radial-gradient(circle at 15% 15%, #00f0ff 0%, transparent 40%),
-    radial-gradient(circle at 85% 20%, #ff007f 0%, transparent 45%),
-    radial-gradient(circle at 50% 75%, #7000ff 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, #00ffaa 0%, transparent 35%),
-    #0c0e1a;
+    radial-gradient(circle at 80% 20%, #4f46e5 0%, transparent 50%),
+    radial-gradient(circle at 20% 80%, #06b6d4 0%, transparent 50%),
+    #060713;
 background-size: cover;
-filter: blur(20px);
 }
 
 nav{
@@ -44,23 +41,24 @@ align-items:center;
 padding:15px 8%;
 backdrop-filter: blur(30px) saturate(200%);
 -webkit-backdrop-filter: blur(30px) saturate(200%);
-background: rgba(255, 255, 255, 0.04);
-border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+background: rgba(255, 255, 255, 0.02);
+border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+position: sticky;
+top: 0;
+z-index: 100;
 }
 
-.logo-container {
-display: flex;
-align-items: center;
-}
-
-.site-logo {
-height: 50px;
-width: auto;
-object-fit: contain;
+.logo-container h2 {
+font-size: 22px;
+font-weight: 700;
+letter-spacing: -0.5px;
+background: linear-gradient(135deg, #ffffff 50%, #a5b4fc 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
 
 .hero{
-height:80vh;
+height:40vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -68,47 +66,22 @@ text-align:center;
 padding:20px;
 }
 
-.glass{
-background: rgba(255, 255, 255, 0.03);
-border: 1px solid rgba(255, 255, 255, 0.15);
-backdrop-filter: blur(30px) saturate(180%);
--webkit-backdrop-filter: blur(30px) saturate(180%);
-padding: 50px;
-border-radius: 32px;
-max-width: 800px;
-box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
-h1{
-font-size:60px;
+.hero-content h1{
+font-size:48px;
+font-weight: 700;
+letter-spacing: -1px;
 margin-bottom:10px;
-background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 }
 
-.btn{
-display:inline-block;
-margin-top:20px;
-padding:12px 30px;
-border-radius:50px;
-text-decoration:none;
-color:black;
-font-weight: 500;
-font-size: 15px;
-background: rgba(255, 255, 255, 0.95);
-border: 1px solid rgba(255, 255, 255, 1);
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+.hero-content p {
+color: #94a3b8;
+font-size: 16px;
 }
 
-.btn:hover {
-transform: scale(1.02);
-background: rgba(255, 255, 255, 1);
-box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-}
-
-/* --- ফিল্টার কন্টেইনার --- */
+/* --- Apple Filters --- */
 .filter-wrapper {
 display: flex;
 flex-direction: column;
@@ -120,7 +93,7 @@ margin-bottom: 40px;
 .main-filter, .sub-filter {
 display: flex;
 justify-content: center;
-gap: 12px;
+gap: 10px;
 }
 
 .sub-filter {
@@ -133,77 +106,53 @@ display: flex;
 }
 
 .filter-btn {
-background: rgba(255, 255, 255, 0.06);
-color: rgba(255, 255, 255, 0.85);
-border: 1px solid rgba(255, 255, 255, 0.08);
+background: rgba(255, 255, 255, 0.04);
+color: rgba(255, 255, 255, 0.7);
+border: 1px solid rgba(255, 255, 255, 0.05);
 padding: 10px 24px;
 font-size: 14px;
 font-weight: 500;
 border-radius: 30px;
 cursor: pointer;
-backdrop-filter: blur(20px) saturate(120%);
--webkit-backdrop-filter: blur(20px) saturate(120%);
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+transition: all 0.2s ease;
 }
 
 .filter-btn:hover {
-background: rgba(255, 255, 255, 0.15);
-border-color: rgba(255, 255, 255, 0.25);
+background: rgba(255, 255, 255, 0.1);
 color: #fff;
 }
 
 .filter-btn.active {
-background: rgba(255, 255, 255, 0.22);
-color: white;
-border-color: rgba(255, 255, 255, 0.4);
-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 
-            inset 0 1px 1px rgba(255, 255, 255, 0.2);
-}
-
-.sub-btn {
-padding: 8px 20px;
-font-size: 13px;
-background: rgba(255, 255, 255, 0.03);
-border: 1px solid rgba(255, 255, 255, 0.04);
-color: rgba(255, 255, 255, 0.65);
-}
-
-.sub-btn:hover {
-background: rgba(255, 255, 255, 0.1);
-color: rgba(255, 255, 255, 0.9);
-}
-
-.sub-btn.active {
 background: rgba(255, 255, 255, 0.15);
 color: white;
-border-color: rgba(255, 255, 255, 0.2);
+border-color: rgba(255, 255, 255, 0.25);
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .gallery{
-padding:60px 8%;
+padding: 0 8% 60px 8%;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+gap:30px;
 }
 
-/* --- Apple রিফ্লেক্টিভ গ্লাস কার্ড --- */
+/* --- Apple Reflective Glass Card --- */
 .card {
-position: relative; /* ডাউনলোড বাটন পজিশন করার জন্য */
-height: 310px; /* বাটনের জন্য হাইট সামান্য বাড়ানো হয়েছে */
-background: rgba(255, 255, 255, 0.03);
-border: 1px solid rgba(255, 255, 255, 0.15);
-backdrop-filter: blur(25px) saturate(160%);
--webkit-backdrop-filter: blur(25px) saturate(160%);
+background: rgba(255, 255, 255, 0.02);
+border: 1px solid rgba(255, 255, 255, 0.08);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
 border-radius: 24px;
 overflow: hidden;
-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
-            box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
-            border-color 0.4s ease, opacity 0.3s ease;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease;
+display: flex;
+flex-direction: column;
 }
 
 .card.hide {
@@ -211,16 +160,15 @@ display: none;
 }
 
 .card:hover {
-transform: translateY(-8px);
-box-shadow: 0 20px 40px rgba(0, 240, 255, 0.25), 
-            0 0 30px rgba(112, 0, 255, 0.15);
-border-color: rgba(255, 255, 255, 0.4);
+transform: translateY(-6px);
+border-color: rgba(255, 255, 255, 0.25);
+box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-/* ইমেজ কন্টেইনার (ক্লিক করলে পপআপ হবে) */
 .img-container {
 width: 100%;
-height: 240px; /* ইমেজ এরিয়া */
+height: 240px;
+position: relative;
 overflow: hidden;
 cursor: pointer;
 }
@@ -230,123 +178,186 @@ width: 100%;
 height: 100%;
 object-fit: cover;
 display: block;
-transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+transition: transform 0.4s ease;
 }
 
-.img-container:hover img {
-transform: scale(1.05);
-}
-
-/* --- Apple ফ্রস্টেড গ্লাস ডাউনলোড বাটন --- */
-.download-btn {
+/* Global Anti-Theft Watermark */
+.img-container::after {
+content: "2STOCK PREVIEW";
 position: absolute;
-bottom: 12px;
+top: 50%;
 left: 50%;
-transform: translateX(-50%) translateY(10px);
-width: 90%;
-padding: 10px 0;
-text-align: center;
-text-decoration: none;
-font-size: 13px;
-font-weight: 600;
-color: rgba(255, 255, 255, 0.9);
-background: rgba(255, 255, 255, 0.08);
-border: 1px solid rgba(255, 255, 255, 0.15);
-border-radius: 14px;
-backdrop-filter: blur(15px);
--webkit-backdrop-filter: blur(15px);
-opacity: 0; /* নরমালি হাইড থাকবে */
-visibility: hidden;
-transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+transform: translate(-50%, -50%) rotate(-25deg);
+color: rgba(255, 255, 255, 0.12);
+font-size: 22px;
+font-weight: 800;
+letter-spacing: 5px;
+border: 2px dashed rgba(255, 255, 255, 0.12);
+padding: 6px 16px;
+pointer-events: none;
+}
+
+.card:hover img {
+transform: scale(1.04);
+}
+
+.card-bottom {
+padding: 20px;
+background: rgba(0, 0, 0, 0.2);
+margin-top: auto;
+}
+
+.card-info {
 display: flex;
-justify-content: center;
+justify-content: space-between;
 align-items: center;
-gap: 6px;
+margin-bottom: 15px;
 }
 
-/* ছবিতে মাউস নিলে ডাউনলোড বাটন স্মুথলি ভেসে উঠবে */
-.card:hover .download-btn {
-opacity: 1;
-visibility: visible;
-transform: translateX(-50%) translateY(0);
+.card-title {
+font-size: 15px;
+font-weight: 500;
+color: #e2e8f0;
 }
 
-.download-btn:hover {
-background: rgba(255, 255, 255, 0.2);
-border-color: rgba(255, 255, 255, 0.3);
-color: #fff;
-box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+.card-price {
+font-size: 16px;
+font-weight: 600;
+color: #38bdf8;
 }
 
-/* মোবাইল ও ট্যাবলেটের জন্য ডাউনলোড বাটন সবসময় শো করবে */
-@media (max-width: 768px) {
-    .download-btn {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(0);
-        background: rgba(255, 255, 255, 0.12);
-    }
+/* Apple Solid Download Button */
+.apple-btn {
+width: 100%;
+background: #ffffff;
+color: #000000;
+border: none;
+padding: 12px;
+font-size: 14px;
+font-weight: 600;
+border-radius: 14px;
+cursor: pointer;
+transition: all 0.2s ease;
 }
 
-/* --- ইমেজ পপআপ (Lightbox) --- */
-.popup-overlay {
+.apple-btn:hover {
+background: rgba(255, 255, 255, 0.9);
+transform: scale(1.01);
+}
+
+/* --- Apple Ultra Glassmorphism Popup Window --- */
+.apple-overlay {
 position: fixed;
 top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background-color: rgba(12, 14, 26, 0.8);
-backdrop-filter: blur(25px);
--webkit-backdrop-filter: blur(25px);
+background: rgba(3, 4, 9, 0.6);
+backdrop-filter: blur(40px) saturate(200%);
+-webkit-backdrop-filter: blur(40px) saturate(200%);
 display: flex;
 justify-content: center;
 align-items: center;
 opacity: 0;
 pointer-events: none;
-transition: opacity 0.3s ease;
-z-index: 1000;
+transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+z-index: 2000;
 }
-.popup-overlay.active {
+
+.apple-overlay.active {
 opacity: 1;
 pointer-events: auto;
 }
-.popup-img {
-max-width: 90%;
-max-height: 80%;
-border-radius: 20px;
-border: 1px solid rgba(255, 255, 255, 0.2);
-box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
-transform: scale(0.85);
-transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+.apple-popup-box {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.15);
+padding: 40px 30px;
+border-radius: 28px;
+text-align: center;
+max-width: 420px;
+width: 90%;
+box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+transform: scale(0.9);
+transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
-.popup-overlay.active .popup-img {
+
+.apple-overlay.active .apple-popup-box {
 transform: scale(1);
 }
-.close-btn {
-position: absolute;
-top: 20px;
-right: 30px;
-font-size: 45px;
-color: rgba(255, 255, 255, 0.7);
-cursor: pointer;
-transition: color 0.2s, transform 0.2s;
+
+.apple-popup-box h3 {
+font-size: 22px;
+font-weight: 600;
+margin-bottom: 5px;
 }
-.close-btn:hover {
-color: #00f0ff;
-transform: scale(1.1);
+
+.global-price-tag {
+font-size: 36px;
+font-weight: 700;
+color: #fff;
+margin: 20px 0;
+letter-spacing: -1px;
+}
+
+.payment-gateways {
+display: flex;
+flex-direction: column;
+gap: 12px;
+margin-top: 20px;
+}
+
+/* Apple Premium Action Links */
+.gateway-link {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 8px;
+padding: 14px;
+border-radius: 16px;
+text-decoration: none;
+font-weight: 600;
+font-size: 14px;
+transition: transform 0.2s, opacity 0.2s;
+}
+
+.gateway-link:hover {
+transform: translateY(-2px);
+}
+
+.paypal {
+background: #0070ba;
+color: white;
+}
+
+.credit-card {
+background: #32325d;
+color: white;
+}
+
+.local-pay {
+background: #e11d48;
+color: white;
+}
+
+.close-apple {
+margin-top: 25px;
+display: inline-block;
+color: rgba(255, 255, 255, 0.4);
+cursor: pointer;
+font-size: 13px;
+transition: color 0.2s;
+}
+.close-apple:hover {
+color: #fff;
 }
 
 footer{
 text-align:center;
 padding:40px;
-color: rgba(255, 255, 255, 0.5);
-font-size: 14px;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+color: rgba(255, 255, 255, 0.3);
+font-size: 13px;
+border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 </style>
 </head>
@@ -357,25 +368,21 @@ border-top: 1px solid rgba(255, 255, 255, 0.1);
 
 <nav>
 <div class="logo-container">
-    <img src="logo.png" alt="2 Stock Logo" class="site-logo">
+    <h2>2STOCK // <span style="font-size:11px; color:#94a3b8; font-weight:normal; letter-spacing:1px;">GLOBAL</span></h2>
 </div>
 </nav>
 
 <section class="hero">
-<div class="glass">
-<h1>2 Stock</h1>
-<p style="color: #cbd5e1; font-size: 18px; letter-spacing: 0.5px;">Premium AI Photos & Artworks</p>
-<a href="#gallery-section" class="btn">Explore Gallery</a>
+<div class="hero-content">
+    <h1>Global Premium Stock</h1>
+    <p>Purchase high-resolution commercial licenses instantly from anywhere in the world.</p>
 </div>
 </section>
 
-<section class="gallery" id="gallery-section">
-<h2 style="text-align:center; margin-bottom:30px; font-size: 28px; background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Featured Collection</h2>
-
-<!-- ফিল্টার বাটনসমূহ -->
+<!-- Filters -->
 <div class="filter-wrapper">
     <div class="main-filter">
-        <button class="filter-btn active" data-main="all">All</button>
+        <button class="filter-btn active" data-main="all">All Assets</button>
         <button class="filter-btn" data-main="photo">Photos</button>
         <button class="filter-btn" data-main="vector">Vectors</button>
     </div>
@@ -387,89 +394,98 @@ border-top: 1px solid rgba(255, 255, 255, 0.1);
     </div>
 </div>
 
-<!-- কার্ড গ্রিড (ডাউনলোড বাটনসহ) -->
+<!-- Gallery Grid -->
+<div class="gallery">
 <div class="grid">
-    <!-- ১ থেকে ৯ নম্বর ফটো ক্যাটাগরি -->
+    <!-- ১ থেকে ১০ ইমেজ কার্ডস (ডলার এবং টাকা দুইটাই শো করবে) -->
     <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo1.png" alt="AI Artwork"></div>
-        <a href="photo1.png" download class="download-btn">⬇ Download</a>
+        <div class="img-container"><img src="photo1.png" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Minimalist Art 01</span><span class="card-price">$2 / ৳২৫০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Asset #01">Get License</button>
+        </div>
     </div>
     <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo2.jpg" alt="AI Artwork"></div>
-        <a href="photo2.jpg" download class="download-btn">⬇ Download</a>
+        <div class="img-container"><img src="photo2.jpg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Minimalist Art 02</span><span class="card-price">$2 / ৳২৫০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Asset #02">Get License</button>
+        </div>
     </div>
     <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo3.jpg" alt="AI Artwork"></div>
-        <a href="photo3.jpg" download class="download-btn">⬇ Download</a>
+        <div class="img-container"><img src="photo3.jpg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Premium Pack 03</span><span class="card-price">$5 / ৳৬০০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$5 / ৳৬০০" data-id="Asset #03">Get License</button>
+        </div>
     </div>
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo4.jpeg" alt="AI Artwork"></div>
-        <a href="photo4.jpeg" download class="download-btn">⬇ Download</a>
-    </div>
-    <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo5.jpg" alt="AI Artwork"></div>
-        <a href="photo5.jpg" download class="download-btn">⬇ Download</a>
-    </div>
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo6.jpg" alt="AI Artwork"></div>
-        <a href="photo6.jpg" download class="download-btn">⬇ Download</a>
-    </div>
-    <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo7.jpg" alt="AI Artwork"></div>
-        <a href="photo7.jpg" download class="download-btn">⬇ Download</a>
-    </div>
-    <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo8.jpg" alt="AI Artwork"></div>
-        <a href="photo8.jpg" download class="download-btn">⬇ Download</a>
-    </div>
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo9.jpg" alt="AI Artwork"></div>
-        <a href="photo9.jpg" download class="download-btn">⬇ Download</a>
-    </div>
-    
-    <!-- ১০ নম্বর স্পেশাল ভেক্টর ছবি -->
-    <div class="card" data-type="vector" data-status="popular">
-        <div class="img-container"><img src="photo10.jpg" alt="AI Vector Artwork"></div>
-        <a href="photo10.jpg" download class="download-btn">⬇ Download Vector</a>
-    </div>
+    <!-- তোমরা চাইলে এভাবে আরও কার্ড বাড়াতে পারো... -->
+</div>
 </div>
 
-</section>
-
-<div class="popup-overlay" id="popupOverlay">
-<span class="close-btn" id="closeBtn">&times;</span>
-<img class="popup-img" id="popupImg" src="" alt="Popup View">
+<!-- --- Apple Style Ultra Glassmorphism Popup Window --- -->
+<div class="apple-overlay" id="appleOverlay">
+    <div class="apple-popup-box">
+        <h3 id="popAssetId">License Asset</h3>
+        <p style="color: #94a3b8; font-size:13px;">Select your preferred checkout currency</p>
+        
+        <div class="global-price-tag" id="popPrice">$2 / ৳২৫০</div>
+        
+        <div class="payment-gateways">
+            <!-- ইন্টারন্যাশনাল পেমেন্ট লিংক (ইউএসএ/ইউরোপের ক্লায়েন্টদের জন্য) -->
+            <a href="https://paypal.me/YOUR_USERNAME" target="_blank" class="gateway-link paypal">
+                🌐 Pay with PayPal (International)
+            </a>
+            
+            <a href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" class="gateway-link credit-card">
+                💳 Credit / Debit Card (Global)
+            </a>
+            
+            <!-- বাংলাদেশের ক্লায়েন্টদের জন্য তোমার হোয়াটসঅ্যাপ লিংক -->
+            <a href="https://wa.me/88017XXXXXXXX?text=Hi, I want to purchase an asset." target="_blank" class="gateway-link local-pay">
+                🇧🇩 bKash / Nagad / Rocket (BD)
+            </a>
+        </div>
+        
+        <div class="close-apple" id="closeApple">Cancel</div>
+    </div>
 </div>
 
 <footer>
-© 2026 2 Stock • Apple Frosted Glass Dynamic Edition
+© 2026 2 Stock Inc. • Apple Fluid Design Standard
 </footer>
 
 <script>
-// --- ইমেজ পপআপ কোড ---
-const imageContainers = document.querySelectorAll('.img-container img');
-const overlay = document.getElementById('popupOverlay');
-const popupImg = document.getElementById('popupImg');
-const closeBtn = document.getElementById('closeBtn');
+// --- Apple Popup Windows Script ---
+const appleOverlay = document.getElementById('appleOverlay');
+const openPopupBtns = document.querySelectorAll('.open-apple-popup');
+const closeAppleBtn = document.getElementById('closeApple');
+const popAssetId = document.getElementById('popAssetId');
+const popPrice = document.getElementById('popPrice');
 
-imageContainers.forEach(img => {
-    img.addEventListener('click', () => {
-        popupImg.src = img.src;
-        overlay.classList.add('active');
+openPopupBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const price = btn.getAttribute('data-price');
+        const id = btn.getAttribute('data-id');
+        
+        popAssetId.innerText = "License: " + id;
+        popPrice.innerText = price;
+        
+        appleOverlay.classList.add('active');
     });
 });
 
-closeBtn.addEventListener('click', () => {
-    overlay.classList.remove('active');
+closeAppleBtn.addEventListener('click', () => {
+    appleOverlay.classList.remove('active');
 });
 
-overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-        overlay.classList.remove('active');
+appleOverlay.addEventListener('click', (e) => {
+    if (e.target === appleOverlay) {
+        appleOverlay.classList.remove('active');
     }
 });
 
-// --- ফিল্টার লজিক কোড ---
+// --- Filter Engine ---
 const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
 const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
 const subFilterContainer = document.getElementById('subFilterContainer');
@@ -482,7 +498,6 @@ mainButtons.forEach(button => {
     button.addEventListener('click', () => {
         document.querySelector('.main-filter .filter-btn.active').classList.remove('active');
         button.classList.add('active');
-
         currentMainFilter = button.getAttribute('data-main');
         
         document.querySelector('.sub-filter .sub-btn.active').classList.remove('active');
@@ -494,7 +509,6 @@ mainButtons.forEach(button => {
         } else {
             subFilterContainer.classList.add('show');
         }
-
         applyFilters();
     });
 });
@@ -503,7 +517,6 @@ subButtons.forEach(button => {
     button.addEventListener('click', () => {
         document.querySelector('.sub-filter .sub-btn.active').classList.remove('active');
         button.classList.add('active');
-
         currentSubFilter = button.getAttribute('data-sub');
         applyFilters();
     });
@@ -513,7 +526,6 @@ function applyFilters() {
     filterableCards.forEach(card => {
         let cardType = card.getAttribute('data-type');
         let cardStatus = card.getAttribute('data-status');
-
         let matchMain = (currentMainFilter === 'all' || currentMainFilter === cardType);
         let matchSub = (currentSubFilter === 'all' || currentSubFilter === cardStatus);
 
