@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2 Stock - Apple Global Edition</title>
+<title>2 Stock - Apple Binance Premium Edition</title>
 
 <style>
 *{
@@ -52,7 +52,7 @@ z-index: 100;
 font-size: 22px;
 font-weight: 700;
 letter-spacing: -0.5px;
-background: linear-gradient(135deg, #ffffff 50%, #a5b4fc 100%);
+background: linear-gradient(135deg, #ffffff 50%, #f3ba2f 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 }
@@ -223,7 +223,7 @@ color: #e2e8f0;
 .card-price {
 font-size: 15px;
 font-weight: 600;
-color: #38bdf8;
+color: #f3ba2f;
 }
 
 /* Apple Solid Download Button */
@@ -272,7 +272,7 @@ pointer-events: auto;
 .apple-popup-box {
 background: rgba(255, 255, 255, 0.05);
 border: 1px solid rgba(255, 255, 255, 0.15);
-padding: 40px 30px;
+padding: 35px 25px;
 border-radius: 28px;
 text-align: center;
 max-width: 420px;
@@ -296,15 +296,26 @@ margin-bottom: 5px;
 font-size: 32px;
 font-weight: 700;
 color: #fff;
-margin: 20px 0;
+margin: 15px 0;
 letter-spacing: -0.5px;
+}
+
+.binance-badge {
+background: rgba(243, 186, 47, 0.1);
+border: 1px solid rgba(243, 186, 47, 0.3);
+color: #f3ba2f;
+padding: 8px 12px;
+border-radius: 10px;
+font-size: 13px;
+font-weight: 600;
+display: inline-block;
+margin-bottom: 20px;
 }
 
 .payment-gateways {
 display: flex;
 flex-direction: column;
 gap: 12px;
-margin-top: 20px;
 }
 
 /* Apple Premium Action Links */
@@ -325,14 +336,9 @@ transition: transform 0.2s, opacity 0.2s;
 transform: translateY(-2px);
 }
 
-.paypal {
-background: #0070ba;
-color: white;
-}
-
-.credit-card {
-background: #32325d;
-color: white;
+.binance-btn {
+background: #f3ba2f;
+color: #000;
 }
 
 .local-pay {
@@ -368,14 +374,14 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 <nav>
 <div class="logo-container">
-    <h2>2STOCK // <span style="font-size:11px; color:#94a3b8; font-weight:normal; letter-spacing:1px;">GLOBAL</span></h2>
+    <h2>2STOCK // <span style="font-size:11px; color:#f3ba2f; font-weight:normal; letter-spacing:1px;">BINANCE PAY</span></h2>
 </div>
 </nav>
 
 <section class="hero">
 <div class="hero-content">
     <h1>Global Premium Stock</h1>
-    <p>Purchase high-resolution commercial licenses instantly from anywhere in the world.</p>
+    <p>Purchase licenses globally via Binance Crypto or Local Mobile Banking.</p>
 </div>
 </section>
 
@@ -397,77 +403,77 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 <!-- Gallery Grid -->
 <div class="gallery">
 <div class="grid">
-    <!-- ১ থেকে ৯ ফটো ক্যাটাগরি -->
+    <!-- ১ থেকে ৯ ফটো ক্যাটাগরি (নরমালগুলো $1.50, ভালো পপুলারগুলো $2.00) -->
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo1.png" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 01</span><span class="card-price">$2 / ৳২৫০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #01">Get License</button>
+            <div class="card-info"><span class="card-title">Normal Photo 01</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #01">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo2.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 02</span><span class="card-price">$2 / ৳২৫০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #02">Get License</button>
+            <div class="card-info"><span class="card-title">Normal Photo 02</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #02">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo3.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 03</span><span class="card-price">$4 / ৳৫০০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #03 (Popular)">Get License</button>
+            <div class="card-info"><span class="card-title">Premium Photo 03</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #03 (Premium)">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo4.jpeg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 04</span><span class="card-price">$2 / ৳২৫০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #04">Get License</button>
+            <div class="card-info"><span class="card-title">Normal Photo 04</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #04">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo5.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 05</span><span class="card-price">$4 / ৳৫০০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #05 (Popular)">Get License</button>
+            <div class="card-info"><span class="card-title">Premium Photo 05</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #05 (Premium)">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo6.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 06</span><span class="card-price">$2 / ৳২৫০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #06">Get License</button>
+            <div class="card-info"><span class="card-title">Normal Photo 06</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #06">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo7.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 07</span><span class="card-price">$4 / ৳৫০০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #07 (Popular)">Get License</button>
+            <div class="card-info"><span class="card-title">Premium Photo 07</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #07 (Premium)">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo8.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 08</span><span class="card-price">$4 / ৳৫০০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #08 (Popular)">Get License</button>
+            <div class="card-info"><span class="card-title">Premium Photo 08</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #08 (Premium)">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo9.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 09</span><span class="card-price">$2 / ৳২৫০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #09">Get License</button>
+            <div class="card-info"><span class="card-title">Normal Photo 09</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #09">Get License</button>
         </div>
     </div>
     
-    <!-- ১০ নম্বর ভেক্টর সম্পদ (স্পেশাল কালার কোডিং বাটন) -->
+    <!-- ১০ নম্বর ভেক্টর সম্পদ (এটিও পপুলার ক্যাটাগরি তাই $2.00) -->
     <div class="card" data-type="vector" data-status="popular">
         <div class="img-container"><img src="photo10.jpg" alt="Vector Art"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">HQ Vector Track 10</span><span class="card-price">$8 / ৳১০০০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$8 / ৳১০০০" data-id="Vector #10" style="background:#3b82f6; color:#fff;">Get Vector License</button>
+            <div class="card-info"><span class="card-title">HQ Vector Track 10</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Vector #10" style="background:#f3ba2f; color:#000;">Get Vector License</button>
         </div>
     </div>
 </div>
@@ -477,23 +483,21 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 <div class="apple-overlay" id="appleOverlay">
     <div class="apple-popup-box">
         <h3 id="popAssetId">License Asset</h3>
-        <p style="color: #94a3b8; font-size:13px;">Select your preferred checkout currency</p>
+        <p style="color: #94a3b8; font-size:13px;">Instant Global Checkout</p>
         
-        <div class="global-price-tag" id="popPrice">$2 / ৳২৫০</div>
+        <div class="global-price-tag" id="popPrice">$1.50 / ৳১৮০</div>
+        
+        <!-- তোমার বাইনান্স আইডি ডিরেক্ট ডিসপ্লে -->
+        <div class="binance-badge">⚡ Binance Pay ID: 1068503860 (Parvez24)</div>
         
         <div class="payment-gateways">
-            <!-- ইন্টারন্যাশনাল পেমেন্ট লিংক (এখানে YOUR_USERNAME এর জায়গায় তোমার পেপাল নাম দেবে) -->
-            <a href="https://paypal.me/YOUR_USERNAME" target="_blank" class="gateway-link paypal">
-                🌐 Pay with PayPal (International)
+            <!-- গ্লোবাল কাস্টমাররা এখানে ক্লিক করলে তোমার দেওয়া ২.জেপিইজি কিউআর কোড দেখতে পাবে -->
+            <a href="2.jpeg" target="_blank" class="gateway-link binance-btn">
+                🔶 Pay with Binance (Global QR)
             </a>
             
-            <!-- ইন্টারন্যাশনাল স্ট্রাইপ বা ক্রেডিট কার্ড লিংক -->
-            <a href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" class="gateway-link credit-card">
-                💳 Credit / Debit Card (Global)
-            </a>
-            
-            <!-- বাংলাদেশি কাস্টমারদের জন্য তোমার হোয়াটসঅ্যাপ লিংক -->
-            <a href="https://wa.me/88017XXXXXXXX?text=Hi, I want to purchase an asset." target="_blank" class="gateway-link local-pay">
+            <!-- বাংলাদেশি কাস্টমারদের জন্য হোয়াটসঅ্যাপ লিংক -->
+            <a href="https://wa.me/88017XXXXXXXX?text=Hi, I want to purchase an asset via bKash/Nagad." target="_blank" class="gateway-link local-pay">
                 🇧🇩 bKash / Nagad / Rocket (BD)
             </a>
         </div>
@@ -503,7 +507,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </div>
 
 <footer>
-© 2026 2 Stock Inc. • Apple Fluid Design Standard
+© 2026 2 Stock Inc. • Powered by Binance Global Pay
 </footer>
 
 <script>
