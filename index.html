@@ -58,7 +58,7 @@ background: linear-gradient(135deg, #ffffff 50%, #a5b4fc 100%);
 }
 
 .hero{
-height:40vh;
+height:35vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -67,7 +67,7 @@ padding:20px;
 }
 
 .hero-content h1{
-font-size:48px;
+font-size:44px;
 font-weight: 700;
 letter-spacing: -1px;
 margin-bottom:10px;
@@ -137,7 +137,7 @@ padding: 0 8% 60px 8%;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
 gap:30px;
 }
 
@@ -215,13 +215,13 @@ margin-bottom: 15px;
 }
 
 .card-title {
-font-size: 15px;
+font-size: 14px;
 font-weight: 500;
 color: #e2e8f0;
 }
 
 .card-price {
-font-size: 16px;
+font-size: 15px;
 font-weight: 600;
 color: #38bdf8;
 }
@@ -233,7 +233,7 @@ background: #ffffff;
 color: #000000;
 border: none;
 padding: 12px;
-font-size: 14px;
+font-size: 13px;
 font-weight: 600;
 border-radius: 14px;
 cursor: pointer;
@@ -293,11 +293,11 @@ margin-bottom: 5px;
 }
 
 .global-price-tag {
-font-size: 36px;
+font-size: 32px;
 font-weight: 700;
 color: #fff;
 margin: 20px 0;
-letter-spacing: -1px;
+letter-spacing: -0.5px;
 }
 
 .payment-gateways {
@@ -397,29 +397,79 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 <!-- Gallery Grid -->
 <div class="gallery">
 <div class="grid">
-    <!-- ১ থেকে ১০ ইমেজ কার্ডস (ডলার এবং টাকা দুইটাই শো করবে) -->
+    <!-- ১ থেকে ৯ ফটো ক্যাটাগরি -->
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo1.png" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Minimalist Art 01</span><span class="card-price">$2 / ৳২৫০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Asset #01">Get License</button>
+            <div class="card-info"><span class="card-title">Premium Photo 01</span><span class="card-price">$2 / ৳২৫০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #01">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo2.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Minimalist Art 02</span><span class="card-price">$2 / ৳২৫০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Asset #02">Get License</button>
+            <div class="card-info"><span class="card-title">Premium Photo 02</span><span class="card-price">$2 / ৳২৫০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #02">Get License</button>
         </div>
     </div>
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo3.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Pack 03</span><span class="card-price">$5 / ৳৬০০</span></div>
-            <button class="apple-btn open-apple-popup" data-price="$5 / ৳৬০০" data-id="Asset #03">Get License</button>
+            <div class="card-info"><span class="card-title">Premium Photo 03</span><span class="card-price">$4 / ৳৫০০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #03 (Popular)">Get License</button>
         </div>
     </div>
-    <!-- তোমরা চাইলে এভাবে আরও কার্ড বাড়াতে পারো... -->
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo4.jpeg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Premium Photo 04</span><span class="card-price">$2 / ৳২৫০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #04">Get License</button>
+        </div>
+    </div>
+    <div class="card" data-type="photo" data-status="popular">
+        <div class="img-container"><img src="photo5.jpg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Premium Photo 05</span><span class="card-price">$4 / ৳৫০০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #05 (Popular)">Get License</button>
+        </div>
+    </div>
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo6.jpg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Premium Photo 06</span><span class="card-price">$2 / ৳২৫০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #06">Get License</button>
+        </div>
+    </div>
+    <div class="card" data-type="photo" data-status="popular">
+        <div class="img-container"><img src="photo7.jpg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Premium Photo 07</span><span class="card-price">$4 / ৳৫০০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #07 (Popular)">Get License</button>
+        </div>
+    </div>
+    <div class="card" data-type="photo" data-status="popular">
+        <div class="img-container"><img src="photo8.jpg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Premium Photo 08</span><span class="card-price">$4 / ৳৫০০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$4 / ৳৫০০" data-id="Photo #08 (Popular)">Get License</button>
+        </div>
+    </div>
+    <div class="card" data-type="photo" data-status="new">
+        <div class="img-container"><img src="photo9.jpg" alt="Stock Asset"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">Premium Photo 09</span><span class="card-price">$2 / ৳২৫০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$2 / ৳২৫০" data-id="Photo #09">Get License</button>
+        </div>
+    </div>
+    
+    <!-- ১০ নম্বর ভেক্টর সম্পদ (স্পেশাল কালার কোডিং বাটন) -->
+    <div class="card" data-type="vector" data-status="popular">
+        <div class="img-container"><img src="photo10.jpg" alt="Vector Art"></div>
+        <div class="card-bottom">
+            <div class="card-info"><span class="card-title">HQ Vector Track 10</span><span class="card-price">$8 / ৳১০০০</span></div>
+            <button class="apple-btn open-apple-popup" data-price="$8 / ৳১০০০" data-id="Vector #10" style="background:#3b82f6; color:#fff;">Get Vector License</button>
+        </div>
+    </div>
 </div>
 </div>
 
@@ -432,16 +482,17 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
         <div class="global-price-tag" id="popPrice">$2 / ৳২৫০</div>
         
         <div class="payment-gateways">
-            <!-- ইন্টারন্যাশনাল পেমেন্ট লিংক (ইউএসএ/ইউরোপের ক্লায়েন্টদের জন্য) -->
+            <!-- ইন্টারন্যাশনাল পেমেন্ট লিংক (এখানে YOUR_USERNAME এর জায়গায় তোমার পেপাল নাম দেবে) -->
             <a href="https://paypal.me/YOUR_USERNAME" target="_blank" class="gateway-link paypal">
                 🌐 Pay with PayPal (International)
             </a>
             
+            <!-- ইন্টারন্যাশনাল স্ট্রাইপ বা ক্রেডিট কার্ড লিংক -->
             <a href="https://buy.stripe.com/YOUR_STRIPE_LINK" target="_blank" class="gateway-link credit-card">
                 💳 Credit / Debit Card (Global)
             </a>
             
-            <!-- বাংলাদেশের ক্লায়েন্টদের জন্য তোমার হোয়াটসঅ্যাপ লিংক -->
+            <!-- বাংলাদেশি কাস্টমারদের জন্য তোমার হোয়াটসঅ্যাপ লিংক -->
             <a href="https://wa.me/88017XXXXXXXX?text=Hi, I want to purchase an asset." target="_blank" class="gateway-link local-pay">
                 🇧🇩 bKash / Nagad / Rocket (BD)
             </a>
