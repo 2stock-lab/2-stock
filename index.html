@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2 Stock - Apple Liquid Glass Edition</title>
+<title>2 Stock - Apple Liquid Glass Email Edition</title>
 
 <style>
 *{
@@ -257,7 +257,7 @@ opacity: 0;
 transition: bottom 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
 }
 
-/* --- 🔥 Apple Liquid Glassmorphism Button Style --- */
+/* --- Apple Liquid Glassmorphism Button Style --- */
 .apple-btn {
 width: 100%;
 background: rgba(255, 255, 255, 0.08);
@@ -293,7 +293,7 @@ bottom: 16px;
 opacity: 1;
 }
 
-/* --- Apple Overlay Popup --- */
+/* --- Apple Form & Popup --- */
 .apple-overlay {
 position: fixed;
 top: 0;
@@ -320,10 +320,10 @@ pointer-events: auto;
 .apple-popup-box {
 background: rgba(255, 255, 255, 0.05);
 border: 1px solid rgba(255, 255, 255, 0.15);
-padding: 35px 25px;
+padding: 30px 25px;
 border-radius: 28px;
 text-align: center;
-max-width: 420px;
+max-width: 440px;
 width: 90%;
 box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
 transform: scale(0.9);
@@ -335,10 +335,10 @@ transform: scale(1);
 }
 
 .global-price-tag {
-font-size: 32px;
+font-size: 30px;
 font-weight: 700;
 color: #fff;
-margin: 15px 0;
+margin: 10px 0;
 letter-spacing: -0.5px;
 }
 
@@ -346,18 +346,12 @@ letter-spacing: -0.5px;
 background: rgba(243, 186, 47, 0.1);
 border: 1px solid rgba(243, 186, 47, 0.3);
 color: #f3ba2f;
-padding: 8px 12px;
+padding: 6px 12px;
 border-radius: 10px;
 font-size: 13px;
 font-weight: 600;
 display: inline-block;
-margin-bottom: 20px;
-}
-
-.payment-gateways {
-display: flex;
-flex-direction: column;
-gap: 12px;
+margin-bottom: 15px;
 }
 
 .gateway-link {
@@ -365,39 +359,72 @@ display: flex;
 justify-content: center;
 align-items: center;
 gap: 8px;
-padding: 14px;
-border-radius: 16px;
+padding: 12px;
+border-radius: 14px;
 text-decoration: none;
 font-weight: 600;
 font-size: 14px;
+background: #f3ba2f;
+color: #000;
+margin-bottom: 15px;
 transition: transform 0.2s;
 }
 
-.gateway-link:hover {
-transform: translateY(-2px);
+.gateway-link:hover { transform: translateY(-2px); }
+
+/* --- Email Submission Form Fields --- */
+.email-form {
+display: flex;
+flex-direction: column;
+gap: 10px;
+text-align: left;
+border-top: 1px solid rgba(255, 255, 255, 0.1);
+padding-top: 15px;
 }
 
-.binance-btn {
-background: #f3ba2f;
-color: #000;
+.email-form label {
+font-size: 12px;
+color: #94a3b8;
+font-weight: 500;
 }
 
-.local-pay {
-background: #e11d48;
+.email-form input, .email-form textarea {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 10px;
+padding: 10px;
 color: white;
+font-size: 13px;
+outline: none;
+width: 100%;
 }
+
+.email-form input:focus, .email-form textarea:focus {
+border-color: rgba(255, 255, 255, 0.3);
+}
+
+.submit-btn {
+background: #fff;
+color: #000;
+border: none;
+padding: 12px;
+font-size: 14px;
+font-weight: 600;
+border-radius: 12px;
+cursor: pointer;
+transition: background 0.2s;
+margin-top: 5px;
+}
+.submit-btn:hover { background: rgba(255,255,255,0.9); }
 
 .close-apple {
-margin-top: 25px;
+margin-top: 15px;
 display: inline-block;
 color: rgba(255, 255, 255, 0.4);
 cursor: pointer;
 font-size: 13px;
-transition: color 0.2s;
 }
-.close-apple:hover {
-color: #fff;
-}
+.close-apple:hover { color: #fff; }
 
 footer{
 text-align:center;
@@ -415,7 +442,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 <nav>
 <div class="logo-container">
-    <h2>2STOCK // <span style="font-size:11px; color:#f3ba2f; font-weight:normal; letter-spacing:1px;">LIQUID GLASS</span></h2>
+    <h2>2STOCK // <span style="font-size:11px; color:#f3ba2f; font-weight:normal; letter-spacing:1px;">SECURE CHECKOUT</span></h2>
 </div>
 </nav>
 
@@ -444,7 +471,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 <!-- Gallery Grid -->
 <div class="gallery">
 <div class="grid">
-    <!-- ১ থেকে ১০ এসেট (সবগুলোতে আলাদা আলাদা র্যান্ডম ডাউনলোড কাউন্টার যোগ করা হয়েছে) -->
+    <!-- ১ থেকে ১০ এসেট -->
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo1.png" alt="Stock Asset"></div>
         <div class="card-bottom">
@@ -587,17 +614,34 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </div>
 </div>
 
-<!-- Apple Popup Window -->
+<!-- --- Apple Premium Form Submission Popup --- -->
 <div class="apple-overlay" id="appleOverlay">
     <div class="apple-popup-box">
         <h3 id="popAssetId">License Asset</h3>
-        <p style="color: #94a3b8; font-size:13px;">Instant Global Checkout</p>
-        <div class="global-price-tag" id="popPrice">$1.50 / ৳১৮০</div>
+        <div class="global-price-tag" id="popPrice">$1.50</div>
         <div class="binance-badge">⚡ Binance Pay ID: 1068503860 (Parvez24)</div>
-        <div class="payment-gateways">
-            <a href="2.jpeg" target="_blank" class="gateway-link binance-btn">🔶 Pay with Binance (Global QR)</a>
-            <a href="https://wa.me/88017XXXXXXXX?text=Hi, I want to purchase an asset via bKash." target="_blank" class="gateway-link local-pay">🇧🇩 bKash / Nagad / Rocket (BD)</a>
-        </div>
+        
+        <!-- Step 1: Pay -->
+        <a href="2.jpeg" target="_blank" class="gateway-link" id="payGateBtn">🔶 Step 1: Pay with Binance (Scan/Click)</a>
+        
+        <!-- Step 2: Form Submission to pshemul1@gmail.com -->
+        <form action="https://formspree.io/f/mqkrpypo" method="POST" class="email-form">
+            <!-- Hidden Fields -->
+            <input type="hidden" name="_replyto" value="pshemul1@gmail.com">
+            <input type="hidden" name="Asset ID" id="hiddenAssetId">
+            <input type="hidden" name="Price" id="hiddenPrice">
+            
+            <div>
+                <label>Your Email Address</label>
+                <input type="email" name="Customer Email" placeholder="example@mail.com" required>
+            </div>
+            <div>
+                <label>Payment Note / Transaction ID (TxID)</label>
+                <textarea name="Payment Note" rows="2" placeholder="Enter TxID or Sender Name" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Submit Order</button>
+        </form>
+        
         <div class="close-apple" id="closeApple">Cancel</div>
     </div>
 </div>
@@ -612,32 +656,32 @@ const openPopupBtns = document.querySelectorAll('.open-apple-popup');
 const closeAppleBtn = document.getElementById('closeApple');
 const popAssetId = document.getElementById('popAssetId');
 const popPrice = document.getElementById('popPrice');
-let activeCounterNode = null; // ট্র্যাক করবে কোন কার্ডের বাটনে ক্লিক করা হয়েছে
+const hiddenAssetId = document.getElementById('hiddenAssetId');
+const hiddenPrice = document.getElementById('hiddenPrice');
+let activeCounterNode = null;
 
 openPopupBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         const price = btn.getAttribute('data-price');
         const id = btn.getAttribute('data-id');
         
-        popAssetId.innerText = "License: " + id;
+        popAssetId.innerText = "Order: " + id;
         popPrice.innerText = price;
         
-        // বাটনের ঠিক উপরে থাকা ডাউনলোড নাম্বারের স্প্যানটিকে খুঁজে বের করা
-        activeCounterNode = btn.closest('.card-bottom').querySelector('.count-num');
+        hiddenAssetId.value = id;
+        hiddenPrice.value = price;
         
+        activeCounterNode = btn.closest('.card-bottom').querySelector('.count-num');
         appleOverlay.classList.add('active');
     });
 });
 
-// কাস্টমার পপআপ উইন্ডো খোলার পর বিন্দুমাত্র কোনো পেমেন্ট বাটনে ক্লিক করলেই ডাউনলোড ১ বেড়ে যাবে!
-document.querySelectorAll('.gateway-link').forEach(link => {
-    link.addEventListener('click', () => {
-        if(activeCounterNode) {
-            let currentCount = parseInt(activeCounterNode.innerText);
-            activeCounterNode.innerText = currentCount + 1; // +1 কাউন্ট যোগ হবে
-            activeCounterNode = null; // রিসেট
-        }
-    });
+document.getElementById('payGateBtn').addEventListener('click', () => {
+    if(activeCounterNode) {
+        let currentCount = parseInt(activeCounterNode.innerText);
+        activeCounterNode.innerText = currentCount + 1;
+        activeCounterNode = null;
+    }
 });
 
 closeAppleBtn.addEventListener('click', () => { appleOverlay.classList.remove('active'); });
@@ -654,7 +698,7 @@ const scrollReveal = () => {
 window.addEventListener('scroll', scrollReveal);
 window.addEventListener('load', scrollReveal);
 
-// Filters Engine
+// Filters
 const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
 const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
 const subFilterContainer = document.getElementById('subFilterContainer');
