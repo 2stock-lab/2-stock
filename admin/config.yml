@@ -2,23 +2,15 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: ""
-public_folder: "/"
+media_folder: "images"
+public_folder: "/images"
 
 collections:
   - name: "assets"
     label: "Assets"
-    files:
-      - file: "assets.json"
-        label: "Stock Assets"
-        name: "assets"
-        fields:
-          - label: "Assets"
-            name: "assets"
-            widget: "list"
-            fields:
-              - {label: "Title", name: "title", widget: "string"}
-              - {label: "Image", name: "image", widget: "image"}
-              - {label: "Price", name: "price", widget: "string"}
-              - {label: "Type", name: "type", widget: "select", options: ["photo", "vector"]}
-              - {label: "Status", name: "status", widget: "select", options: ["new", "popular"]}
+    folder: "content"
+    create: true
+    fields:
+      - { name: "title", widget: "string" }
+      - { name: "image", widget: "image" }
+      - { name: "price", widget: "string" }
