@@ -14,9 +14,9 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, A
 }
 
 body{
-background:#05070f;
-color:white;
-overflow-x:hidden;
+background: #0f1123;
+color: white;
+overflow-x: hidden;
 }
 
 /* --- Apple Liquid Glass ব্যাকগ্রাউন্ড --- */
@@ -28,11 +28,13 @@ top:0;
 left:0;
 z-index:-1;
 background: 
-    radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.25), transparent 40%),
-    radial-gradient(circle at 90% 10%, rgba(255, 0, 128, 0.2), transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.25), transparent 50%),
-    #070b19;
+    radial-gradient(circle at 15% 15%, #00f0ff 0%, transparent 40%),
+    radial-gradient(circle at 85% 20%, #ff007f 0%, transparent 45%),
+    radial-gradient(circle at 50% 75%, #7000ff 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, #00ffaa 0%, transparent 35%),
+    #0c0e1a;
 background-size: cover;
+filter: blur(20px);
 }
 
 nav{
@@ -40,10 +42,10 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px 8%;
-backdrop-filter: blur(30px) saturate(180%);
--webkit-backdrop-filter: blur(30px) saturate(180%);
-background: rgba(255, 255, 255, 0.03);
-border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+backdrop-filter: blur(30px) saturate(200%);
+-webkit-backdrop-filter: blur(30px) saturate(200%);
+background: rgba(255, 255, 255, 0.04);
+border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .logo-container {
@@ -58,7 +60,7 @@ object-fit: contain;
 }
 
 .hero{
-height:85vh;
+height:80vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -68,42 +70,44 @@ padding:20px;
 
 .glass{
 background: rgba(255, 255, 255, 0.03);
-border: 1px solid rgba(255, 255, 255, 0.1);
-backdrop-filter: blur(25px) saturate(160%);
--webkit-backdrop-filter: blur(25px) saturate(160%);
+border: 1px solid rgba(255, 255, 255, 0.15);
+backdrop-filter: blur(30px) saturate(180%);
+-webkit-backdrop-filter: blur(30px) saturate(180%);
 padding: 50px;
-border-radius: 30px;
+border-radius: 32px;
 max-width: 800px;
-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 h1{
 font-size:60px;
 margin-bottom:10px;
-background: linear-gradient(135deg, #ffffff 0%, #a5f3fc 100%);
+background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 }
 
+/* --- Apple Premium CTA বাটন --- */
 .btn{
 display:inline-block;
 margin-top:20px;
-padding:14px 35px;
+padding:12px 30px;
 border-radius:50px;
 text-decoration:none;
-color:white;
-font-weight: bold;
-background: linear-gradient(90deg, rgba(0,229,255,0.8), rgba(139,92,246,0.8));
-backdrop-filter: blur(10px);
-border: 1px solid rgba(255,255,255,0.2);
-box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
-transition: all 0.3s ease;
+color:black;
+font-weight: 500;
+font-size: 15px;
+/* অ্যাপলের ক্লাসিক হোয়াইট সলিড-গ্লাস বাটন */
+background: rgba(255, 255, 255, 0.95);
+border: 1px solid rgba(255, 255, 255, 1);
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .btn:hover {
-transform: translateY(-3px);
-box-shadow: 0 8px 25px rgba(0, 229, 255, 0.5);
-background: linear-gradient(90deg, rgba(0,229,255,1), rgba(139,92,246,1));
+transform: scale(1.02);
+background: rgba(255, 255, 255, 1);
+box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
 }
 
 /* --- ফিল্টার কন্টেইনার --- */
@@ -130,37 +134,56 @@ animation: fadeIn 0.4s ease forwards;
 display: flex;
 }
 
+/* --- Apple সিগনেচার মিনিমাল গ্লাস বাটন স্টাইল --- */
 .filter-btn {
-background: rgba(255, 255, 255, 0.03);
-color: rgba(255, 255, 255, 0.7);
+background: rgba(255, 255, 255, 0.06);
+color: rgba(255, 255, 255, 0.85);
 border: 1px solid rgba(255, 255, 255, 0.08);
 padding: 10px 24px;
 font-size: 14px;
-font-weight: bold;
+font-weight: 500;
 border-radius: 30px;
 cursor: pointer;
-backdrop-filter: blur(15px);
--webkit-backdrop-filter: blur(15px);
-transition: all 0.3s ease;
+backdrop-filter: blur(20px) saturate(120%);
+-webkit-backdrop-filter: blur(20px) saturate(120%);
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.filter-btn:hover, .filter-btn.active {
-background: linear-gradient(90deg, rgba(0, 229, 255, 0.8), rgba(139, 92, 246, 0.8));
+/* বাটন হোভার করলে সূক্ষ্ম ও প্রিমিয়াম পরিবর্তন */
+.filter-btn:hover {
+background: rgba(255, 255, 255, 0.15);
+border-color: rgba(255, 255, 255, 0.25);
+color: #fff;
+}
+
+/* বাটন একটিভ বা সিলেক্টেড থাকলে ব্লার-হোয়াইট গ্লাস লুক */
+.filter-btn.active {
+background: rgba(255, 255, 255, 0.22);
 color: white;
-border-color: transparent;
-box-shadow: 0 6px 15px rgba(0, 229, 255, 0.25);
+border-color: rgba(255, 255, 255, 0.4);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 
+            inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
+/* সাব-ফিল্টারের অ্যাপল বাটন লিকুইড এফেক্ট */
 .sub-btn {
 padding: 8px 20px;
 font-size: 13px;
-background: rgba(255, 255, 255, 0.01);
-border: 1px solid rgba(255, 255, 255, 0.05);
+background: rgba(255, 255, 255, 0.03);
+border: 1px solid rgba(255, 255, 255, 0.04);
+color: rgba(255, 255, 255, 0.65);
 }
 
-.sub-btn:hover, .sub-btn.active {
-background: linear-gradient(90deg, rgba(139, 92, 246, 0.7), rgba(255, 0, 128, 0.7));
-box-shadow: 0 6px 15px rgba(139, 92, 246, 0.25);
+.sub-btn:hover {
+background: rgba(255, 255, 255, 0.1);
+color: rgba(255, 255, 255, 0.9);
+}
+
+.sub-btn.active {
+background: rgba(255, 255, 255, 0.15);
+color: white;
+border-color: rgba(255, 255, 255, 0.2);
 }
 
 .gallery{
@@ -173,17 +196,17 @@ grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:25px;
 }
 
-/* --- Apple Liquid Glass কার্ড স্টাইল --- */
+/* --- Apple রিফ্লেক্টিভ গ্লাস কার্ড --- */
 .card {
 height: 260px;
-background: rgba(255, 255, 255, 0.02);
-border: 1px solid rgba(255, 255, 255, 0.08);
-backdrop-filter: blur(20px) saturate(140%);
--webkit-backdrop-filter: blur(20px) saturate(140%);
+background: rgba(255, 255, 255, 0.03);
+border: 1px solid rgba(255, 255, 255, 0.15);
+backdrop-filter: blur(25px) saturate(160%);
+-webkit-backdrop-filter: blur(25px) saturate(160%);
 border-radius: 24px;
 overflow: hidden;
 cursor: pointer;
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
             box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
             border-color 0.4s ease, opacity 0.3s ease;
@@ -195,9 +218,9 @@ display: none;
 
 .card:hover {
 transform: translateY(-10px) scale(1.02);
-box-shadow: 0 20px 40px rgba(0, 229, 255, 0.15), 
-            0 0 25px rgba(139, 92, 246, 0.1);
-border-color: rgba(255, 255, 255, 0.25);
+box-shadow: 0 20px 40px rgba(0, 240, 255, 0.25), 
+            0 0 30px rgba(112, 0, 255, 0.15);
+border-color: rgba(255, 255, 255, 0.4);
 }
 
 .card img {
@@ -212,16 +235,16 @@ transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 transform: scale(1.06);
 }
 
-/* --- ইমেজ পপআপ (Lightbox) স্টাইল --- */
+/* --- ইমেজ পপআপ (Lightbox) --- */
 .popup-overlay {
 position: fixed;
 top: 0;
 left: 0;
 width: 100%;
 height: 100%;
-background-color: rgba(3, 5, 15, 0.85);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
+background-color: rgba(12, 14, 26, 0.8);
+backdrop-filter: blur(25px);
+-webkit-backdrop-filter: blur(25px);
 display: flex;
 justify-content: center;
 align-items: center;
@@ -238,8 +261,8 @@ pointer-events: auto;
 max-width: 90%;
 max-height: 80%;
 border-radius: 20px;
-border: 1px solid rgba(255, 255, 255, 0.15);
-box-shadow: 0 0 50px rgba(0, 229, 255, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.2);
+box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
 transform: scale(0.85);
 transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -251,21 +274,21 @@ position: absolute;
 top: 20px;
 right: 30px;
 font-size: 45px;
-color: rgba(255, 255, 255, 0.6);
+color: rgba(255, 255, 255, 0.7);
 cursor: pointer;
 transition: color 0.2s, transform 0.2s;
 }
 .close-btn:hover {
-color: #00e5ff;
+color: #00f0ff;
 transform: scale(1.1);
 }
 
 footer{
 text-align:center;
 padding:40px;
-color: rgba(255, 255, 255, 0.4);
+color: rgba(255, 255, 255, 0.5);
 font-size: 14px;
-border-top: 1px solid rgba(255, 255, 255, 0.05);
+border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @keyframes fadeIn {
@@ -288,7 +311,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 <section class="hero">
 <div class="glass">
 <h1>2 Stock</h1>
-<p style="color: #94a3b8; font-size: 18px; letter-spacing: 0.5px;">Premium AI Photos & Artworks</p>
+<p style="color: #cbd5e1; font-size: 18px; letter-spacing: 0.5px;">Premium AI Photos & Artworks</p>
 <a href="#gallery-section" class="btn">Explore Gallery</a>
 </div>
 </section>
@@ -296,6 +319,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 <section class="gallery" id="gallery-section">
 <h2 style="text-align:center; margin-bottom:30px; font-size: 28px; background: linear-gradient(90deg, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Featured Collection</h2>
 
+<!-- ডাবল লেয়ার অ্যাপল ফিল্টার বাটনসমূহ -->
 <div class="filter-wrapper">
     <div class="main-filter">
         <button class="filter-btn active" data-main="all">All</button>
@@ -332,11 +356,11 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </div>
 
 <footer>
-© 2026 2 Stock • Designed with Liquid Glass Effect
+© 2026 2 Stock • Apple Frosted Glass Dynamic Edition
 </footer>
 
 <script>
-// --- ইমেজ পপআপ ---
+// --- ইমেজ পপআপ কোড ---
 const cards = document.querySelectorAll('.card img');
 const overlay = document.getElementById('popupOverlay');
 const popupImg = document.getElementById('popupImg');
@@ -359,7 +383,7 @@ overlay.addEventListener('click', (e) => {
     }
 });
 
-// --- ডাবল লেয়ার ফিল্টার লজিক ---
+// --- ফিল্টার লজিক কোড ---
 const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
 const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
 const subFilterContainer = document.getElementById('subFilterContainer');
@@ -375,7 +399,6 @@ mainButtons.forEach(button => {
 
         currentMainFilter = button.getAttribute('data-main');
         
-        // সাব-ফিল্টার বাটন রিসেট টু 'All'
         document.querySelector('.sub-filter .sub-btn.active').classList.remove('active');
         subButtons[0].classList.add('active');
         currentSubFilter = 'all';
@@ -400,7 +423,6 @@ subButtons.forEach(button => {
     });
 });
 
-// মেইন এবং সাব ফিল্টার একুরেটলি কাজ করানোর মূল ফাংশন
 function applyFilters() {
     filterableCards.forEach(card => {
         let cardType = card.getAttribute('data-type');
