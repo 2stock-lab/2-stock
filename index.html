@@ -1,155 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My AI Photo & Vector Gallery</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
-            color: #ffffff;
-            padding: 40px 20px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-            color: #38bdf8;
-        }
-        /* Grid Gallery Setup */
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        /* Professional Hover Card Effect */
-        .card {
-            background-color: #1e293b;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(56, 189, 248, 0.2);
-        }
-        .card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .card:hover img {
-            transform: scale(1.05);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2 Stock</title>
 
-        /* Image Popup (Lightbox) Styling */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 1000;
-        }
-        .popup-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .popup-img {
-            max-width: 90%;
-            max-height: 80%;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-        .popup-overlay.active .popup-img {
-            transform: scale(1);
-        }
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: #fff;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-        .close-btn:hover {
-            color: #38bdf8;
-        }
-    </style>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#050505;
+color:white;
+overflow-x:hidden;
+}
+
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+z-index:-1;
+background:
+radial-gradient(circle at 20% 20%, rgba(0,255,255,.15), transparent 30%),
+radial-gradient(circle at 80% 80%, rgba(140,0,255,.15), transparent 30%);
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center; /* লোগো সোজা রাখার জন্য */
+padding:15px 8%;
+backdrop-filter:blur(20px);
+background:rgba(255,255,255,.05);
+border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+/* লোগোর সাইজ সুন্দর করার জন্য স্টাইল */
+.logo-container {
+display: flex;
+align-items: center;
+}
+
+.site-logo {
+height: 50px; /* লোগো বেশি বড় বা ছোট মনে হলে এখান থেকে পরিবর্তন করতে পারবে */
+width: auto;
+object-fit: contain;
+}
+
+.hero{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.glass{
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.12);
+backdrop-filter:blur(20px);
+padding:50px;
+border-radius:25px;
+max-width:800px;
+}
+
+h1{
+font-size:60px;
+margin-bottom:10px;
+}
+
+.btn{
+display:inline-block;
+margin-top:20px;
+padding:12px 30px;
+border-radius:50px;
+text-decoration:none;
+color:white;
+background:linear-gradient(90deg,#00e5ff,#8b5cf6);
+}
+
+.gallery{
+padding:80px 8%;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+/* --- ইমেজ কার্ড এবং হোভার ইফেক্ট --- */
+.card {
+height: 250px;
+background: rgba(255,255,255,.05);
+border: 1px solid rgba(255,255,255,.1);
+backdrop-filter: blur(15px);
+border-radius: 20px;
+overflow: hidden;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+transform: translateY(-8px);
+box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
+border-color: rgba(0, 229, 255, 0.4);
+}
+
+.card img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+transition: transform 0.3s ease;
+}
+
+.card:hover img {
+transform: scale(1.05);
+}
+
+/* --- ইমেজ পপআপ (Lightbox) স্টাইল --- */
+.popup-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.9);
+display: flex;
+justify-content: center;
+align-items: center;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s ease;
+z-index: 1000;
+}
+.popup-overlay.active {
+opacity: 1;
+pointer-events: auto;
+}
+.popup-img {
+max-width: 90%;
+max-height: 80%;
+border-radius: 12px;
+box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
+transform: scale(0.8);
+transition: transform 0.3s ease;
+}
+.popup-overlay.active .popup-img {
+transform: scale(1);
+}
+.close-btn {
+position: absolute;
+top: 20px;
+right: 30px;
+font-size: 45px;
+color: #fff;
+cursor: pointer;
+transition: color 0.2s;
+}
+.close-btn:hover {
+color: #00e5ff;
+}
+
+footer{
+text-align:center;
+padding:30px;
+border-top:1px solid rgba(255,255,255,.1);
+}
+</style>
 </head>
+
 <body>
 
-    <h1>My AI Portfolio</h1>
+<div class="bg"></div>
 
-    <!-- Gallery Section -->
-    <div class="gallery-container">
-        <div class="card"><img src="photo1.png" alt="AI Artwork"></div>
-        <div class="card"><img src="photo2.jpg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo3.jpg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo4.jpeg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo5.jpg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo6.jpg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo7.jpg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo8.jpg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo9.jpg" alt="AI Artwork"></div>
-        <div class="card"><img src="photo10.jpg" alt="AI Artwork"></div>
-    </div>
+<!-- নেভিগেশন বার যেখানে লোগো ইমেজটি বসানো হয়েছে -->
+<nav>
+<div class="logo-container">
+    <img src="logo.png" alt="2 Stock Logo" class="site-logo">
+</div>
+</nav>
 
-    <!-- Popup Window Overlay -->
-    <div class="popup-overlay" id="popupOverlay">
-        <span class="close-btn" id="closeBtn">&times;</span>
-        <img class="popup-img" id="popupImg" src="" alt="Popup View">
-    </div>
+<section class="hero">
+<div class="glass">
+<h1>2 Stock</h1>
+<p>Premium AI Photos & Vectors</p>
+<a href="#" class="btn">Explore</a>
+</div>
+</section>
 
-    <!-- Javascript for Popup/Zoom Feature -->
-    <script>
-        const cards = document.querySelectorAll('.card img');
-        const overlay = document.getElementById('popupOverlay');
-        const popupImg = document.getElementById('popupImg');
-        const closeBtn = document.getElementById('closeBtn');
+<section class="gallery">
+<h2 style="text-align:center;margin-bottom:30px;">Featured Collection</h2>
 
-        // ওপেন করার জন্য ক্লিক ইভেন্ট
-        cards.forEach(img => {
-            img.addEventListener('click', () => {
-                popupImg.src = img.src;
-                overlay.classList.add('active');
-            });
-        });
+<div class="grid">
+<div class="card"><img src="photo1.png" alt="AI Portfolio"></div>
+<div class="card"><img src="photo2.jpg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo3.jpg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo4.jpeg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo5.jpg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo6.jpg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo7.jpg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo8.jpg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo9.jpg" alt="AI Portfolio"></div>
+<div class="card"><img src="photo10.jpg" alt="AI Portfolio"></div>
+</div>
 
-        // বন্ধ করার জন্য ক্লিক ইভেন্ট
-        closeBtn.addEventListener('click', () => {
-            overlay.classList.remove('active');
-        });
+</section>
 
-        // বাইরের কালো অংশে ক্লিক করলেও বন্ধ হবে
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.classList.remove('active');
-            }
-        });
-    </script>
+<!-- ছবি ক্লিক করলে বড় করে দেখার পপআপ উইন্ডো -->
+<div class="popup-overlay" id="popupOverlay">
+<span class="close-btn" id="closeBtn">&times;</span>
+<img class="popup-img" id="popupImg" src="" alt="Popup View">
+</div>
+
+<footer>
+© 2026 2 Stock
+</footer>
+
+<!-- জাভাস্ক্রিপ্ট কোড -->
+<script>
+const cards = document.querySelectorAll('.card img');
+const overlay = document.getElementById('popupOverlay');
+const popupImg = document.getElementById('popupImg');
+const closeBtn = document.getElementById('closeBtn');
+
+cards.forEach(img => {
+    img.addEventListener('click', () => {
+        popupImg.src = img.src;
+        overlay.classList.add('active');
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    overlay.classList.remove('active');
+});
+
+overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+        overlay.classList.remove('active');
+    }
+});
+</script>
 
 </body>
 </html>
