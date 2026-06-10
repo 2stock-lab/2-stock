@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2 Stock - Apple Premium Animated Edition</title>
+<title>2 Stock - Apple Liquid Glass Edition</title>
 
 <style>
 *{
@@ -155,7 +155,7 @@ grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
 gap:30px;
 }
 
-/* --- Apple Reflective Glass Card & Scroll Reveal --- */
+/* --- Apple Reflective Glass Card --- */
 .card {
 background: rgba(255, 255, 255, 0.02);
 border: 1px solid rgba(255, 255, 255, 0.08);
@@ -167,14 +167,11 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 display: flex;
 flex-direction: column;
 position: relative;
-
-/* Scroll Animation Initial State */
 opacity: 0;
 transform: translateY(40px);
 transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, border-color 0.3s ease;
 }
 
-/* When Scroll Animation Triggers */
 .card.reveal {
 opacity: 1;
 transform: translateY(0);
@@ -226,13 +223,21 @@ pointer-events: none;
 transform: scale(1.06);
 }
 
-/* --- Smooth Button Slide Up Animation Container --- */
 .card-bottom {
 padding: 20px;
 background: rgba(0, 0, 0, 0.3);
 margin-top: auto;
 position: relative;
 overflow: hidden;
+}
+
+/* Download Stats Style */
+.download-count {
+font-size: 11px;
+color: #94a3b8;
+display: block;
+margin-top: 4px;
+font-weight: 500;
 }
 
 .card-info {
@@ -242,38 +247,45 @@ align-items: center;
 transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease;
 }
 
-/* --- Premium Buy Button Hidden Initially --- */
+/* --- Apple Premium Hidden Button Container --- */
 .apple-btn-wrapper {
 position: absolute;
-bottom: -50px;
+bottom: -60px;
 left: 20px;
 right: 20px;
 opacity: 0;
 transition: bottom 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
 }
 
+/* --- 🔥 Apple Liquid Glassmorphism Button Style --- */
 .apple-btn {
 width: 100%;
-background: #ffffff;
-color: #000000;
-border: none;
+background: rgba(255, 255, 255, 0.08);
+color: #ffffff;
+border: 1px solid rgba(255, 255, 255, 0.2);
 padding: 12px;
 font-size: 14px;
 font-weight: 600;
 border-radius: 14px;
 cursor: pointer;
-box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
-transition: background 0.2s;
+backdrop-filter: blur(25px) saturate(180%);
+-webkit-backdrop-filter: blur(25px) saturate(180%);
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .apple-btn:hover {
-background: rgba(255, 255, 255, 0.9);
+background: rgba(255, 255, 255, 0.2);
+border-color: rgba(255, 255, 255, 0.4);
+box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+transform: scale(1.02);
 }
 
-/* --- Hover States for Button Reveal --- */
+/* Hover States to Reveal Button */
 .card:hover .card-info {
-transform: translateY(-10px);
-opacity: 0.1; /* Info Hides Slightly for focus on Button */
+transform: translateY(-12px);
+opacity: 0.15;
 }
 
 .card:hover .apple-btn-wrapper {
@@ -281,7 +293,7 @@ bottom: 16px;
 opacity: 1;
 }
 
-/* --- Apple Ultra Glassmorphism Popup --- */
+/* --- Apple Overlay Popup --- */
 .apple-overlay {
 position: fixed;
 top: 0;
@@ -403,7 +415,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 <nav>
 <div class="logo-container">
-    <h2>2STOCK // <span style="font-size:11px; color:#f3ba2f; font-weight:normal; letter-spacing:1px;">PREMIUM</span></h2>
+    <h2>2STOCK // <span style="font-size:11px; color:#f3ba2f; font-weight:normal; letter-spacing:1px;">LIQUID GLASS</span></h2>
 </div>
 </nav>
 
@@ -432,103 +444,160 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 <!-- Gallery Grid -->
 <div class="gallery">
 <div class="grid">
-    <!-- ১ থেকে ৯ ফটো ক্যাটাগরি -->
+    <!-- ১ থেকে ১০ এসেট (সবগুলোতে আলাদা আলাদা র্যান্ডম ডাউনলোড কাউন্টার যোগ করা হয়েছে) -->
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo1.png" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Normal Photo 01</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Normal Photo 01</span>
+                    <span class="download-count">⚡ <span class="count-num">48</span> Downloads</span>
+                </div>
+                <span class="card-price">$1.50</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #01">Buy Asset</button></div>
         </div>
     </div>
+    
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo2.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Normal Photo 02</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Normal Photo 02</span>
+                    <span class="download-count">⚡ <span class="count-num">32</span> Downloads</span>
+                </div>
+                <span class="card-price">$1.50</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #02">Buy Asset</button></div>
         </div>
     </div>
+
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo3.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 03</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Premium Photo 03</span>
+                    <span class="download-count">⚡ <span class="count-num">189</span> Downloads</span>
+                </div>
+                <span class="card-price">$2.00</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #03">Buy Asset</button></div>
         </div>
     </div>
+
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo4.jpeg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Normal Photo 04</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Normal Photo 04</span>
+                    <span class="download-count">⚡ <span class="count-num">51</span> Downloads</span>
+                </div>
+                <span class="card-price">$1.50</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #04">Buy Asset</button></div>
         </div>
     </div>
+
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo5.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 05</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Premium Photo 05</span>
+                    <span class="download-count">⚡ <span class="count-num">240</span> Downloads</span>
+                </div>
+                <span class="card-price">$2.00</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #05">Buy Asset</button></div>
         </div>
     </div>
+
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo6.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Normal Photo 06</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Normal Photo 06</span>
+                    <span class="download-count">⚡ <span class="count-num">19</span> Downloads</span>
+                </div>
+                <span class="card-price">$1.50</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #06">Buy Asset</button></div>
         </div>
     </div>
+
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo7.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 07</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Premium Photo 07</span>
+                    <span class="download-count">⚡ <span class="count-num">312</span> Downloads</span>
+                </div>
+                <span class="card-price">$2.00</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #07">Buy Asset</button></div>
         </div>
     </div>
+
     <div class="card" data-type="photo" data-status="popular">
         <div class="img-container"><img src="photo8.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Premium Photo 08</span><span class="card-price">$2.00 / ৳২৪০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Premium Photo 08</span>
+                    <span class="download-count">⚡ <span class="count-num">156</span> Downloads</span>
+                </div>
+                <span class="card-price">$2.00</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #08">Buy Asset</button></div>
         </div>
     </div>
+
     <div class="card" data-type="photo" data-status="new">
         <div class="img-container"><img src="photo9.jpg" alt="Stock Asset"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">Normal Photo 09</span><span class="card-price">$1.50 / ৳১৮০</span></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">Normal Photo 09</span>
+                    <span class="download-count">⚡ <span class="count-num">43</span> Downloads</span>
+                </div>
+                <span class="card-price">$1.50</span>
+            </div>
             <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #09">Buy Asset</button></div>
         </div>
     </div>
     
-    <!-- ১০ নম্বর ভেক্টর সম্পদ -->
     <div class="card" data-type="vector" data-status="popular">
         <div class="img-container"><img src="photo10.jpg" alt="Vector Art"></div>
         <div class="card-bottom">
-            <div class="card-info"><span class="card-title">HQ Vector Track 10</span><span class="card-price">$2.00 / ৳২৪০</span></div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Vector #10" style="background:#f3ba2f; color:#000;">Buy Asset</button></div>
+            <div class="card-info">
+                <div>
+                    <span class="card-title">HQ Vector Track 10</span>
+                    <span class="download-count">⚡ <span class="count-num">425</span> Downloads</span>
+                </div>
+                <span class="card-price">$2.00</span>
+            </div>
+            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Vector #10">Buy Asset</button></div>
         </div>
     </div>
 </div>
 </div>
 
-<!-- --- Apple Style Ultra Glassmorphism Popup Window --- -->
+<!-- Apple Popup Window -->
 <div class="apple-overlay" id="appleOverlay">
     <div class="apple-popup-box">
         <h3 id="popAssetId">License Asset</h3>
         <p style="color: #94a3b8; font-size:13px;">Instant Global Checkout</p>
-        
         <div class="global-price-tag" id="popPrice">$1.50 / ৳১৮০</div>
-        
         <div class="binance-badge">⚡ Binance Pay ID: 1068503860 (Parvez24)</div>
-        
         <div class="payment-gateways">
-            <!-- ক্লিক করলে ২.জেপিইজি কিউআর কোড দেখা যাবে -->
-            <a href="2.jpeg" target="_blank" class="gateway-link binance-btn">
-                🔶 Pay with Binance (Global QR)
-            </a>
-            
-            <a href="https://wa.me/88017XXXXXXXX?text=Hi, I want to purchase an asset via bKash/Nagad." target="_blank" class="gateway-link local-pay">
-                🇧🇩 bKash / Nagad / Rocket (BD)
-            </a>
+            <a href="2.jpeg" target="_blank" class="gateway-link binance-btn">🔶 Pay with Binance (Global QR)</a>
+            <a href="https://wa.me/88017XXXXXXXX?text=Hi, I want to purchase an asset via bKash." target="_blank" class="gateway-link local-pay">🇧🇩 bKash / Nagad / Rocket (BD)</a>
         </div>
-        
         <div class="close-apple" id="closeApple">Cancel</div>
     </div>
 </div>
@@ -538,12 +607,12 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </footer>
 
 <script>
-// --- Apple Popup Windows Script ---
 const appleOverlay = document.getElementById('appleOverlay');
 const openPopupBtns = document.querySelectorAll('.open-apple-popup');
 const closeAppleBtn = document.getElementById('closeApple');
 const popAssetId = document.getElementById('popAssetId');
 const popPrice = document.getElementById('popPrice');
+let activeCounterNode = null; // ট্র্যাক করবে কোন কার্ডের বাটনে ক্লিক করা হয়েছে
 
 openPopupBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -553,36 +622,39 @@ openPopupBtns.forEach(btn => {
         popAssetId.innerText = "License: " + id;
         popPrice.innerText = price;
         
+        // বাটনের ঠিক উপরে থাকা ডাউনলোড নাম্বারের স্প্যানটিকে খুঁজে বের করা
+        activeCounterNode = btn.closest('.card-bottom').querySelector('.count-num');
+        
         appleOverlay.classList.add('active');
     });
 });
 
-closeAppleBtn.addEventListener('click', () => {
-    appleOverlay.classList.remove('active');
+// কাস্টমার পপআপ উইন্ডো খোলার পর বিন্দুমাত্র কোনো পেমেন্ট বাটনে ক্লিক করলেই ডাউনলোড ১ বেড়ে যাবে!
+document.querySelectorAll('.gateway-link').forEach(link => {
+    link.addEventListener('click', () => {
+        if(activeCounterNode) {
+            let currentCount = parseInt(activeCounterNode.innerText);
+            activeCounterNode.innerText = currentCount + 1; // +1 কাউন্ট যোগ হবে
+            activeCounterNode = null; // রিসেট
+        }
+    });
 });
 
-appleOverlay.addEventListener('click', (e) => {
-    if (e.target === appleOverlay) {
-        appleOverlay.classList.remove('active');
-    }
-});
+closeAppleBtn.addEventListener('click', () => { appleOverlay.classList.remove('active'); });
+appleOverlay.addEventListener('click', (e) => { if (e.target === appleOverlay) { appleOverlay.classList.remove('active'); } });
 
-// --- Scroll Reveal Animation Engine ---
+// Scroll Reveal
 const scrollReveal = () => {
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
         const cardTop = card.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        if (cardTop < windowHeight - 50) {
-            card.classList.add('reveal');
-        }
+        if (cardTop < window.innerHeight - 50) { card.classList.add('reveal'); }
     });
 };
-
 window.addEventListener('scroll', scrollReveal);
-window.addEventListener('load', scrollReveal); // Trigger once on load
+window.addEventListener('load', scrollReveal);
 
-// --- Filter Engine ---
+// Filters Engine
 const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
 const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
 const subFilterContainer = document.getElementById('subFilterContainer');
@@ -601,11 +673,8 @@ mainButtons.forEach(button => {
         subButtons[0].classList.add('active');
         currentSubFilter = 'all';
 
-        if (currentMainFilter === 'all') {
-            subFilterContainer.classList.remove('show');
-        } else {
-            subFilterContainer.classList.add('show');
-        }
+        if (currentMainFilter === 'all') { subFilterContainer.classList.remove('show'); } 
+        else { subFilterContainer.classList.add('show'); }
         applyFilters();
     });
 });
@@ -628,7 +697,6 @@ function applyFilters() {
 
         if (matchMain && matchSub) {
             card.classList.remove('hide');
-            // Re-trigger reveal check for filtered items
             setTimeout(() => card.classList.add('reveal'), 50);
         } else {
             card.classList.add('hide');
