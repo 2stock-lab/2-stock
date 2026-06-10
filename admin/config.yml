@@ -1,0 +1,25 @@
+backend:
+  name: github
+  repo: 2stock-lab/2-stock
+  branch: main
+
+media_folder: ""
+public_folder: "/"
+
+collections:
+  - name: "assets"
+    label: "Assets"
+    files:
+      - file: "assets.json"
+        label: "Stock Assets"
+        name: "assets"
+        fields:
+          - label: "Assets"
+            name: "assets"
+            widget: "list"
+            fields:
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Price", name: "price", widget: "string"}
+              - {label: "Type", name: "type", widget: "select", options: ["photo", "vector"]}
+              - {label: "Status", name: "status", widget: "select", options: ["new", "popular"]}
