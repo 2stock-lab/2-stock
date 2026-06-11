@@ -688,6 +688,21 @@ function applyFilters() {
 }
 
 window.addEventListener('load', loadCMSAssets);
+// Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDTnaC48yboc4_9u7gSzrzDgAqnu-Fn6To",
+    authDomain: "stock-db-3f41a.firebaseapp.com",
+    projectId: "stock-db-3f41a",
+    storageBucket: "stock-db-3f41a.firebasestorage.app",
+    messagingSenderId: "1066037651835",
+    appId: "1:1066037651835:web:a57d9a691c16b6c76175de"
+  };
+
+  // Initialize Firebase
+  if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
 </script>
 
 </body>
