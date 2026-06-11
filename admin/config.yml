@@ -6,9 +6,8 @@ media_folder: "images"
 public_folder: "/images"
 
 media_library:
-  name: uploadcare
   config:
-    maxFileSize: 10000000
+    maxFileSize: 50000000
 
 collections:
   - name: "assets"
@@ -26,6 +25,7 @@ collections:
         options:
           - "photo"
           - "vector"
+          - "video"
       - label: "Status"
         name: "status"
         widget: "select"
