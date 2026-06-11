@@ -8,9 +8,26 @@ public_folder: "/images"
 collections:
   - name: "assets"
     label: "Assets"
-    folder: "content"
+    folder: "assets"
     create: true
+
     fields:
-      - { name: "title", widget: "string" }
-      - { name: "image", widget: "image" }
-      - { name: "price", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+
+      - { label: "Image", name: "image", widget: "image" }
+
+      - { label: "Price", name: "price", widget: "string" }
+
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options:
+          - "photo"
+          - "vector"
+
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options:
+          - "new"
+          - "popular"
