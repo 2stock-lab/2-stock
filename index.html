@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2STOCK</title>
 
+<!-- ফায়ারবেস স্ক্রিপ্ট কানেকশন (SDK) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
 <style>
 *{
 margin:0;
@@ -462,7 +466,7 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 <div class="gallery">
     <div class="grid" id="assetGrid">
-        <div id="loadingMessage">Loading Premium Assets from CMS...</div>
+        <div id="loadingMessage">Loading Premium Assets from Firebase Firestore...</div>
     </div>
 </div>
 
@@ -499,8 +503,21 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </footer>
 
 <script>
-const GITHUB_USER = "2stock-lab"; 
-const GITHUB_REPO = "2-stock";       
+// Firebase কনফিগারেশন চাবি
+const firebaseConfig = {
+  apiKey: "AIzaSyDTnaC48yboc4_9u7gSzrzDgAqnu-Fn6To",
+  authDomain: "stock-db-3f41a.firebaseapp.com",
+  projectId: "stock-db-3f41a",
+  storageBucket: "stock-db-3f41a.firebasestorage.app",
+  messagingSenderId: "1066037651835",
+  appId: "1:1066037651835:web:a57d9a691c16b6c76175de"
+};
+
+// ফায়ারবেস ইনিশিয়ালাইজেশন
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
 
 const assetGrid = document.getElementById('assetGrid');
 const appleOverlay = document.getElementById('appleOverlay');
@@ -511,87 +528,64 @@ const hiddenAssetId = document.getElementById('hiddenAssetId');
 const hiddenPrice = document.getElementById('hiddenPrice');
 let activeCounterNode = null;
 
-// সহজ ফ্রন্ট-ম্যাটার/মার্কডাউন পার্সার
-function parseMarkdown(text) {
-    const obj = {};
-    const lines = text.split('\n');
-    lines.forEach(line => {
-        const match = line.match(/^([a-zA-Z_]+)\s*:\s*(.*)$/);
-        if (match) {
-            let key = match[1].trim().toLowerCase();
-            let value = match[2].trim().replace(/^["']|["']$/g, ''); 
-            obj[key] = value;
-        }
-    });
-    return obj;
-}
-
-// GitHub API থেকে ডেটা লোড করার ডাইনামিক ফাংশন
+// Firebase Firestore থেকে ডেটা লোড করার সম্পূর্ণ অটোমেটিক ফাংশন
 async function loadCMSAssets() {
     try {
-        const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/assets`;
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Assets could not be fetched.");
-        
-        const files = await response.json();
         assetGrid.innerHTML = ''; 
 
+        // ফায়ারবেসের 'assets' কালেকশন থেকে সব ডাটা লাইভ আনা হচ্ছে
+        const querySnapshot = await db.collection("assets").get();
+        
         let validAssetsCount = 0;
 
-        for (let file of files) {
-            if (file.name.endsWith('.md')) {
-                const fileRes = await fetch(file.download_url);
-                const fileText = await fileRes.text();
-                const data = parseMarkdown(fileText);
-                
-                if (data.title && data.image) {
-                    validAssetsCount++;
-                    const randomDownloads = Math.floor(Math.random() * 50) + 10;
-                    
-                    // 🛠️ ইমেজ পাথ ফিক্সিং লজিক (যা ইমেজ ফোল্ডার থেকে সঠিক র গিটহাব লিংক তৈরি করবে)
-                    let cleanImagePath = data.image;
-                    if (cleanImagePath.startsWith('/')) {
-                        cleanImagePath = cleanImagePath.substring(1);
-                    }
-                    if (!cleanImagePath.startsWith('http')) {
-                        cleanImagePath = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${cleanImagePath}`;
-                    }
-                    
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.setAttribute('data-type', data.type || 'photo');
-                    card.setAttribute('data-status', data.status || 'new');
-                    
-                    card.innerHTML = `
-                        <div class="img-container"><img src="${cleanImagePath}" alt="${data.title}"></div>
-                        <div class="card-bottom">
-                            <div class="card-info">
-                                <div>
-                                    <span class="card-title" style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${data.title}</span>
-                                    <span class="download-count">⚡ <span class="count-num">${randomDownloads}</span> Downloads</span>
-                                </div>
-                                <span class="card-price">${data.price || '$1.50'}</span>
-                            </div>
-                            <div class="apple-btn-wrapper">
-                                <button class="apple-btn type-buy-btn" data-price="${data.price || '$1.50'}" data-id="${data.title}">Buy Asset</button>
-                            </div>
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            validAssetsCount++;
+            
+            // ডাউনলোড কাউন্টের জন্য একটি র‍্যান্ডম নাম্বার জেনারেট
+            const randomDownloads = Math.floor(Math.random() * 50) + 10;
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            // ফিল্টারিং এর সুবিধার্থে ক্যাটাগরি এবং স্ট্যাটাস সেট করা
+            let cleanType = (data.type || 'photo').toLowerCase();
+            if(cleanType === 'photos') cleanType = 'photo';
+            if(cleanType === 'vectors') cleanType = 'vector';
+            
+            card.setAttribute('data-type', cleanType);
+            card.setAttribute('data-status', data.status || 'new');
+            
+            card.innerHTML = `
+                <div class="img-container">
+                    <img src="${data.url || data.image}" alt="${data.title || 'Premium Asset'}">
+                </div>
+                <div class="card-bottom">
+                    <div class="card-info">
+                        <div>
+                            <span class="card-title" style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${data.title || 'Untitled'}</span>
+                            <span class="download-count">⚡ <span class="count-num">${randomDownloads}</span> Downloads</span>
                         </div>
-                    `;
-                    assetGrid.appendChild(card);
-                }
-            }
-        }
+                        <span class="card-price">$${data.price || '1.50'}</span>
+                    </div>
+                    <div class="apple-btn-wrapper">
+                        <button class="apple-btn type-buy-btn" data-price="$${data.price || '1.50'}" data-id="${data.title || 'Asset'}">Buy Asset</button>
+                    </div>
+                </div>
+            `;
+            assetGrid.appendChild(card);
+        });
 
         if(validAssetsCount === 0) {
-            assetGrid.innerHTML = '<div id="loadingMessage">No assets found! Upload from CMS first.</div>';
+            assetGrid.innerHTML = '<div id="loadingMessage">No assets found! Please upload from CMS/Firestore first.</div>';
         } else {
             setupPopupEvents();
             scrollReveal();
         }
 
     } catch (error) {
-        console.error(error);
-        assetGrid.innerHTML = '<div id="loadingMessage" style="color: #ef4444;">Error loading assets from GitHub. Please check config.</div>';
+        console.error("Firebase Error:", error);
+        assetGrid.innerHTML = '<div id="loadingMessage" style="color: #ef4444;">Error loading assets from Firebase. Please check Database Connection.</div>';
     }
 }
 
@@ -687,22 +681,8 @@ function applyFilters() {
     });
 }
 
+// পেজ লোড হলেই অটোমেটিক ফায়ারবেস থেকে ডাটা নিয়ে আসবে
 window.addEventListener('load', loadCMSAssets);
-// Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDTnaC48yboc4_9u7gSzrzDgAqnu-Fn6To",
-    authDomain: "stock-db-3f41a.firebaseapp.com",
-    projectId: "stock-db-3f41a",
-    storageBucket: "stock-db-3f41a.firebasestorage.app",
-    messagingSenderId: "1066037651835",
-    appId: "1:1066037651835:web:a57d9a691c16b6c76175de"
-  };
-
-  // Initialize Firebase
-  if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-  }
-  const db = firebase.firestore();
 </script>
 
 </body>
