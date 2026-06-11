@@ -111,19 +111,10 @@ gap: 15px;
 margin-bottom: 40px;
 }
 
-.main-filter, .sub-filter {
+.main-filter {
 display: flex;
 justify-content: center;
 gap: 10px;
-}
-
-.sub-filter {
-display: none;
-}
-
-.sub-filter.show {
-display: flex;
-animation: fadeIn 0.4s ease forwards;
 }
 
 .filter-btn {
@@ -235,10 +226,6 @@ padding: 6px 16px;
 pointer-events: none;
 }
 
-.card:hover img {
-transform: scale(1.06);
-}
-
 .card-bottom {
 padding: 20px;
 background: rgba(0, 0, 0, 0.3);
@@ -284,12 +271,6 @@ cursor: pointer;
 backdrop-filter: blur(25px) saturate(180%);
 -webkit-backdrop-filter: blur(25px) saturate(180%);
 transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.apple-btn:hover {
-background: rgba(255, 255, 255, 0.2);
-border-color: rgba(255, 255, 255, 0.4);
-transform: scale(1.02);
 }
 
 .card:hover .card-info {
@@ -412,7 +393,6 @@ cursor: pointer;
 margin-top: 5px;
 }
 
-/* লাইভ স্ট্যাটাস বক্স */
 .status-container {
 background: rgba(239, 68, 68, 0.1);
 border: 1px dashed #ef4444;
@@ -454,7 +434,29 @@ color: rgba(255, 255, 255, 0.4);
 cursor: pointer;
 font-size: 13px;
 }
-.close-apple:hover { color: #fff; }
+
+/* --- Admin Dashboard CSS --- */
+#adminDashboardPage {
+display: none;
+padding: 40px 8%;
+}
+.admin-table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+background: rgba(255, 255, 255, 0.02);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 14px;
+overflow: hidden;
+}
+.admin-table th, .admin-table td {
+padding: 15px;
+text-align: left;
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.admin-table th { background: rgba(255, 255, 255, 0.05); color: #94a3b8; }
+.btn-pending { background: #f59e0b; color: black; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-approved { background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; }
 
 footer{
 text-align:center;
@@ -470,38 +472,56 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 <div class="bg"></div>
 
-<nav>
-<div class="logo-container">
-    <img src="logo.png" alt="2STOCK">
-    <h2>2STOCK</h2>
-</div>
-</nav>
-
-<section class="hero">
-<div class="hero-content">
-    <h1>Global Premium Stock</h1>
-    <p>Discover & instantly buy premium digital licenses worldwide.</p>
-</div>
-</section>
-
-<div class="filter-wrapper">
-    <div class="main-filter">
-        <button class="filter-btn active" data-main="all">All Assets</button>
-        <button class="filter-btn" data-main="photo">Photos</button>
-        <button class="filter-btn" data-main="vector">Vectors</button>
+<!-- কাস্টমার পেজ ভিউ -->
+<div id="customerPage">
+    <nav>
+    <div class="logo-container">
+        <img src="logo.png" alt="2STOCK">
+        <h2>2STOCK</h2>
     </div>
-    
-    <div class="sub-filter" id="subFilterContainer">
-        <button class="filter-btn sub-btn active" data-sub="all">All</button>
-        <button class="filter-btn sub-btn" data-sub="new">New</button>
-        <button class="filter-btn sub-btn" data-sub="popular">Popular</button>
+    </nav>
+
+    <section class="hero">
+    <div class="hero-content">
+        <h1>Global Premium Stock</h1>
+        <p>Discover & instantly buy premium digital licenses worldwide.</p>
+    </div>
+    </section>
+
+    <div class="filter-wrapper">
+        <div class="main-filter">
+            <button class="filter-btn active" data-main="all">All Assets</button>
+            <button class="filter-btn" data-main="photo">Photos</button>
+            <button class="filter-btn" data-main="vector">Vectors</button>
+        </div>
+    </div>
+
+    <div class="gallery">
+        <div class="grid" id="assetGrid">
+            <div id="loadingMessage">Loading Premium Assets from Firebase Firestore...</div>
+        </div>
     </div>
 </div>
 
-<div class="gallery">
-    <div class="grid" id="assetGrid">
-        <div id="loadingMessage">Loading Premium Assets from Firebase Firestore...</div>
-    </div>
+<!-- সিক্রেট ওয়ান-ক্লিক এডমিন ড্যাশবোর্ড পেজ ভিউ -->
+<div id="adminDashboardPage">
+    <h2 style="border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom:10px;">👤 2Stock Orders Admin Panel</h2>
+    <p style="color: #94a3b8; margin-top: 5px;">Click on the orange "Pending" button to approve orders instantly.</p>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Asset Title</th>
+                <th>Customer Email</th>
+                <th>Transaction ID (TxID)</th>
+                <th>Price</th>
+                <th>Action Status</th>
+            </tr>
+        </thead>
+        <tbody id="adminOrderRows">
+            <tr><td colspan="5" style="text-align:center; color:#94a3b8;">Loading client orders...</td></tr>
+        </tbody>
+    </table>
+    <button onclick="window.location.hash=''" style="margin-top:20px; background:rgba(255,255,255,0.1); color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">Go Back to Website</button>
 </div>
 
 <div class="apple-overlay" id="appleOverlay">
@@ -512,7 +532,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
         
         <a href="2.jpeg" target="_blank" class="gateway-link" id="payGateBtn">🔶 Step 1: Pay with Binance (Scan/Click)</a>
         
-        <!-- পেমেন্ট সাবমিট ফরম -->
         <div id="orderFormWrapper">
             <div class="email-form">
                 <div>
@@ -527,7 +546,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
             </div>
         </div>
 
-        <!-- রিয়েল-টাইম পেন্ডিং/অ্যাপ্রুভড স্ট্যাটাস বক্স -->
         <div id="statusBox" class="status-container">
             <p id="statusText">Processing your order...</p>
             <div id="downloadButtonWrapper"></div>
@@ -542,7 +560,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </footer>
 
 <script>
-// Firebase কনফিগারেশন চাবি
 const firebaseConfig = {
   apiKey: "AIzaSyDTnaC48yboc4_9u7gSzrzDgAqnu-Fn6To",
   authDomain: "stock-db-3f41a.firebaseapp.com",
@@ -560,7 +577,6 @@ const appleOverlay = document.getElementById('appleOverlay');
 const closeAppleBtn = document.getElementById('closeApple');
 const popAssetId = document.getElementById('popAssetId');
 const popPrice = document.getElementById('popPrice');
-
 const orderFormWrapper = document.getElementById('orderFormWrapper');
 const statusBox = document.getElementById('statusBox');
 const statusText = document.getElementById('statusText');
@@ -583,25 +599,17 @@ async function loadCMSAssets() {
             const randomDownloads = Math.floor(Math.random() * 50) + 10;
             const card = document.createElement('div');
             card.className = 'card';
-            
-            let cleanType = (data.type || 'photo').toLowerCase();
-            if(cleanType === 'photos') cleanType = 'photo';
-            if(cleanType === 'vectors') cleanType = 'vector';
-            
-            card.setAttribute('data-type', cleanType);
-            card.setAttribute('data-status', data.status || 'new');
+            card.setAttribute('data-type', (data.type || 'photo').toLowerCase().replace('s',''));
             
             card.innerHTML = `
-                <div class="img-container">
-                    <img src="${data.image || data.url}" alt="${data.title || 'Premium Asset'}">
-                </div>
+                <div class="img-container"><img src="${data.image || data.url}"></div>
                 <div class="card-bottom">
                     <div class="card-info">
                         <div>
-                            <span class="card-title" style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${data.title || 'Untitled'}</span>
-                            <span class="download-count">⚡ <span class="count-num">${randomDownloads}</span> Downloads</span>
+                            <span style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${data.title || 'Untitled'}</span>
+                            <span class="download-count">⚡ <span>${randomDownloads}</span> Downloads</span>
                         </div>
-                        <span class="card-price">$${data.price || '1.50'}</span>
+                        <span>$${data.price || '1.50'}</span>
                     </div>
                     <div class="apple-btn-wrapper">
                         <button class="apple-btn type-buy-btn" data-docid="${doc.id}" data-img="${data.image || data.url}" data-price="$${data.price || '1.50'}" data-id="${data.title || 'Asset'}">Buy Asset</button>
@@ -610,131 +618,125 @@ async function loadCMSAssets() {
             `;
             assetGrid.appendChild(card);
         });
-
-        if(validAssetsCount === 0) {
-            assetGrid.innerHTML = '<div id="loadingMessage">No assets found!</div>';
-        } else {
-            setupPopupEvents();
-            scrollReveal();
-        }
-    } catch (error) {
-        console.error(error);
-    }
+        setupPopupEvents();
+        scrollReveal();
+    } catch (error) { console.error(error); }
 }
 
 function setupPopupEvents() {
     document.querySelectorAll('.type-buy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            // পপআপ খোলার সময় রিসেট করা
             orderFormWrapper.style.display = 'block';
-            statusBox.className = 'status-container';
             statusBox.style.display = 'none';
             downloadButtonWrapper.innerHTML = '';
-            
             selectedAssetDocId = btn.getAttribute('data-docid');
             selectedAssetImageUrl = btn.getAttribute('data-img');
-            
-            const price = btn.getAttribute('data-price');
-            const id = btn.getAttribute('data-id');
-            
-            popAssetId.innerText = "Order: " + id;
-            popPrice.innerText = price;
-            
+            popAssetId.innerText = "Order: " + btn.getAttribute('data-id');
+            popPrice.innerText = btn.getAttribute('data-price');
             appleOverlay.classList.add('active');
         });
     });
 }
 
-// অর্ডার সাবমিট বোতামের কাজ (ফায়ারবেসে পেন্ডিং হিসেবে জমা হবে)
+// অর্ডার সাবমিট করা
 document.getElementById('btnSubmitOrder').addEventListener('click', async () => {
     const email = document.getElementById('custEmail').value;
     const txid = document.getElementById('custTxID').value;
-    
-    if(!email || !txid) {
-        alert('Please fill in your Email and Payment TxID!');
-        return;
-    }
+    if(!email || !txid) { alert('Please fill in fields!'); return; }
     
     orderFormWrapper.style.display = 'none';
     statusBox.style.display = 'block';
     statusBox.className = 'status-container pending';
-    statusText.innerText = "⏳ Payment Pending... Admin is verifying your TxID. Please do not close this window.";
+    statusText.innerText = "⏳ Payment Pending... Admin is verifying your TxID.";
 
-    try {
-        // ফায়ারবেসে নতুন 'orders' কালেকশনে পেন্ডিং ডাটা পাঠানো হচ্ছে
-        const orderRef = await db.collection("orders").add({
-            assetId: selectedAssetDocId,
-            assetTitle: popAssetId.innerText,
-            customerEmail: email,
-            transactionId: txid,
-            price: popPrice.innerText,
-            status: "pending",
-            imageUrl: selectedAssetImageUrl,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
+    const orderRef = await db.collection("orders").add({
+        assetTitle: popAssetId.innerText.replace("Order: ", ""),
+        customerEmail: email,
+        transactionId: txid,
+        price: popPrice.innerText,
+        status: "pending",
+        imageUrl: selectedAssetImageUrl,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-        // লাইভ ট্র্যাকিং চালু: এডমিন ফায়ারবেসে স্ট্যাটাস চেঞ্জ করলেই কাস্টমার দেখতে পাবে
-        if(activeOrderListener) activeOrderListener(); // আগের লিসেনার বন্ধ করা
-        
-        activeOrderListener = db.collection("orders").doc(orderRef.id).onSnapshot((doc) => {
-            const orderData = doc.data();
-            if(orderData && orderData.status === 'approved') {
-                statusBox.className = 'status-container approved';
-                statusText.innerHTML = "✅ Payment Approved! Your premium asset is ready for download.";
-                
-                // ডাউনলোড বাটন তৈরি (ওয়াটারমার্ক ছাড়া অরিজিনাল ফাইল ডাউনলোড হবে)
-                downloadButtonWrapper.innerHTML = `
-                    <a href="${orderData.imageUrl}" download="2Stock_Asset.jpg" target="_blank" class="download-link-btn">📥 Download High-Res Image</a>
-                `;
-            }
-        });
-
-    } catch (err) {
-        console.error(err);
-        alert('Order Submission Failed. Try Again.');
-        orderFormWrapper.style.display = 'block';
-        statusBox.style.display = 'none';
-    }
-});
-
-closeAppleBtn.addEventListener('click', () => { 
-    appleOverlay.classList.remove('active'); 
     if(activeOrderListener) activeOrderListener();
-});
-
-// Filters & Scroll Reveal (আগের মতই আছে)
-const scrollReveal = () => {
-    document.querySelectorAll('.card').forEach(card => {
-        if (card.getBoundingClientRect().top < window.innerHeight - 50) { card.classList.add('reveal'); }
-    });
-};
-window.addEventListener('scroll', scrollReveal);
-
-const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
-const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
-const subFilterContainer = document.getElementById('subFilterContainer');
-let currentMainFilter = 'all';
-let currentSubFilter = 'all';
-
-mainButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        document.querySelector('.main-filter .filter-btn.active').classList.remove('active');
-        button.classList.add('active');
-        currentMainFilter = button.getAttribute('data-main');
-        if (currentMainFilter === 'all') { subFilterContainer.classList.remove('show'); } else { subFilterContainer.classList.add('show'); }
-        applyFilters();
+    activeOrderListener = db.collection("orders").doc(orderRef.id).onSnapshot((doc) => {
+        const orderData = doc.data();
+        if(orderData && orderData.status === 'approved') {
+            statusBox.className = 'status-container approved';
+            statusText.innerHTML = "✅ Payment Approved! Download ready:";
+            downloadButtonWrapper.innerHTML = `<a href="${orderData.imageUrl}" download class="download-link-btn">📥 Download Image</a>`;
+        }
     });
 });
 
-function applyFilters() {
-    document.querySelectorAll('.grid .card').forEach(card => {
-        let matchMain = (currentMainFilter === 'all' || currentMainFilter === card.getAttribute('data-type'));
-        if (matchMain) { card.classList.remove('hide'); setTimeout(() => card.classList.add('reveal'), 50); } 
-        else { card.classList.add('hide'); card.classList.remove('reveal'); }
+closeAppleBtn.addEventListener('click', () => { appleOverlay.classList.remove('active'); });
+
+// --- সিক্রেট ওয়ান-ক্লিক এডমিন প্যানেল লজিক ---
+const adminOrderRows = document.getElementById('adminOrderRows');
+function loadAdminDashboard() {
+    db.collection("orders").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+        adminOrderRows.innerHTML = '';
+        if(snapshot.empty) {
+            adminOrderRows.innerHTML = `<tr><td colspan="5" style="text-align:center;">No client orders placed yet.</td></tr>`;
+            return;
+        }
+        snapshot.forEach((doc) => {
+            const order = doc.data();
+            const tr = document.createElement('tr');
+            
+            let actionButton = `<button class="btn-approved">Approved ✅</button>`;
+            if(order.status === 'pending') {
+                actionButton = `<button class="btn-pending" onclick="instantApprove('${doc.id}')">Click to Approve 🔶</button>`;
+            }
+
+            tr.innerHTML = `
+                <td>${order.assetTitle || 'Premium Item'}</td>
+                <td>${order.customerEmail}</td>
+                <td><code style="background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:4px;">${order.transactionId}</code></td>
+                <td style="color:#10b981; font-weight:bold;">${order.price}</td>
+                <td>${actionButton}</td>
+            `;
+            adminOrderRows.appendChild(tr);
+        });
     });
 }
 
-window.addEventListener('load', loadCMSAssets);
+// এই ফাংশনটি বাটনে জাস্ট একটা ক্লিক করলেই ফায়ারবেস আপডেট করে দেবে!
+async function instantApprove(orderId) {
+    try {
+        await db.collection("orders").doc(orderId).update({ status: "approved" });
+    } catch (err) { alert("Error approving order"); }
+}
+
+// রাউটিং চেক (ইউআরএল এ #admin থাকলে এডমিন প্যানেল ওপেন হবে)
+function checkRoute() {
+    if(window.location.hash === '#admin') {
+        document.getElementById('customerPage').style.display = 'none';
+        document.getElementById('adminDashboardPage').style.display = 'block';
+        loadAdminDashboard();
+    } else {
+        document.getElementById('customerPage').style.display = 'block';
+        document.getElementById('adminDashboardPage').style.display = 'none';
+    }
+}
+window.addEventListener('hashchange', checkRoute);
+window.addEventListener('load', () => { loadCMSAssets(); checkRoute(); });
+
+// Filters Logic
+document.querySelectorAll('.main-filter .filter-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.main-filter .filter-btn.active').classList.remove('active');
+        button.classList.add('active');
+        const filter = button.getAttribute('data-main');
+        document.querySelectorAll('.grid .card').forEach(card => {
+            if(filter === 'all' || card.getAttribute('data-type') === filter) { card.classList.remove('hide'); card.classList.add('reveal'); }
+            else { card.classList.add('hide'); card.classList.remove('reveal'); }
+        });
+    });
+});
+const scrollReveal = () => { document.querySelectorAll('.card').forEach(c => { if(c.getBoundingClientRect().top < window.innerHeight) c.classList.add('reveal'); }); };
+window.addEventListener('scroll', scrollReveal);
 </script>
 
 </body>
