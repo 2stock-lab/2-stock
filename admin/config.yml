@@ -5,6 +5,10 @@ backend:
 media_folder: "images"
 public_folder: "/images"
 
+media_library:
+  config:
+    maxFileSize: 10000000
+
 collections:
   - name: "assets"
     label: "Assets"
