@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2 Stock - Apple Liquid Glass Email Edition</title>
+<title>2STOCK//</title>
 
 <style>
 *{
@@ -54,9 +54,20 @@ top: 0;
 z-index: 100;
 }
 
+.logo-container {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.logo-container img {
+height: 35px;
+object-fit: contain;
+}
+
 .logo-container h2 {
-font-size: 22px;
-font-weight: 700;
+font-size: 24px;
+font-weight: 800;
 letter-spacing: -0.5px;
 background: linear-gradient(135deg, #ffffff 50%, #f3ba2f 100%);
 -webkit-background-clip: text;
@@ -64,7 +75,7 @@ background: linear-gradient(135deg, #ffffff 50%, #f3ba2f 100%);
 }
 
 .hero{
-height:35vh;
+height:30vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -80,18 +91,11 @@ margin-bottom:10px;
 background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
-animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .hero-content p {
 color: #94a3b8;
 font-size: 16px;
-animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-@keyframes fadeInUp {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- Apple Filters --- */
@@ -155,6 +159,15 @@ grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
 gap:30px;
 }
 
+/* --- CMS Loading States --- */
+#loadingMessage {
+text-align: center;
+font-size: 18px;
+color: #94a3b8;
+grid-column: 1 / -1;
+padding: 40px;
+}
+
 /* --- Apple Reflective Glass Card --- */
 .card {
 background: rgba(255, 255, 255, 0.02);
@@ -168,7 +181,7 @@ display: flex;
 flex-direction: column;
 position: relative;
 opacity: 0;
-transform: translateY(40px);
+transform: translateY(20px);
 transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, border-color 0.3s ease;
 }
 
@@ -231,7 +244,6 @@ position: relative;
 overflow: hidden;
 }
 
-/* Download Stats Style */
 .download-count {
 font-size: 11px;
 color: #94a3b8;
@@ -247,7 +259,6 @@ align-items: center;
 transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease;
 }
 
-/* --- Apple Premium Hidden Button Container --- */
 .apple-btn-wrapper {
 position: absolute;
 bottom: -60px;
@@ -257,7 +268,6 @@ opacity: 0;
 transition: bottom 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
 }
 
-/* --- Apple Liquid Glassmorphism Button Style --- */
 .apple-btn {
 width: 100%;
 background: rgba(255, 255, 255, 0.08);
@@ -270,19 +280,15 @@ border-radius: 14px;
 cursor: pointer;
 backdrop-filter: blur(25px) saturate(180%);
 -webkit-backdrop-filter: blur(25px) saturate(180%);
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2);
 transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .apple-btn:hover {
 background: rgba(255, 255, 255, 0.2);
 border-color: rgba(255, 255, 255, 0.4);
-box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.4);
 transform: scale(1.02);
 }
 
-/* Hover States to Reveal Button */
 .card:hover .card-info {
 transform: translateY(-12px);
 opacity: 0.15;
@@ -293,7 +299,7 @@ bottom: 16px;
 opacity: 1;
 }
 
-/* --- Apple Form & Popup --- */
+/* --- Apple Popup --- */
 .apple-overlay {
 position: fixed;
 top: 0;
@@ -325,7 +331,6 @@ border-radius: 28px;
 text-align: center;
 max-width: 440px;
 width: 90%;
-box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
 transform: scale(0.9);
 transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -339,7 +344,6 @@ font-size: 30px;
 font-weight: 700;
 color: #fff;
 margin: 10px 0;
-letter-spacing: -0.5px;
 }
 
 .binance-badge {
@@ -367,12 +371,8 @@ font-size: 14px;
 background: #f3ba2f;
 color: #000;
 margin-bottom: 15px;
-transition: transform 0.2s;
 }
 
-.gateway-link:hover { transform: translateY(-2px); }
-
-/* --- Email Submission Form Fields --- */
 .email-form {
 display: flex;
 flex-direction: column;
@@ -385,7 +385,6 @@ padding-top: 15px;
 .email-form label {
 font-size: 12px;
 color: #94a3b8;
-font-weight: 500;
 }
 
 .email-form input, .email-form textarea {
@@ -394,13 +393,8 @@ border: 1px solid rgba(255, 255, 255, 0.1);
 border-radius: 10px;
 padding: 10px;
 color: white;
-font-size: 13px;
-outline: none;
 width: 100%;
-}
-
-.email-form input:focus, .email-form textarea:focus {
-border-color: rgba(255, 255, 255, 0.3);
+outline: none;
 }
 
 .submit-btn {
@@ -412,10 +406,8 @@ font-size: 14px;
 font-weight: 600;
 border-radius: 12px;
 cursor: pointer;
-transition: background 0.2s;
 margin-top: 5px;
 }
-.submit-btn:hover { background: rgba(255,255,255,0.9); }
 
 .close-apple {
 margin-top: 15px;
@@ -442,7 +434,8 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 
 <nav>
 <div class="logo-container">
-    <h2>2STOCK // <span style="font-size:11px; color:#f3ba2f; font-weight:normal; letter-spacing:1px;">SECURE CHECKOUT</span></h2>
+    <img src="logo.png" alt="2STOCK">
+    <h2>2STOCK</h2>
 </div>
 </nav>
 
@@ -453,7 +446,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </div>
 </section>
 
-<!-- Filters -->
 <div class="filter-wrapper">
     <div class="main-filter">
         <button class="filter-btn active" data-main="all">All Assets</button>
@@ -468,165 +460,21 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
     </div>
 </div>
 
-<!-- Gallery Grid -->
 <div class="gallery">
-<div class="grid">
-    <!-- ১ থেকে ১০ এসেট -->
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo1.png" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Normal Photo 01</span>
-                    <span class="download-count">⚡ <span class="count-num">48</span> Downloads</span>
-                </div>
-                <span class="card-price">$1.50</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #01">Buy Asset</button></div>
-        </div>
-    </div>
-    
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo2.jpg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Normal Photo 02</span>
-                    <span class="download-count">⚡ <span class="count-num">32</span> Downloads</span>
-                </div>
-                <span class="card-price">$1.50</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #02">Buy Asset</button></div>
-        </div>
-    </div>
-
-    <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo3.jpg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Premium Photo 03</span>
-                    <span class="download-count">⚡ <span class="count-num">189</span> Downloads</span>
-                </div>
-                <span class="card-price">$2.00</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #03">Buy Asset</button></div>
-        </div>
-    </div>
-
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo4.jpeg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Normal Photo 04</span>
-                    <span class="download-count">⚡ <span class="count-num">51</span> Downloads</span>
-                </div>
-                <span class="card-price">$1.50</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #04">Buy Asset</button></div>
-        </div>
-    </div>
-
-    <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo5.jpg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Premium Photo 05</span>
-                    <span class="download-count">⚡ <span class="count-num">240</span> Downloads</span>
-                </div>
-                <span class="card-price">$2.00</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #05">Buy Asset</button></div>
-        </div>
-    </div>
-
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo6.jpg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Normal Photo 06</span>
-                    <span class="download-count">⚡ <span class="count-num">19</span> Downloads</span>
-                </div>
-                <span class="card-price">$1.50</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #06">Buy Asset</button></div>
-        </div>
-    </div>
-
-    <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo7.jpg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Premium Photo 07</span>
-                    <span class="download-count">⚡ <span class="count-num">312</span> Downloads</span>
-                </div>
-                <span class="card-price">$2.00</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #07">Buy Asset</button></div>
-        </div>
-    </div>
-
-    <div class="card" data-type="photo" data-status="popular">
-        <div class="img-container"><img src="photo8.jpg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Premium Photo 08</span>
-                    <span class="download-count">⚡ <span class="count-num">156</span> Downloads</span>
-                </div>
-                <span class="card-price">$2.00</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Photo #08">Buy Asset</button></div>
-        </div>
-    </div>
-
-    <div class="card" data-type="photo" data-status="new">
-        <div class="img-container"><img src="photo9.jpg" alt="Stock Asset"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">Normal Photo 09</span>
-                    <span class="download-count">⚡ <span class="count-num">43</span> Downloads</span>
-                </div>
-                <span class="card-price">$1.50</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$1.50 / ৳১৮০" data-id="Photo #09">Buy Asset</button></div>
-        </div>
-    </div>
-    
-    <div class="card" data-type="vector" data-status="popular">
-        <div class="img-container"><img src="photo10.jpg" alt="Vector Art"></div>
-        <div class="card-bottom">
-            <div class="card-info">
-                <div>
-                    <span class="card-title">HQ Vector Track 10</span>
-                    <span class="download-count">⚡ <span class="count-num">425</span> Downloads</span>
-                </div>
-                <span class="card-price">$2.00</span>
-            </div>
-            <div class="apple-btn-wrapper"><button class="apple-btn open-apple-popup" data-price="$2.00 / ৳২৪০" data-id="Vector #10">Buy Asset</button></div>
-        </div>
+    <div class="grid" id="assetGrid">
+        <div id="loadingMessage">Loading Premium Assets from CMS...</div>
     </div>
 </div>
-</div>
 
-<!-- --- Apple Premium Form Submission Popup --- -->
 <div class="apple-overlay" id="appleOverlay">
     <div class="apple-popup-box">
         <h3 id="popAssetId">License Asset</h3>
         <div class="global-price-tag" id="popPrice">$1.50</div>
         <div class="binance-badge">⚡ Binance Pay ID: 1068503860 (Parvez24)</div>
         
-        <!-- Step 1: Pay -->
         <a href="2.jpeg" target="_blank" class="gateway-link" id="payGateBtn">🔶 Step 1: Pay with Binance (Scan/Click)</a>
         
-        <!-- Step 2: Form Submission to pshemul1@gmail.com -->
         <form action="https://formspree.io/f/mqkrpypo" method="POST" class="email-form">
-            <!-- Hidden Fields -->
             <input type="hidden" name="_replyto" value="pshemul1@gmail.com">
             <input type="hidden" name="Asset ID" id="hiddenAssetId">
             <input type="hidden" name="Price" id="hiddenPrice">
@@ -651,8 +499,12 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </footer>
 
 <script>
+// 🔥 পারভেজ ভাই, এখানে আপনার সঠিক GitHub ঠিকানা অটোমেটিক সেট করে দিয়েছি:
+const GITHUB_USER = "2stock-lab"; 
+const GITHUB_REPO = "2-stock";       
+
+const assetGrid = document.getElementById('assetGrid');
 const appleOverlay = document.getElementById('appleOverlay');
-const openPopupBtns = document.querySelectorAll('.open-apple-popup');
 const closeAppleBtn = document.getElementById('closeApple');
 const popAssetId = document.getElementById('popAssetId');
 const popPrice = document.getElementById('popPrice');
@@ -660,21 +512,99 @@ const hiddenAssetId = document.getElementById('hiddenAssetId');
 const hiddenPrice = document.getElementById('hiddenPrice');
 let activeCounterNode = null;
 
-openPopupBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const price = btn.getAttribute('data-price');
-        const id = btn.getAttribute('data-id');
-        
-        popAssetId.innerText = "Order: " + id;
-        popPrice.innerText = price;
-        
-        hiddenAssetId.value = id;
-        hiddenPrice.value = price;
-        
-        activeCounterNode = btn.closest('.card-bottom').querySelector('.count-num');
-        appleOverlay.classList.add('active');
+// সহজ ফ্রন্ট-ম্যাটার/মার্কডাউন পার্সার
+function parseMarkdown(text) {
+    const obj = {};
+    const lines = text.split('\n');
+    lines.forEach(line => {
+        const match = line.match(/^([a-zA-Z_]+)\s*:\s*(.*)$/);
+        if (match) {
+            let key = match[1].trim();
+            let value = match[2].trim().replace(/^["']|["']$/g, ''); 
+            obj[key] = value;
+        }
     });
-});
+    return obj;
+}
+
+// GitHub API থেকে ডেটা লোড করার ডাইনামিক ফাংশন
+async function loadCMSAssets() {
+    try {
+        const url = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/assets`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Assets could not be fetched.");
+        
+        const files = await response.json();
+        assetGrid.innerHTML = ''; 
+
+        let validAssetsCount = 0;
+
+        for (let file of files) {
+            if (file.name.endsWith('.md')) {
+                const fileRes = await fetch(file.download_url);
+                const fileText = await fileRes.text();
+                const data = parseMarkdown(fileText);
+                
+                if (data.title && data.image) {
+                    validAssetsCount++;
+                    const randomDownloads = Math.floor(Math.random() * 50) + 10;
+                    
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.setAttribute('data-type', data.type || 'photo');
+                    card.setAttribute('data-status', data.status || 'new');
+                    
+                    card.innerHTML = `
+                        <div class="img-container"><img src="${data.image}" alt="${data.title}"></div>
+                        <div class="card-bottom">
+                            <div class="card-info">
+                                <div>
+                                    <span class="card-title">${data.title}</span>
+                                    <span class="download-count">⚡ <span class="count-num">${randomDownloads}</span> Downloads</span>
+                                </div>
+                                <span class="card-price">${data.price || '$1.50'}</span>
+                            </div>
+                            <div class="apple-btn-wrapper">
+                                <button class="apple-btn type-buy-btn" data-price="${data.price || '$1.50'}" data-id="${data.title}">Buy Asset</button>
+                            </div>
+                        </div>
+                    `;
+                    assetGrid.appendChild(card);
+                }
+            }
+        }
+
+        if(validAssetsCount === 0) {
+            assetGrid.innerHTML = '<div id="loadingMessage">No assets found! Upload from CMS first.</div>';
+        } else {
+            setupPopupEvents();
+            scrollReveal();
+        }
+
+    } catch (error) {
+        console.error(error);
+        assetGrid.innerHTML = '<div id="loadingMessage" style="color: #ef4444;">Error loading assets from GitHub. Please check config.</div>';
+    }
+}
+
+function setupPopupEvents() {
+    const openPopupBtns = document.querySelectorAll('.type-buy-btn');
+    openPopupBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const price = btn.getAttribute('data-price');
+            const id = btn.getAttribute('data-id');
+            
+            popAssetId.innerText = "Order: " + id;
+            popPrice.innerText = price;
+            
+            hiddenAssetId.value = id;
+            hiddenPrice.value = price;
+            
+            activeCounterNode = btn.closest('.card-bottom').querySelector('.count-num');
+            appleOverlay.classList.add('active');
+        });
+    });
+}
 
 document.getElementById('payGateBtn').addEventListener('click', () => {
     if(activeCounterNode) {
@@ -696,13 +626,11 @@ const scrollReveal = () => {
     });
 };
 window.addEventListener('scroll', scrollReveal);
-window.addEventListener('load', scrollReveal);
 
-// Filters
+// Filters Logic
 const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
 const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
 const subFilterContainer = document.getElementById('subFilterContainer');
-const filterableCards = document.querySelectorAll('.grid .card');
 
 let currentMainFilter = 'all';
 let currentSubFilter = 'all';
@@ -713,7 +641,8 @@ mainButtons.forEach(button => {
         button.classList.add('active');
         currentMainFilter = button.getAttribute('data-main');
         
-        document.querySelector('.sub-filter .sub-btn.active').classList.remove('active');
+        const activeSub = document.querySelector('.sub-filter .sub-btn.active');
+        if(activeSub) activeSub.classList.remove('active');
         subButtons[0].classList.add('active');
         currentSubFilter = 'all';
 
@@ -733,6 +662,7 @@ subButtons.forEach(button => {
 });
 
 function applyFilters() {
+    const filterableCards = document.querySelectorAll('.grid .card');
     filterableCards.forEach(card => {
         let cardType = card.getAttribute('data-type');
         let cardStatus = card.getAttribute('data-status');
@@ -748,6 +678,8 @@ function applyFilters() {
         }
     });
 }
+
+window.addEventListener('load', loadCMSAssets);
 </script>
 
 </body>
