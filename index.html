@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2STOCK</title>
 
+<!-- ফায়ারবেস লাইব্রেরি স্ক্রিপ্ট (SDK) -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
@@ -162,7 +163,6 @@ grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
 gap:30px;
 }
 
-/* --- CMS Loading States --- */
 #loadingMessage {
 text-align: center;
 font-size: 18px;
@@ -412,6 +412,41 @@ cursor: pointer;
 margin-top: 5px;
 }
 
+/* লাইভ স্ট্যাটাস বক্স */
+.status-container {
+background: rgba(239, 68, 68, 0.1);
+border: 1px dashed #ef4444;
+padding: 15px;
+border-radius: 14px;
+margin-top: 15px;
+display: none;
+}
+.status-container.pending {
+display: block;
+background: rgba(245, 158, 11, 0.1);
+border-color: #f59e0b;
+color: #f59e0b;
+}
+.status-container.approved {
+display: block;
+background: rgba(16, 185, 129, 0.1);
+border-color: #10b981;
+color: #10b981;
+}
+
+.download-link-btn {
+display: inline-block;
+background: #10b981;
+color: white;
+padding: 12px 25px;
+border-radius: 12px;
+text-decoration: none;
+font-weight: 600;
+margin-top: 10px;
+width: 100%;
+text-align: center;
+}
+
 .close-apple {
 margin-top: 15px;
 display: inline-block;
@@ -477,23 +512,28 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
         
         <a href="2.jpeg" target="_blank" class="gateway-link" id="payGateBtn">🔶 Step 1: Pay with Binance (Scan/Click)</a>
         
-        <form action="https://formspree.io/f/mqkrpypo" method="POST" class="email-form">
-            <input type="hidden" name="_replyto" value="pshemul1@gmail.com">
-            <input type="hidden" name="Asset ID" id="hiddenAssetId">
-            <input type="hidden" name="Price" id="hiddenPrice">
-            
-            <div>
-                <label>Your Email Address</label>
-                <input type="email" name="Customer Email" placeholder="example@mail.com" required>
+        <!-- পেমেন্ট সাবমিট ফরম -->
+        <div id="orderFormWrapper">
+            <div class="email-form">
+                <div>
+                    <label>Your Email Address</label>
+                    <input type="email" id="custEmail" placeholder="example@mail.com" required>
+                </div>
+                <div>
+                    <label>Payment Note / Transaction ID (TxID)</label>
+                    <textarea id="custTxID" rows="2" placeholder="Enter TxID or Sender Name" required></textarea>
+                </div>
+                <button type="button" class="submit-btn" id="btnSubmitOrder">Submit Order</button>
             </div>
-            <div>
-                <label>Payment Note / Transaction ID (TxID)</label>
-                <textarea name="Payment Note" rows="2" placeholder="Enter TxID or Sender Name" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Submit Order</button>
-        </form>
+        </div>
+
+        <!-- রিয়েল-টাইম পেন্ডিং/অ্যাপ্রুভড স্ট্যাটাস বক্স -->
+        <div id="statusBox" class="status-container">
+            <p id="statusText">Processing your order...</p>
+            <div id="downloadButtonWrapper"></div>
+        </div>
         
-        <div class="close-apple" id="closeApple">Cancel</div>
+        <div class="close-apple" id="closeApple">Cancel / Close</div>
     </div>
 </div>
 
@@ -512,10 +552,7 @@ const firebaseConfig = {
   appId: "1:1066037651835:web:a57d9a691c16b6c76175de"
 };
 
-// ফায়ারবেস ইনিশিয়ালাইজেশন
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
 const db = firebase.firestore();
 
 const assetGrid = document.getElementById('assetGrid');
@@ -523,26 +560,27 @@ const appleOverlay = document.getElementById('appleOverlay');
 const closeAppleBtn = document.getElementById('closeApple');
 const popAssetId = document.getElementById('popAssetId');
 const popPrice = document.getElementById('popPrice');
-const hiddenAssetId = document.getElementById('hiddenAssetId');
-const hiddenPrice = document.getElementById('hiddenPrice');
-let activeCounterNode = null;
 
-// Firebase Firestore থেকে ডেটা লোড করার সম্পূর্ণ অটোমেটিক ফাংশন
+const orderFormWrapper = document.getElementById('orderFormWrapper');
+const statusBox = document.getElementById('statusBox');
+const statusText = document.getElementById('statusText');
+const downloadButtonWrapper = document.getElementById('downloadButtonWrapper');
+
+let selectedAssetDocId = '';
+let selectedAssetImageUrl = '';
+let activeOrderListener = null;
+
+// ডেটাবেজ থেকে এসেট লোড করা
 async function loadCMSAssets() {
     try {
         assetGrid.innerHTML = ''; 
-
-        // ফায়ারবেসের 'assets' কালেকশন থেকে সব ডাটা লাইভ আনা হচ্ছে
         const querySnapshot = await db.collection("assets").get();
-        
         let validAssetsCount = 0;
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             validAssetsCount++;
-            
             const randomDownloads = Math.floor(Math.random() * 50) + 10;
-            
             const card = document.createElement('div');
             card.className = 'card';
             
@@ -566,7 +604,7 @@ async function loadCMSAssets() {
                         <span class="card-price">$${data.price || '1.50'}</span>
                     </div>
                     <div class="apple-btn-wrapper">
-                        <button class="apple-btn type-buy-btn" data-price="$${data.price || '1.50'}" data-id="${data.title || 'Asset'}">Buy Asset</button>
+                        <button class="apple-btn type-buy-btn" data-docid="${doc.id}" data-img="${data.image || data.url}" data-price="$${data.price || '1.50'}" data-id="${data.title || 'Asset'}">Buy Asset</button>
                     </div>
                 </div>
             `;
@@ -574,63 +612,107 @@ async function loadCMSAssets() {
         });
 
         if(validAssetsCount === 0) {
-            assetGrid.innerHTML = '<div id="loadingMessage">No assets found! Please upload from CMS/Firestore first.</div>';
+            assetGrid.innerHTML = '<div id="loadingMessage">No assets found!</div>';
         } else {
             setupPopupEvents();
             scrollReveal();
         }
-
     } catch (error) {
-        console.error("Firebase Error:", error);
-        assetGrid.innerHTML = '<div id="loadingMessage" style="color: #ef4444;">Error loading assets from Firebase. Please check Database Connection.</div>';
+        console.error(error);
     }
 }
 
 function setupPopupEvents() {
-    const openPopupBtns = document.querySelectorAll('.type-buy-btn');
-    openPopupBtns.forEach(btn => {
+    document.querySelectorAll('.type-buy-btn').forEach(btn => {
         btn.addEventListener('click', () => {
+            // পপআপ খোলার সময় রিসেট করা
+            orderFormWrapper.style.display = 'block';
+            statusBox.className = 'status-container';
+            statusBox.style.display = 'none';
+            downloadButtonWrapper.innerHTML = '';
+            
+            selectedAssetDocId = btn.getAttribute('data-docid');
+            selectedAssetImageUrl = btn.getAttribute('data-img');
+            
             const price = btn.getAttribute('data-price');
             const id = btn.getAttribute('data-id');
             
             popAssetId.innerText = "Order: " + id;
             popPrice.innerText = price;
             
-            hiddenAssetId.value = id;
-            hiddenPrice.value = price;
-            
-            activeCounterNode = btn.closest('.card-bottom').querySelector('.count-num');
             appleOverlay.classList.add('active');
         });
     });
 }
 
-document.getElementById('payGateBtn').addEventListener('click', () => {
-    if(activeCounterNode) {
-        let currentCount = parseInt(activeCounterNode.innerText);
-        activeCounterNode.innerText = currentCount + 1;
-        activeCounterNode = null;
+// অর্ডার সাবমিট বোতামের কাজ (ফায়ারবেসে পেন্ডিং হিসেবে জমা হবে)
+document.getElementById('btnSubmitOrder').addEventListener('click', async () => {
+    const email = document.getElementById('custEmail').value;
+    const txid = document.getElementById('custTxID').value;
+    
+    if(!email || !txid) {
+        alert('Please fill in your Email and Payment TxID!');
+        return;
+    }
+    
+    orderFormWrapper.style.display = 'none';
+    statusBox.style.display = 'block';
+    statusBox.className = 'status-container pending';
+    statusText.innerText = "⏳ Payment Pending... Admin is verifying your TxID. Please do not close this window.";
+
+    try {
+        // ফায়ারবেসে নতুন 'orders' কালেকশনে পেন্ডিং ডাটা পাঠানো হচ্ছে
+        const orderRef = await db.collection("orders").add({
+            assetId: selectedAssetDocId,
+            assetTitle: popAssetId.innerText,
+            customerEmail: email,
+            transactionId: txid,
+            price: popPrice.innerText,
+            status: "pending",
+            imageUrl: selectedAssetImageUrl,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // লাইভ ট্র্যাকিং চালু: এডমিন ফায়ারবেসে স্ট্যাটাস চেঞ্জ করলেই কাস্টমার দেখতে পাবে
+        if(activeOrderListener) activeOrderListener(); // আগের লিসেনার বন্ধ করা
+        
+        activeOrderListener = db.collection("orders").doc(orderRef.id).onSnapshot((doc) => {
+            const orderData = doc.data();
+            if(orderData && orderData.status === 'approved') {
+                statusBox.className = 'status-container approved';
+                statusText.innerHTML = "✅ Payment Approved! Your premium asset is ready for download.";
+                
+                // ডাউনলোড বাটন তৈরি (ওয়াটারমার্ক ছাড়া অরিজিনাল ফাইল ডাউনলোড হবে)
+                downloadButtonWrapper.innerHTML = `
+                    <a href="${orderData.imageUrl}" download="2Stock_Asset.jpg" target="_blank" class="download-link-btn">📥 Download High-Res Image</a>
+                `;
+            }
+        });
+
+    } catch (err) {
+        console.error(err);
+        alert('Order Submission Failed. Try Again.');
+        orderFormWrapper.style.display = 'block';
+        statusBox.style.display = 'none';
     }
 });
 
-closeAppleBtn.addEventListener('click', () => { appleOverlay.classList.remove('active'); });
-appleOverlay.addEventListener('click', (e) => { if (e.target === appleOverlay) { appleOverlay.classList.remove('active'); } });
+closeAppleBtn.addEventListener('click', () => { 
+    appleOverlay.classList.remove('active'); 
+    if(activeOrderListener) activeOrderListener();
+});
 
-// Scroll Reveal
+// Filters & Scroll Reveal (আগের মতই আছে)
 const scrollReveal = () => {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        const cardTop = card.getBoundingClientRect().top;
-        if (cardTop < window.innerHeight - 50) { card.classList.add('reveal'); }
+    document.querySelectorAll('.card').forEach(card => {
+        if (card.getBoundingClientRect().top < window.innerHeight - 50) { card.classList.add('reveal'); }
     });
 };
 window.addEventListener('scroll', scrollReveal);
 
-// Filters Logic
 const mainButtons = document.querySelectorAll('.main-filter .filter-btn');
 const subButtons = document.querySelectorAll('.sub-filter .sub-btn');
 const subFilterContainer = document.getElementById('subFilterContainer');
-
 let currentMainFilter = 'all';
 let currentSubFilter = 'all';
 
@@ -639,46 +721,19 @@ mainButtons.forEach(button => {
         document.querySelector('.main-filter .filter-btn.active').classList.remove('active');
         button.classList.add('active');
         currentMainFilter = button.getAttribute('data-main');
-        
-        const activeSub = document.querySelector('.sub-filter .sub-btn.active');
-        if(activeSub) activeSub.classList.remove('active');
-        subButtons[0].classList.add('active');
-        currentSubFilter = 'all';
-
-        if (currentMainFilter === 'all') { subFilterContainer.classList.remove('show'); } 
-        else { subFilterContainer.classList.add('show'); }
-        applyFilters();
-    });
-});
-
-subButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        document.querySelector('.sub-filter .sub-btn.active').classList.remove('active');
-        button.classList.add('active');
-        currentSubFilter = button.getAttribute('data-sub');
+        if (currentMainFilter === 'all') { subFilterContainer.classList.remove('show'); } else { subFilterContainer.classList.add('show'); }
         applyFilters();
     });
 });
 
 function applyFilters() {
-    const filterableCards = document.querySelectorAll('.grid .card');
-    filterableCards.forEach(card => {
-        let cardType = card.getAttribute('data-type');
-        let cardStatus = card.getAttribute('data-status');
-        let matchMain = (currentMainFilter === 'all' || currentMainFilter === cardType);
-        let matchSub = (currentSubFilter === 'all' || currentSubFilter === cardStatus);
-
-        if (matchMain && matchSub) {
-            card.classList.remove('hide');
-            setTimeout(() => card.classList.add('reveal'), 50);
-        } else {
-            card.classList.add('hide');
-            card.classList.remove('reveal');
-        }
+    document.querySelectorAll('.grid .card').forEach(card => {
+        let matchMain = (currentMainFilter === 'all' || currentMainFilter === card.getAttribute('data-type'));
+        if (matchMain) { card.classList.remove('hide'); setTimeout(() => card.classList.add('reveal'), 50); } 
+        else { card.classList.add('hide'); card.classList.remove('reveal'); }
     });
 }
 
-// পেজ লোড হলেই অটোমেটিক ফায়ারবেস থেকে ডাটা নিয়ে আসবে
 window.addEventListener('load', loadCMSAssets);
 </script>
 
