@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2STOCK//</title>
+<title>2STOCK</title>
 
 <style>
 *{
@@ -499,7 +499,6 @@ border-top: 1px solid rgba(255, 255, 255, 0.05);
 </footer>
 
 <script>
-// 🔥 পারভেজ ভাই, এখানে আপনার সঠিক GitHub ঠিকানা অটোমেটিক সেট করে দিয়েছি:
 const GITHUB_USER = "2stock-lab"; 
 const GITHUB_REPO = "2-stock";       
 
@@ -519,7 +518,7 @@ function parseMarkdown(text) {
     lines.forEach(line => {
         const match = line.match(/^([a-zA-Z_]+)\s*:\s*(.*)$/);
         if (match) {
-            let key = match[1].trim();
+            let key = match[1].trim().toLowerCase();
             let value = match[2].trim().replace(/^["']|["']$/g, ''); 
             obj[key] = value;
         }
@@ -549,17 +548,26 @@ async function loadCMSAssets() {
                     validAssetsCount++;
                     const randomDownloads = Math.floor(Math.random() * 50) + 10;
                     
+                    // 🛠️ ইমেজ পাথ ফিক্সিং লজিক (যা ইমেজ ফোল্ডার থেকে সঠিক র গিটহাব লিংক তৈরি করবে)
+                    let cleanImagePath = data.image;
+                    if (cleanImagePath.startsWith('/')) {
+                        cleanImagePath = cleanImagePath.substring(1);
+                    }
+                    if (!cleanImagePath.startsWith('http')) {
+                        cleanImagePath = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/main/${cleanImagePath}`;
+                    }
+                    
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.setAttribute('data-type', data.type || 'photo');
                     card.setAttribute('data-status', data.status || 'new');
                     
                     card.innerHTML = `
-                        <div class="img-container"><img src="${data.image}" alt="${data.title}"></div>
+                        <div class="img-container"><img src="${cleanImagePath}" alt="${data.title}"></div>
                         <div class="card-bottom">
                             <div class="card-info">
                                 <div>
-                                    <span class="card-title">${data.title}</span>
+                                    <span class="card-title" style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${data.title}</span>
                                     <span class="download-count">⚡ <span class="count-num">${randomDownloads}</span> Downloads</span>
                                 </div>
                                 <span class="card-price">${data.price || '$1.50'}</span>
