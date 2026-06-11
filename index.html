@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2STOCK</title>
 
-<!-- ফায়ারবেস স্ক্রিপ্ট কানেকশন (SDK) -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
@@ -542,13 +541,11 @@ async function loadCMSAssets() {
             const data = doc.data();
             validAssetsCount++;
             
-            // ডাউনলোড কাউন্টের জন্য একটি র‍্যান্ডম নাম্বার জেনারেট
             const randomDownloads = Math.floor(Math.random() * 50) + 10;
             
             const card = document.createElement('div');
             card.className = 'card';
             
-            // ফিল্টারিং এর সুবিধার্থে ক্যাটাগরি এবং স্ট্যাটাস সেট করা
             let cleanType = (data.type || 'photo').toLowerCase();
             if(cleanType === 'photos') cleanType = 'photo';
             if(cleanType === 'vectors') cleanType = 'vector';
@@ -558,7 +555,7 @@ async function loadCMSAssets() {
             
             card.innerHTML = `
                 <div class="img-container">
-                    <img src="${data.url || data.image}" alt="${data.title || 'Premium Asset'}">
+                    <img src="${data.image || data.url}" alt="${data.title || 'Premium Asset'}">
                 </div>
                 <div class="card-bottom">
                     <div class="card-info">
