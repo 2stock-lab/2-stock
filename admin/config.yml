@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: 2stock-lab/2-stock
   branch: main
 
 media_folder: "images"
@@ -17,5 +18,11 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Image", name: "image", widget: "image" }
       - { label: "Price", name: "price", widget: "string" }
-      - { label: "Type", name: "type", widget: "select", options: ["photo", "vector", "video"] }
-      - { label: "Status", name: "status", widget: "select", options: ["new", "popular"] }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["photo", "vector", "video"]
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["new", "popular"]
