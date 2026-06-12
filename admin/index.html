@@ -4,39 +4,32 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2 Stock CMS</title>
-    <!-- Decap CMS Script -->
+    <!-- CMS স্ক্রিপ্ট -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
   <body>
-    <!-- CMS will load here -->
     <script>
-      // এই স্ক্রিপ্টটি নিশ্চিত করবে যে CMS আপনার config.yml ফাইলটি খুঁজে পায়
-      window.CMS_MANUAL_INIT = true;
-      CMS.init({
-        config: {
-          backend: {
-            name: "github",
-            repo: "2stock-lab/2-stock",
-            branch: "main",
-          },
-          media_folder: "public/images",
-          public_folder: "/images",
-          collections: [
-            {
-              name: "blog",
-              label: "Blog",
-              folder: "content/blog",
-              create: true,
-              slug: "{{year}}-{{month}}-{{day}}-{{slug}}",
-              fields: [
-                { label: "Title", name: "title", widget: "string" },
-                { label: "Publish Date", name: "date", widget: "datetime" },
-                { label: "Body", name: "body", widget: "markdown" },
-              ],
-            },
-          ],
+      // গিটহাব অথেন্টিকেশনের জন্য কনফিগারেশন
+      window.CMS_CONFIG = {
+        backend: {
+          name: "github",
+          repo: "2stock-lab/2-stock",
+          branch: "main"
         },
-      });
+        collections: [
+          {
+            name: "blog",
+            label: "Blog",
+            folder: "content/blog",
+            create: true,
+            fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Body", name: "body", widget: "markdown" }
+            ]
+          }
+        ]
+      };
+      CMS.init({ config: window.CMS_CONFIG });
     </script>
   </body>
 </html>
