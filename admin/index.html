@@ -4,8 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2 Stock CMS</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      // কনফিগারেশন ফাইলের পাথ নির্দিষ্ট করে দেওয়া
+      CMS.init({
+        config: {
+          load_config_file: true,
+          config_path: "admin/config.yml" 
+        }
+      });
+    </script>
   </body>
 </html>
