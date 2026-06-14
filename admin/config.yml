@@ -2,8 +2,6 @@ backend:
   name: github
   repo: 2stock-lab/2-stock
   branch: main
-  auth_endpoint: https://github.com/login/oauth/authorize
-  client_id: Ov23liesDrsM1IcSFHRg
 
 media_folder: "public/images"
 public_folder: "/images"
