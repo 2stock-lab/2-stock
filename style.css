@@ -1,0 +1,285 @@
+/* =========================
+2STOCK PREMIUM STYLE.CSS
+========================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body{
+background:#060713;
+color:#fff;
+overflow-x:hidden;
+}
+
+/* =========================
+AURORA BACKGROUND
+========================= */
+
+.bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-10;
+
+background:
+radial-gradient(circle at 20% 20%, #4f46e5, transparent 40%),
+radial-gradient(circle at 80% 30%, #06b6d4, transparent 45%),
+radial-gradient(circle at 50% 80%, #9333ea, transparent 40%),
+#060713;
+
+animation: bgMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes bgMove{
+0%{ filter:hue-rotate(0deg) blur(0px); }
+100%{ filter:hue-rotate(25deg) blur(2px); }
+}
+
+/* =========================
+NAVBAR GLASS
+========================= */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 8%;
+
+position:sticky;
+top:0;
+z-index:100;
+
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo-container{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-container img{
+height:35px;
+}
+
+.logo-container h2{
+font-size:22px;
+letter-spacing:1px;
+background:linear-gradient(90deg,#fff,#fbbf24);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* =========================
+HERO SECTION
+========================= */
+
+.hero{
+height:40vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{
+font-size:42px;
+font-weight:700;
+background:linear-gradient(180deg,#fff,#94a3b8);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+color:#94a3b8;
+margin-top:10px;
+}
+
+/* =========================
+FILTER BUTTONS
+========================= */
+
+.filter-wrapper{
+text-align:center;
+margin:20px 0;
+}
+
+.filter-btn{
+padding:10px 18px;
+margin:5px;
+border:none;
+border-radius:20px;
+background:rgba(255,255,255,0.05);
+color:#fff;
+cursor:pointer;
+transition:0.3s;
+backdrop-filter:blur(10px);
+}
+
+.filter-btn:hover{
+transform:translateY(-2px);
+background:rgba(255,255,255,0.12);
+}
+
+.filter-btn.active{
+background:#fbbf24;
+color:#000;
+}
+
+/* =========================
+GALLERY GRID
+========================= */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:25px;
+padding:30px 8%;
+}
+
+/* =========================
+GLASS CARD
+========================= */
+
+.card{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+border-radius:20px;
+overflow:hidden;
+transition:0.4s;
+position:relative;
+}
+
+.card:hover{
+transform:translateY(-8px) scale(1.02);
+border-color:rgba(255,255,255,0.2);
+}
+
+.img-container{
+height:220px;
+overflow:hidden;
+position:relative;
+}
+
+.img-container img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:0.5s;
+}
+
+.card:hover img{
+transform:scale(1.1);
+}
+
+/* watermark */
+.img-container::after{
+content:"2STOCK";
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) rotate(-20deg);
+font-size:20px;
+opacity:0.15;
+letter-spacing:5px;
+}
+
+/* bottom */
+.card-bottom{
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.apple-btn{
+padding:8px 14px;
+border:none;
+border-radius:10px;
+background:#fbbf24;
+color:#000;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* =========================
+MODALS
+========================= */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.popup-box{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+padding:25px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+text-align:center;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.primary{
+background:#fbbf24;
+color:#000;
+padding:10px 16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+margin:5px;
+}
+
+.secondary{
+background:rgba(255,255,255,0.08);
+color:#fff;
+padding:10px 16px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* =========================
+FOOTER
+========================= */
+
+footer{
+text-align:center;
+padding:40px;
+color:#94a3b8;
+border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+.hero h1{
+font-size:28px;
+}
+
+.grid{
+padding:20px;
+}
+}
