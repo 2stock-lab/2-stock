@@ -3,741 +3,1577 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2STOCK</title>
 
-<!-- ফায়ারবেস লাইব্রেরি স্ক্রিপ্ট (SDK) -->
+<title>2STOCK | Premium Photography</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+font-family:'Outfit',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
 }
 
 body{
-background: #060713;
-color: white;
-overflow-x: hidden;
+background:#060713;
+color:#fff;
+overflow-x:hidden;
 }
 
-/* --- Apple Liquid Aurora Animated Background --- */
-.bg{
+/* Animated Background */
+
+body::before{
+
+content:"";
+
 position:fixed;
+
 width:100%;
+
 height:100%;
-top:0;
+
 left:0;
-z-index:-1;
-background: 
-    radial-gradient(circle at 80% 20%, #4f46e5 0%, transparent 50%),
-    radial-gradient(circle at 20% 80%, #06b6d4 0%, transparent 50%),
-    #060713;
-background-size: cover;
-animation: auroraGlow 15s ease infinite alternate;
+
+top:0;
+
+background:
+
+radial-gradient(circle at 15% 20%,#2f6dff55,transparent 35%),
+
+radial-gradient(circle at 80% 10%,#903cff44,transparent 40%),
+
+radial-gradient(circle at 70% 90%,#00b7ff33,transparent 35%),
+
+#060713;
+
+z-index:-5;
+
+animation:bg 15s linear infinite alternate;
+
 }
 
-@keyframes auroraGlow {
-0% { filter: hue-rotate(0deg) saturate(100%); }
-100% { filter: hue-rotate(30deg) saturate(150%); }
+@keyframes bg{
+
+0%{
+
+filter:hue-rotate(0deg);
+
+transform:scale(1);
+
 }
+
+100%{
+
+filter:hue-rotate(40deg);
+
+transform:scale(1.2);
+
+}
+
+}
+
+/* NAVBAR */
 
 nav{
+
+position:fixed;
+
+top:20px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:94%;
+
+height:75px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-padding:15px 8%;
-backdrop-filter: blur(30px) saturate(200%);
--webkit-backdrop-filter: blur(30px) saturate(200%);
-background: rgba(255, 255, 255, 0.02);
-border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-position: sticky;
-top: 0;
-z-index: 100;
+
+padding:0 35px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(30px);
+
+border-radius:22px;
+
+z-index:999;
+
 }
 
-.logo-container {
-display: flex;
-align-items: center;
-gap: 12px;
+.logo{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
 }
 
-.logo-container img {
-height: 35px;
-object-fit: contain;
+.logo img{
+
+height:45px;
+
 }
 
-.logo-container h2 {
-font-size: 24px;
-font-weight: 800;
-letter-spacing: -0.5px;
-background: linear-gradient(135deg, #ffffff 50%, #f3ba2f 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+.logo h2{
+
+font-size:28px;
+
+font-weight:800;
+
 }
+
+.menu{
+
+display:flex;
+
+gap:28px;
+
+align-items:center;
+
+}
+
+.menu a{
+
+text-decoration:none;
+
+color:white;
+
+opacity:.8;
+
+transition:.3s;
+
+}
+
+.menu a:hover{
+
+opacity:1;
+
+color:#63b6ff;
+
+}
+
+.join-btn{
+
+padding:14px 28px;
+
+border:none;
+
+border-radius:14px;
+
+cursor:pointer;
+
+background:linear-gradient(135deg,#4b8cff,#7557ff);
+
+color:white;
+
+font-weight:700;
+
+}
+
+/* HERO */
 
 .hero{
-height:30vh;
+
+min-height:100vh;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
-text-align:center;
-padding:20px;
+
+padding-top:80px;
+
 }
 
-.hero-content h1{
-font-size:44px;
-font-weight: 700;
-letter-spacing: -1px;
-margin-bottom:10px;
-background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-}
+.hero-wrap{
 
-.hero-content p {
-color: #94a3b8;
-font-size: 16px;
-}
+width:92%;
 
-/* --- Apple Filters --- */
-.filter-wrapper {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 15px;
-margin-bottom: 40px;
-}
-
-.main-filter {
-display: flex;
-justify-content: center;
-gap: 10px;
-}
-
-.filter-btn {
-background: rgba(255, 255, 255, 0.04);
-color: rgba(255, 255, 255, 0.7);
-border: 1px solid rgba(255, 255, 255, 0.05);
-padding: 10px 24px;
-font-size: 14px;
-font-weight: 500;
-border-radius: 30px;
-cursor: pointer;
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.filter-btn:hover {
-background: rgba(255, 255, 255, 0.1);
-color: #fff;
-transform: translateY(-2px);
-}
-
-.filter-btn.active {
-background: rgba(255, 255, 255, 0.15);
-color: white;
-border-color: rgba(255, 255, 255, 0.25);
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.gallery{
-padding: 0 8% 60px 8%;
-}
-
-.grid{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-gap:30px;
+
+grid-template-columns:1fr 1fr;
+
+gap:60px;
+
+align-items:center;
+
 }
 
-#loadingMessage {
-text-align: center;
-font-size: 18px;
-color: #94a3b8;
-grid-column: 1 / -1;
-padding: 40px;
+.hero-left h1{
+
+font-size:72px;
+
+font-weight:800;
+
+line-height:82px;
+
 }
 
-/* --- Apple Reflective Glass Card --- */
-.card {
-background: rgba(255, 255, 255, 0.02);
-border: 1px solid rgba(255, 255, 255, 0.08);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border-radius: 24px;
-overflow: hidden;
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-display: flex;
-flex-direction: column;
-position: relative;
-opacity: 0;
-transform: translateY(20px);
-transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease, border-color 0.3s ease;
+.hero-left span{
+
+background:linear-gradient(90deg,#55c8ff,#7b7dff,#b550ff);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
 }
 
-.card.reveal {
-opacity: 1;
-transform: translateY(0);
+.hero-left p{
+
+margin-top:25px;
+
+font-size:18px;
+
+line-height:34px;
+
+color:#bfc6db;
+
 }
 
-.card.hide {
-display: none !important;
+.search{
+
+margin-top:40px;
+
+display:flex;
+
+height:70px;
+
+border-radius:20px;
+
+overflow:hidden;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
 }
 
-.card:hover {
-transform: translateY(-8px) scale(1.02);
-border-color: rgba(255, 255, 255, 0.25);
-box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+.search input{
+
+flex:1;
+
+background:none;
+
+border:none;
+
+padding:0 25px;
+
+font-size:17px;
+
+color:white;
+
+outline:none;
+
 }
 
-.img-container {
-width: 100%;
-height: 240px;
-position: relative;
-overflow: hidden;
-cursor: pointer;
+.search button{
+
+width:170px;
+
+border:none;
+
+background:linear-gradient(135deg,#4d8cff,#7a5dff);
+
+color:white;
+
+font-size:17px;
+
+font-weight:700;
+
+cursor:pointer;
+
 }
 
-.card img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
-transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+.hero-buttons{
+
+margin-top:35px;
+
+display:flex;
+
+gap:20px;
+
 }
 
-/* Watermark */
-.img-container::after {
-content: "2STOCK PREVIEW";
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%) rotate(-25deg);
-color: rgba(255, 255, 255, 0.1);
-font-size: 22px;
-font-weight: 800;
-letter-spacing: 5px;
-border: 2px dashed rgba(255, 255, 255, 0.1);
-padding: 6px 16px;
-pointer-events: none;
+.primary{
+
+padding:16px 32px;
+
+border:none;
+
+border-radius:18px;
+
+background:linear-gradient(135deg,#4e90ff,#7558ff);
+
+font-weight:700;
+
+color:white;
+
+cursor:pointer;
+
 }
 
-.card-bottom {
-padding: 20px;
-background: rgba(0, 0, 0, 0.3);
-margin-top: auto;
-position: relative;
-overflow: hidden;
+.secondary{
+
+padding:16px 32px;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+color:white;
+
+cursor:pointer;
+
 }
 
-.download-count {
-font-size: 11px;
-color: #94a3b8;
-display: block;
-margin-top: 4px;
-font-weight: 500;
+/* Glass Preview */
+
+.preview{
+
+width:100%;
+
+height:580px;
+
+border-radius:35px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(35px);
+
+position:relative;
+
+overflow:hidden;
+
 }
 
-.card-info {
-display: flex;
-justify-content: space-between;
-align-items: center;
-transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease;
+.preview::before{
+
+content:"";
+
+position:absolute;
+
+width:260px;
+
+height:260px;
+
+background:#5867ff55;
+
+filter:blur(90px);
+
+top:-80px;
+
+left:-50px;
+
 }
 
-.apple-btn-wrapper {
-position: absolute;
-bottom: -60px;
-left: 20px;
-right: 20px;
-opacity: 0;
-transition: bottom 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+.preview::after{
+
+content:"";
+
+position:absolute;
+
+width:240px;
+
+height:240px;
+
+background:#00d0ff55;
+
+filter:blur(90px);
+
+bottom:-70px;
+
+right:-50px;
+
 }
 
-.apple-btn {
-width: 100%;
-background: rgba(255, 255, 255, 0.08);
-color: #ffffff;
-border: 1px solid rgba(255, 255, 255, 0.2);
-padding: 12px;
-font-size: 14px;
-font-weight: 600;
-border-radius: 14px;
-cursor: pointer;
-backdrop-filter: blur(25px) saturate(180%);
--webkit-backdrop-filter: blur(25px) saturate(180%);
-transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.card:hover .card-info {
-transform: translateY(-12px);
-opacity: 0.15;
-}
-
-.card:hover .apple-btn-wrapper {
-bottom: 16px;
-opacity: 1;
-}
-
-/* --- Apple Popup --- */
-.apple-overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(3, 4, 9, 0.6);
-backdrop-filter: blur(40px) saturate(200%);
--webkit-backdrop-filter: blur(40px) saturate(200%);
-display: flex;
-justify-content: center;
-align-items: center;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-z-index: 2000;
-}
-
-.apple-overlay.active {
-opacity: 1;
-pointer-events: auto;
-}
-
-.apple-popup-box {
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.15);
-padding: 30px 25px;
-border-radius: 28px;
-text-align: center;
-max-width: 440px;
-width: 90%;
-transform: scale(0.9);
-transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.apple-overlay.active .apple-popup-box {
-transform: scale(1);
-}
-
-.global-price-tag {
-font-size: 30px;
-font-weight: 700;
-color: #fff;
-margin: 10px 0;
-}
-
-.binance-badge {
-background: rgba(243, 186, 47, 0.1);
-border: 1px solid rgba(243, 186, 47, 0.3);
-color: #f3ba2f;
-padding: 6px 12px;
-border-radius: 10px;
-font-size: 13px;
-font-weight: 600;
-display: inline-block;
-margin-bottom: 15px;
-}
-
-.gateway-link {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 8px;
-padding: 12px;
-border-radius: 14px;
-text-decoration: none;
-font-weight: 600;
-font-size: 14px;
-background: #f3ba2f;
-color: #000;
-margin-bottom: 15px;
-}
-
-.email-form {
-display: flex;
-flex-direction: column;
-gap: 10px;
-text-align: left;
-border-top: 1px solid rgba(255, 255, 255, 0.1);
-padding-top: 15px;
-}
-
-.email-form label {
-font-size: 12px;
-color: #94a3b8;
-}
-
-.email-form input, .email-form textarea {
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 10px;
-padding: 10px;
-color: white;
-width: 100%;
-outline: none;
-}
-
-.submit-btn {
-background: #fff;
-color: #000;
-border: none;
-padding: 12px;
-font-size: 14px;
-font-weight: 600;
-border-radius: 12px;
-cursor: pointer;
-margin-top: 5px;
-}
-
-.status-container {
-background: rgba(239, 68, 68, 0.1);
-border: 1px dashed #ef4444;
-padding: 15px;
-border-radius: 14px;
-margin-top: 15px;
-display: none;
-}
-.status-container.pending {
-display: block;
-background: rgba(245, 158, 11, 0.1);
-border-color: #f59e0b;
-color: #f59e0b;
-}
-.status-container.approved {
-display: block;
-background: rgba(16, 185, 129, 0.1);
-border-color: #10b981;
-color: #10b981;
-}
-
-.download-link-btn {
-display: inline-block;
-background: #10b981;
-color: white;
-padding: 12px 25px;
-border-radius: 12px;
-text-decoration: none;
-font-weight: 600;
-margin-top: 10px;
-width: 100%;
-text-align: center;
-}
-
-.close-apple {
-margin-top: 15px;
-display: inline-block;
-color: rgba(255, 255, 255, 0.4);
-cursor: pointer;
-font-size: 13px;
-}
-
-/* --- Admin Dashboard CSS --- */
-#adminDashboardPage {
-display: none;
-padding: 40px 8%;
-}
-.admin-table {
-width: 100%;
-border-collapse: collapse;
-margin-top: 20px;
-background: rgba(255, 255, 255, 0.02);
-border: 1px solid rgba(255, 255, 255, 0.1);
-border-radius: 14px;
-overflow: hidden;
-}
-.admin-table th, .admin-table td {
-padding: 15px;
-text-align: left;
-border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.admin-table th { background: rgba(255, 255, 255, 0.05); color: #94a3b8; }
-.btn-pending { background: #f59e0b; color: black; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-.btn-approved { background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; }
-
-footer{
-text-align:center;
-padding:40px;
-color: rgba(255, 255, 255, 0.3);
-font-size: 13px;
-border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
 </style>
+
 </head>
 
 <body>
 
-<div class="bg"></div>
+<nav>
 
-<!-- কাস্টমার পেজ ভিউ -->
-<div id="customerPage">
-    <nav>
-    <div class="logo-container">
-        <img src="logo.png" alt="2STOCK">
-        <h2>2STOCK</h2>
-    </div>
-    </nav>
+<div class="logo">
 
-    <section class="hero">
-    <div class="hero-content">
-        <h1>Global Premium Stock</h1>
-        <p>Discover & instantly buy premium digital licenses worldwide.</p>
-    </div>
-    </section>
+<img src="logo.png">
 
-    <div class="filter-wrapper">
-        <div class="main-filter">
-            <button class="filter-btn active" data-main="all">All Assets</button>
-            <button class="filter-btn" data-main="photo">Photos</button>
-            <button class="filter-btn" data-main="vector">Vectors</button>
-        </div>
-    </div>
+<h2>2STOCK</h2>
 
-    <div class="gallery">
-        <div class="grid" id="assetGrid">
-            <div id="loadingMessage">Loading Premium Assets from Firebase Firestore...</div>
-        </div>
-    </div>
 </div>
 
-<!-- সিক্রেট ওয়ান-ক্লিক এডমিন ড্যাশবোর্ড পেজ ভিউ -->
-<div id="adminDashboardPage">
-    <h2 style="border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom:10px;">👤 2Stock Orders Admin Panel</h2>
-    <p style="color: #94a3b8; margin-top: 5px;">Click on the orange "Pending" button to approve orders instantly.</p>
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>Asset Title</th>
-                <th>Customer Email</th>
-                <th>Transaction ID (TxID)</th>
-                <th>Price</th>
-                <th>Action Status</th>
-            </tr>
-        </thead>
-        <tbody id="adminOrderRows">
-            <tr><td colspan="5" style="text-align:center; color:#94a3b8;">Loading client orders...</td></tr>
-        </tbody>
-    </table>
-    <button onclick="window.location.hash=''" style="margin-top:20px; background:rgba(255,255,255,0.1); color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">Go Back to Website</button>
+<div class="menu">
+
+<a href="#">Home</a>
+
+<a href="#">Photos</a>
+
+<a href="#">Vectors</a>
+
+<a href="#">AI Images</a>
+
+<a href="#">Membership</a>
+
+<button class="join-btn">
+
+Join
+
+</button>
+
 </div>
 
-<div class="apple-overlay" id="appleOverlay">
-    <div class="apple-popup-box">
-        <h3 id="popAssetId">License Asset</h3>
-        <div class="global-price-tag" id="popPrice">$1.50</div>
-        <div class="binance-badge">⚡ Binance Pay ID: 1068503860 (Parvez24)</div>
-        
-        <a href="2.jpeg" target="_blank" class="gateway-link" id="payGateBtn">🔶 Step 1: Pay with Binance (Scan/Click)</a>
-        
-        <div id="orderFormWrapper">
-            <div class="email-form">
-                <div>
-                    <label>Your Email Address</label>
-                    <input type="email" id="custEmail" placeholder="example@mail.com" required>
-                </div>
-                <div>
-                    <label>Payment Note / Transaction ID (TxID)</label>
-                    <textarea id="custTxID" rows="2" placeholder="Enter TxID or Sender Name" required></textarea>
-                </div>
-                <button type="button" class="submit-btn" id="btnSubmitOrder">Submit Order</button>
-            </div>
-        </div>
+</nav>
 
-        <div id="statusBox" class="status-container">
-            <p id="statusText">Processing your order...</p>
-            <div id="downloadButtonWrapper"></div>
-        </div>
-        
-        <div class="close-apple" id="closeApple">Cancel / Close</div>
-    </div>
+<section class="hero">
+
+<div class="hero-wrap">
+
+<div class="hero-left">
+
+<h1>
+
+Discover
+
+<span>Premium</span>
+
+Photography
+
+</h1>
+
+<p>
+
+Download millions of premium stock photos, vectors and AI images with an elegant glassmorphism experience.
+
+</p>
+
+<div class="search">
+
+<input type="text" placeholder="Search premium photos...">
+
+<button>
+
+Search
+
+</button>
+
+</div>
+
+<div class="hero-buttons">
+
+<button class="primary">
+
+Explore
+
+</button>
+
+<button class="secondary">
+
+Membership
+
+</button>
+
+</div>
+
+</div>
+
+<div class="preview">
+
+</div>
+
+</div>
+
+</section>
+<!-- =========================
+PART 2 START
+========================= -->
+
+<section class="membership-section">
+
+<div class="membership-card">
+
+<div class="membership-left">
+
+<h5>2STOCK MEMBERSHIP</h5>
+
+<h2>Unlimited Premium Downloads</h2>
+
+<p>
+
+Get access to exclusive premium photos, vectors, AI generated images,
+priority download speed and members only collections.
+
+</p>
+
+<div class="membership-buttons">
+
+<button class="primary">
+Become Member
+</button>
+
+<button class="secondary">
+Learn More
+</button>
+
+</div>
+
+</div>
+
+<div class="membership-right">
+
+<div class="price-box">
+
+<h1>$9</h1>
+
+<span>/ Month</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="gallery-section">
+
+<div class="section-heading">
+
+<h2>
+
+Trending Premium Photos
+
+</h2>
+
+<p>
+
+Hand picked collections from professional photographers.
+
+</p>
+
+</div>
+
+<div id="assetGrid" class="gallery-grid">
+
+<!-- Firebase Images -->
+
+</div>
+
+</section>
+
+<section class="feature-section">
+
+<div class="feature-card">
+
+<h3>
+
+High Resolution
+
+</h3>
+
+<p>
+
+Every image is available in premium quality.
+
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+
+Commercial License
+
+</h3>
+
+<p>
+
+Use in personal and commercial projects.
+
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<h3>
+
+Instant Download
+
+</h3>
+
+<p>
+
+Download immediately after approval.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- Flying Dragon -->
+
+<div id="dragon">
+
+<img src="assets/dragon.png" alt="dragon">
+
+</div>
+
+<!-- Eagle -->
+
+<div id="eagle">
+
+<img src="assets/eagle.png" alt="eagle">
+
 </div>
 
 <footer>
-© 2026 2 Stock Inc. • Powered by Binance Global Pay
+
+<div class="footer-box">
+
+<h2>2STOCK</h2>
+
+<p>
+
+Premium Photography Marketplace
+
+</p>
+
+<div class="footer-links">
+
+<a href="#">Home</a>
+
+<a href="#">Photos</a>
+
+<a href="#">Vectors</a>
+
+<a href="#">Membership</a>
+
+<a href="#">Contact</a>
+
+</div>
+
+<p class="copyright">
+
+© 2026 2STOCK. All Rights Reserved.
+
+</p>
+
+</div>
+
 </footer>
 
+<!-- Purchase Popup -->
+
+<div id="purchasePopup" class="popup">
+
+<div class="popup-box">
+
+<h2 id="popupTitle">
+
+Premium Photo
+
+</h2>
+
+<p>
+
+Purchase this image to unlock download.
+
+</p>
+
+<h1 id="popupPrice">
+
+$1.50
+
+</h1>
+
+<input
+type="email"
+id="buyerEmail"
+placeholder="Your Email">
+
+<input
+type="text"
+id="buyerTx"
+placeholder="Transaction ID">
+
+<div class="popup-buttons">
+
+<button id="buyNow">
+
+Submit Order
+
+</button>
+
+<button id="closePopup">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================
+PART 2 END
+========================= -->
+<!-- =========================
+PART 3 START
+========================= -->
+
+<section class="collections">
+
+<div class="section-heading">
+
+<h2>Popular Collections</h2>
+
+<p>Explore our most downloaded premium assets.</p>
+
+</div>
+
+<div class="collection-grid">
+
+<div class="collection-card">
+<img src="assets/demo1.jpg">
+<div class="overlay">
+<h3>Nature</h3>
+<span>12,540 Photos</span>
+</div>
+</div>
+
+<div class="collection-card">
+<img src="assets/demo2.jpg">
+<div class="overlay">
+<h3>Wildlife</h3>
+<span>8,220 Photos</span>
+</div>
+</div>
+
+<div class="collection-card">
+<img src="assets/demo3.jpg">
+<div class="overlay">
+<h3>Travel</h3>
+<span>19,210 Photos</span>
+</div>
+</div>
+
+<div class="collection-card">
+<img src="assets/demo4.jpg">
+<div class="overlay">
+<h3>Business</h3>
+<span>6,580 Photos</span>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="counter-section">
+
+<div class="counter-box">
+<h2>12M+</h2>
+<p>Premium Photos</p>
+</div>
+
+<div class="counter-box">
+<h2>400K+</h2>
+<p>Members</p>
+</div>
+
+<div class="counter-box">
+<h2>150+</h2>
+<p>Countries</p>
+</div>
+
+<div class="counter-box">
+<h2>99%</h2>
+<p>Happy Clients</p>
+</div>
+
+</section>
+
+<section class="newsletter">
+
+<div class="newsletter-box">
+
+<h2>Never Miss New Premium Photos</h2>
+
+<p>Subscribe and receive weekly premium collections.</p>
+
+<div class="newsletter-form">
+
+<input
+type="email"
+placeholder="Enter your email">
+
+<button>
+
+Subscribe
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Loading -->
+
+<div id="loadingScreen">
+
+<div class="loader"></div>
+
+<p>Loading Premium Assets...</p>
+
+</div>
+
+<!-- Image Preview -->
+
+<div id="previewModal">
+
+<div class="preview-content">
+
+<span id="closePreview">&times;</span>
+
+<img id="previewImage">
+
+<h2 id="previewTitle"></h2>
+
+<p id="previewCategory"></p>
+
+<button id="previewDownload">
+
+Download
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Firebase Config -->
+
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyDTnaC48yboc4_9u7gSzrzDgAqnu-Fn6To",
-  authDomain: "stock-db-3f41a.firebaseapp.com",
-  projectId: "stock-db-3f41a",
-  storageBucket: "stock-db-3f41a.firebasestorage.app",
-  messagingSenderId: "1066037651835",
-  appId: "1:1066037651835:web:a57d9a691c16b6c76175de"
+
+const firebaseConfig={
+
+apiKey:"",
+
+authDomain:"",
+
+projectId:"",
+
+storageBucket:"",
+
+messagingSenderId:"",
+
+appId:""
+
 };
 
-if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-const db = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
 
-const assetGrid = document.getElementById('assetGrid');
-const appleOverlay = document.getElementById('appleOverlay');
-const closeAppleBtn = document.getElementById('closeApple');
-const popAssetId = document.getElementById('popAssetId');
-const popPrice = document.getElementById('popPrice');
-const orderFormWrapper = document.getElementById('orderFormWrapper');
-const statusBox = document.getElementById('statusBox');
-const statusText = document.getElementById('statusText');
-const downloadButtonWrapper = document.getElementById('downloadButtonWrapper');
+const db=firebase.firestore();
 
-let selectedAssetDocId = '';
-let selectedAssetImageUrl = '';
-let activeOrderListener = null;
-
-// ডেটাবেজ থেকে এসেট লোড করা
-async function loadCMSAssets() {
-    try {
-        assetGrid.innerHTML = ''; 
-        const querySnapshot = await db.collection("assets").get();
-        let validAssetsCount = 0;
-
-        querySnapshot.forEach((doc) => {
-            const data = doc.data();
-            validAssetsCount++;
-            const randomDownloads = Math.floor(Math.random() * 50) + 10;
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.setAttribute('data-type', (data.type || 'photo').toLowerCase().replace('s',''));
-            
-            card.innerHTML = `
-                <div class="img-container"><img src="${data.image || data.url}"></div>
-                <div class="card-bottom">
-                    <div class="card-info">
-                        <div>
-                            <span style="display:block; max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${data.title || 'Untitled'}</span>
-                            <span class="download-count">⚡ <span>${randomDownloads}</span> Downloads</span>
-                        </div>
-                        <span>$${data.price || '1.50'}</span>
-                    </div>
-                    <div class="apple-btn-wrapper">
-                        <button class="apple-btn type-buy-btn" data-docid="${doc.id}" data-img="${data.image || data.url}" data-price="$${data.price || '1.50'}" data-id="${data.title || 'Asset'}">Buy Asset</button>
-                    </div>
-                </div>
-            `;
-            assetGrid.appendChild(card);
-        });
-        setupPopupEvents();
-        scrollReveal();
-    } catch (error) { console.error(error); }
-}
-
-function setupPopupEvents() {
-    document.querySelectorAll('.type-buy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            orderFormWrapper.style.display = 'block';
-            statusBox.style.display = 'none';
-            downloadButtonWrapper.innerHTML = '';
-            selectedAssetDocId = btn.getAttribute('data-docid');
-            selectedAssetImageUrl = btn.getAttribute('data-img');
-            popAssetId.innerText = "Order: " + btn.getAttribute('data-id');
-            popPrice.innerText = btn.getAttribute('data-price');
-            appleOverlay.classList.add('active');
-        });
-    });
-}
-
-// অর্ডার সাবমিট করা
-document.getElementById('btnSubmitOrder').addEventListener('click', async () => {
-    const email = document.getElementById('custEmail').value;
-    const txid = document.getElementById('custTxID').value;
-    if(!email || !txid) { alert('Please fill in fields!'); return; }
-    
-    orderFormWrapper.style.display = 'none';
-    statusBox.style.display = 'block';
-    statusBox.className = 'status-container pending';
-    statusText.innerText = "⏳ Payment Pending... Admin is verifying your TxID.";
-
-    const orderRef = await db.collection("orders").add({
-        assetTitle: popAssetId.innerText.replace("Order: ", ""),
-        customerEmail: email,
-        transactionId: txid,
-        price: popPrice.innerText,
-        status: "pending",
-        imageUrl: selectedAssetImageUrl,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    if(activeOrderListener) activeOrderListener();
-    activeOrderListener = db.collection("orders").doc(orderRef.id).onSnapshot((doc) => {
-        const orderData = doc.data();
-        if(orderData && orderData.status === 'approved') {
-            statusBox.className = 'status-container approved';
-            statusText.innerHTML = "✅ Payment Approved! Download ready:";
-            downloadButtonWrapper.innerHTML = `<a href="${orderData.imageUrl}" download class="download-link-btn">📥 Download Image</a>`;
-        }
-    });
-});
-
-closeAppleBtn.addEventListener('click', () => { appleOverlay.classList.remove('active'); });
-
-// --- সিক্রেট ওয়ান-ক্লিক এডমিন প্যানেল লজিক ---
-const adminOrderRows = document.getElementById('adminOrderRows');
-function loadAdminDashboard() {
-    db.collection("orders").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
-        adminOrderRows.innerHTML = '';
-        if(snapshot.empty) {
-            adminOrderRows.innerHTML = `<tr><td colspan="5" style="text-align:center;">No client orders placed yet.</td></tr>`;
-            return;
-        }
-        snapshot.forEach((doc) => {
-            const order = doc.data();
-            const tr = document.createElement('tr');
-            
-            let actionButton = `<button class="btn-approved">Approved ✅</button>`;
-            if(order.status === 'pending') {
-                actionButton = `<button class="btn-pending" onclick="instantApprove('${doc.id}')">Click to Approve 🔶</button>`;
-            }
-
-            tr.innerHTML = `
-                <td>${order.assetTitle || 'Premium Item'}</td>
-                <td>${order.customerEmail}</td>
-                <td><code style="background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:4px;">${order.transactionId}</code></td>
-                <td style="color:#10b981; font-weight:bold;">${order.price}</td>
-                <td>${actionButton}</td>
-            `;
-            adminOrderRows.appendChild(tr);
-        });
-    });
-}
-
-// এই ফাংশনটি বাটনে জাস্ট একটা ক্লিক করলেই ফায়ারবেস আপডেট করে দেবে!
-async function instantApprove(orderId) {
-    try {
-        await db.collection("orders").doc(orderId).update({ status: "approved" });
-    } catch (err) { alert("Error approving order"); }
-}
-
-// রাউটিং চেক (ইউআরএল এ #admin থাকলে এডমিন প্যানেল ওপেন হবে)
-function checkRoute() {
-    if(window.location.hash === '#admin') {
-        document.getElementById('customerPage').style.display = 'none';
-        document.getElementById('adminDashboardPage').style.display = 'block';
-        loadAdminDashboard();
-    } else {
-        document.getElementById('customerPage').style.display = 'block';
-        document.getElementById('adminDashboardPage').style.display = 'none';
-    }
-}
-window.addEventListener('hashchange', checkRoute);
-window.addEventListener('load', () => { loadCMSAssets(); checkRoute(); });
-
-// Filters Logic
-document.querySelectorAll('.main-filter .filter-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        document.querySelector('.main-filter .filter-btn.active').classList.remove('active');
-        button.classList.add('active');
-        const filter = button.getAttribute('data-main');
-        document.querySelectorAll('.grid .card').forEach(card => {
-            if(filter === 'all' || card.getAttribute('data-type') === filter) { card.classList.remove('hide'); card.classList.add('reveal'); }
-            else { card.classList.add('hide'); card.classList.remove('reveal'); }
-        });
-    });
-});
-const scrollReveal = () => { document.querySelectorAll('.card').forEach(c => { if(c.getBoundingClientRect().top < window.innerHeight) c.classList.add('reveal'); }); };
-window.addEventListener('scroll', scrollReveal);
 </script>
+
+<!-- =========================
+PART 4 START
+========================= -->
+
+<!-- Featured Banner -->
+
+<section class="featured-banner">
+
+<div class="featured-content">
+
+<h5>EDITOR'S CHOICE</h5>
+
+<h1>Premium Creative Collection</h1>
+
+<p>
+
+Discover exclusive high-quality photography selected by our editors.
+
+</p>
+
+<button class="primary">
+
+Explore Collection
+
+</button>
+
+</div>
+
+</section>
+
+<!-- Latest Uploads -->
+
+<section class="latest-section">
+
+<div class="section-heading">
+
+<h2>Latest Uploads</h2>
+
+<p>Fresh premium content added every day.</p>
+
+</div>
+
+<div class="latest-grid">
+
+<div class="latest-card">
+<img src="assets/latest1.jpg" alt="">
+</div>
+
+<div class="latest-card">
+<img src="assets/latest2.jpg" alt="">
+</div>
+
+<div class="latest-card">
+<img src="assets/latest3.jpg" alt="">
+</div>
+
+<div class="latest-card">
+<img src="assets/latest4.jpg" alt="">
+</div>
+
+<div class="latest-card">
+<img src="assets/latest5.jpg" alt="">
+</div>
+
+<div class="latest-card">
+<img src="assets/latest6.jpg" alt="">
+</div>
+
+</div>
+
+</section>
+
+<!-- Membership Plans -->
+
+<section class="plans-section">
+
+<div class="section-heading">
+
+<h2>Membership Plans</h2>
+
+<p>Choose the plan that fits your needs.</p>
+
+</div>
+
+<div class="plans-grid">
+
+<div class="plan-card">
+
+<h3>Free</h3>
+
+<h1>$0</h1>
+
+<p>Limited Downloads</p>
+
+<ul>
+
+<li>✔ Preview Images</li>
+
+<li>✔ Free Collection</li>
+
+<li>✖ Premium Assets</li>
+
+<li>✖ Unlimited Download</li>
+
+</ul>
+
+<button class="secondary">
+
+Current Plan
+
+</button>
+
+</div>
+
+<div class="plan-card premium">
+
+<h3>Premium</h3>
+
+<h1>$9</h1>
+
+<p>Per Month</p>
+
+<ul>
+
+<li>✔ Unlimited Download</li>
+
+<li>✔ Premium Assets</li>
+
+<li>✔ Full Resolution</li>
+
+<li>✔ Priority Access</li>
+
+</ul>
+
+<button class="primary">
+
+Upgrade Now
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FAQ -->
+
+<section class="faq-section">
+
+<div class="section-heading">
+
+<h2>Frequently Asked Questions</h2>
+
+</div>
+
+<div class="faq-item">
+
+<h3>Can I use images commercially?</h3>
+
+<p>Yes. Premium assets include commercial license.</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>Do members get unlimited downloads?</h3>
+
+<p>Yes. Premium members can download unlimited assets.</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>How do I become a member?</h3>
+
+<p>Purchase a membership from the Membership page.</p>
+
+</div>
+
+</section>
+
+<!-- Scroll Top Button -->
+
+<button id="scrollTop">
+
+↑
+
+</button>
+
+<!-- =========================
+PART 4 END
+========================= -->
+<!-- =========================
+PART 5 START
+========================= -->
+
+<!-- Image Details Modal -->
+
+<div id="imageModal" class="image-modal">
+
+<div class="image-modal-content">
+
+<span class="close-image-modal">&times;</span>
+
+<div class="image-left">
+
+<img id="modalImage" src="" alt="">
+
+</div>
+
+<div class="image-right">
+
+<h2 id="modalTitle">
+
+Premium Image
+
+</h2>
+
+<p id="modalDescription">
+
+Professional premium stock photography.
+
+</p>
+
+<div class="meta-box">
+
+<div>
+
+<strong>Category</strong>
+
+<p id="modalCategory">
+
+Nature
+
+</p>
+
+</div>
+
+<div>
+
+<strong>Resolution</strong>
+
+<p>
+
+6000 × 4000
+
+</p>
+
+</div>
+
+<div>
+
+<strong>License</strong>
+
+<p>
+
+Commercial
+
+</p>
+
+</div>
+
+</div>
+
+<div class="price-area">
+
+<h1 id="modalPrice">
+
+$1.50
+
+</h1>
+
+<button id="buyImageBtn" class="primary">
+
+Buy Now
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Membership Modal -->
+
+<div id="membershipModal" class="popup">
+
+<div class="popup-box">
+
+<h2>
+
+Become a Premium Member
+
+</h2>
+
+<p>
+
+Unlimited Downloads
+
+Premium Collections
+
+Commercial License
+
+Priority Access
+
+</p>
+
+<h1>
+
+$9 / Month
+
+</h1>
+
+<button id="membershipBtn" class="primary">
+
+Buy Membership
+
+</button>
+
+<button class="secondary closeMembership">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Login Modal -->
+
+<div id="loginModal" class="popup">
+
+<div class="popup-box">
+
+<h2>
+
+Member Login
+
+</h2>
+
+<input
+type="email"
+placeholder="Email">
+
+<input
+type="password"
+placeholder="Password">
+
+<button class="primary">
+
+Login
+
+</button>
+
+<button class="secondary closeLogin">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Download Success -->
+
+<div id="downloadSuccess" class="popup">
+
+<div class="popup-box">
+
+<h2>
+
+Download Ready
+
+</h2>
+
+<p>
+
+Your download is now available.
+
+</p>
+
+<a
+href="#"
+id="downloadLink"
+class="primary">
+
+Download
+
+</a>
+
+</div>
+
+</div>
+
+<!-- Loader -->
+
+<div id="globalLoader">
+
+<div class="loader-circle"></div>
+
+<p>
+
+Loading...
+
+</p>
+
+</div>
+
+<!-- Cursor Glow -->
+
+<div id="cursorGlow"></div>
+
+<!-- Flying Dragon -->
+
+<div id="dragonAnimation"></div>
+
+<!-- Eagle -->
+
+<div id="eagleAnimation"></div>
+
+<!-- =========================
+PART 5 END
+========================= -->
+
+<!-- =========================
+PART 6 START
+========================= -->
+
+<!-- Search Results -->
+
+<section id="searchResults" class="gallery-section">
+
+<div class="section-heading">
+
+<h2>
+
+Search Results
+
+</h2>
+
+<p>
+
+Find exactly what you're looking for.
+
+</p>
+
+</div>
+
+<div id="searchGrid" class="gallery-grid">
+
+</div>
+
+</section>
+
+<!-- Empty State -->
+
+<section id="emptyState">
+
+<h2>
+
+No Results Found
+
+</h2>
+
+<p>
+
+Try another keyword or browse categories.
+
+</p>
+
+<button class="primary">
+
+Back To Home
+
+</button>
+
+</section>
+
+<!-- Category Filter -->
+
+<section class="category-filter">
+
+<button class="filter-btn active" data-category="all">
+
+All
+
+</button>
+
+<button class="filter-btn" data-category="nature">
+
+Nature
+
+</button>
+
+<button class="filter-btn" data-category="animals">
+
+Animals
+
+</button>
+
+<button class="filter-btn" data-category="travel">
+
+Travel
+
+</button>
+
+<button class="filter-btn" data-category="food">
+
+Food
+
+</button>
+
+<button class="filter-btn" data-category="technology">
+
+Technology
+
+</button>
+
+<button class="filter-btn" data-category="business">
+
+Business
+
+</button>
+
+<button class="filter-btn" data-category="ai">
+
+AI Images
+
+</button>
+
+</section>
+
+<!-- Premium CTA -->
+
+<section class="premium-cta">
+
+<div class="premium-box">
+
+<h2>
+
+Ready to Unlock Everything?
+
+</h2>
+
+<p>
+
+Upgrade today and enjoy unlimited premium downloads.
+
+</p>
+
+<button class="primary">
+
+Get Membership
+
+</button>
+
+</div>
+
+</section>
+
+<!-- Footer -->
+
+<footer>
+
+<div class="footer-container">
+
+<div>
+
+<h2>
+
+2STOCK
+
+</h2>
+
+<p>
+
+Premium Photography Marketplace
+
+</p>
+
+</div>
+
+<div>
+
+<h4>
+
+Quick Links
+
+</h4>
+
+<a href="#">Home</a>
+
+<a href="#">Photos</a>
+
+<a href="#">Vectors</a>
+
+<a href="#">Membership</a>
+
+</div>
+
+<div>
+
+<h4>
+
+Support
+
+</h4>
+
+<a href="#">Contact</a>
+
+<a href="#">Privacy</a>
+
+<a href="#">Terms</a>
+
+</div>
+
+<div>
+
+<h4>
+
+Community
+
+</h4>
+
+<a href="#">Facebook</a>
+
+<a href="#">Instagram</a>
+
+<a href="#">Discord</a>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 2STOCK. All Rights Reserved.
+
+</div>
+
+</footer>
+
+<!-- Main JavaScript -->
+
+<script src="firebase.js"></script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
+
+<!-- =========================
+PART 6 END
+========================= -->
+    
