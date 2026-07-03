@@ -1,0 +1,92 @@
+/* =========================
+2STOCK ADMIN PANEL STYLE
+========================= */
+
+body{
+margin:0;
+padding:0;
+font-family:Arial;
+background:#060713;
+color:#fff;
+}
+
+/* Title */
+h1{
+text-align:center;
+padding:20px;
+font-size:28px;
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+/* Orders container */
+#orders{
+padding:20px;
+max-width:900px;
+margin:auto;
+}
+
+/* Order card */
+.order-card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+padding:15px;
+margin-bottom:15px;
+border-radius:14px;
+backdrop-filter:blur(20px);
+transition:0.3s;
+}
+
+.order-card:hover{
+transform:translateY(-3px);
+border-color:rgba(255,255,255,0.25);
+}
+
+/* Text */
+.order-card h3{
+margin:0 0 8px 0;
+font-size:18px;
+}
+
+.order-card p{
+margin:4px 0;
+color:#cbd5e1;
+font-size:14px;
+}
+
+/* Status */
+.status{
+padding:4px 10px;
+border-radius:20px;
+display:inline-block;
+font-size:12px;
+margin-top:5px;
+}
+
+.status.pending{
+background:rgba(245,158,11,0.2);
+color:#fbbf24;
+}
+
+.status.approved{
+background:rgba(16,185,129,0.2);
+color:#34d399;
+}
+
+/* Button */
+button{
+margin-top:10px;
+padding:8px 14px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+background:#fbbf24;
+color:#000;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
