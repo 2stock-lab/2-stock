@@ -13,6 +13,11 @@ uploadBtn.addEventListener("click", async () => {
     const category = document.getElementById("category").value;
     const membership = document.getElementById("membership").value;
     const image = document.getElementById("image").files[0];
+    const formData = new FormData();
+
+formData.append("file", image);
+
+formData.append("upload_preset", "2stock_upload");
 
     if (!title || !image) {
         uploadStatus.innerText = "Please fill all required fields.";
