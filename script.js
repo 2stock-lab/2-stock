@@ -1,171 +1,258 @@
-/* =====================================
-2STOCK SCRIPT.JS
-FINAL VERSION
+/* ==========================================
+2STOCK FINAL SCRIPT.JS
 PART 1
-===================================== */
+========================================== */
 
-/* Firebase */
+/* ==========================================
+FIREBASE
+========================================== */
+
 const db = firebase.firestore();
 
-/* =========================
+/* ==========================================
 DOM
-========================= */
+========================================== */
 
 const assetGrid = document.getElementById("assetGrid");
+
 const searchGrid = document.getElementById("searchGrid");
-const loadingScreen = document.getElementById("loadingScreen");
+
+const searchInput = document.querySelector(".search input");
+
+const searchButton = document.querySelector(".search button");
+
+const searchSection = document.getElementById("searchResults");
+
+const emptyState = document.getElementById("emptyState");
+
+const backHomeBtn = document.getElementById("backHomeBtn");
+
+const filterButtons = document.querySelectorAll(".filter-btn");
 
 const purchasePopup = document.getElementById("purchasePopup");
+
 const closePopup = document.getElementById("closePopup");
+
 const buyNow = document.getElementById("buyNow");
 
-const popupTitle = document.getElementById("popupTitle");
-const popupPrice = document.getElementById("popupPrice");
-
 const buyerEmail = document.getElementById("buyerEmail");
+
 const buyerTx = document.getElementById("buyerTx");
+
+const popupTitle = document.getElementById("popupTitle");
+
+const imageModal = document.getElementById("imageModal");
+
+const modalImage = document.getElementById("modalImage");
+
+const modalTitle = document.getElementById("modalTitle");
+
+const modalCategory = document.getElementById("modalCategory");
+
+const modalMembership = document.getElementById("modalMembership");
+
+const buyImageBtn = document.getElementById("buyImageBtn");
+
+const closeImageModal = document.querySelector(".close-image-modal");
+
+/* ==========================================
+GLOBAL
+========================================== */
+
+let assets = [];
 
 let selectedAsset = null;
 
-/* =========================
-LOAD ASSETS
-========================= */
+/* ==========================================
+LOAD FIREBASE ASSETS
+========================================== */
 
 async function loadAssets(){
 
-    if(loadingScreen){
-        loadingScreen.style.display="flex";
-    }
+assetGrid.innerHTML="";
 
-    assetGrid.innerHTML="";
+assets=[];
 
-    const snapshot = await db
-        .collection("assets")
-        .orderBy("createdAt","desc")
-        .get();
+const snapshot=await db.collection("assets")
+.orderBy("createdAt","desc")
+.get();
 
-    snapshot.forEach(doc=>{
+snapshot.forEach(doc=>{
 
-        const data=doc.data();
+const data=doc.data();
 
-        const card=document.createElement("div");
+data.id=doc.id;
 
-        card.className="asset-card";
+assets.push(data);
 
-        card.innerHTML=`
-
-        <div class="asset-image">
-
-            <img src="${data.image}" alt="${data.title}">
-
-            ${
-                data.membership==="premium"
-
-                ?
-
-                `<span class="premium-badge">🔒 MEMBERSHIP</span>`
-
-                :
-
-                `<span class="free-badge">FREE</span>`
-            }
-
-        </div>
-
-        <div class="asset-info">
-
-            <h3>${data.title}</h3>
-
-            <p>${data.category}</p>
-
-            <button
-            class="downloadBtn"
-            data-id="${doc.id}">
-
-            ${data.membership==="premium"
-            ?
-            "Unlock"
-            :
-            "Download"}
-
-            </button>
-
-        </div>
-
-        `;
-
-        assetGrid.appendChild(card);
-
-    });
-
-    attachButtons();
-
-    if(loadingScreen){
-        loadingScreen.style.display="none";
-    }
-
-}
-/* =====================================
-PART 2
-POPUP + ORDER SYSTEM
-===================================== */
-
-function attachButtons(){
-
-    document.querySelectorAll(".downloadBtn").forEach(btn=>{
-
-        btn.addEventListener("click",()=>{
-
-            selectedAsset=btn.dataset.id;
-
-            const card=btn.closest(".asset-card");
-
-            popupTitle.innerText=
-            card.querySelector("h3").innerText;
-
-            if(btn.innerText==="Download"){
-
-                window.location.href="#";
-
-                return;
-
-            }
-
-            purchasePopup.style.display="flex";
-
-        });
-
-    });
-
-}
-
-/* =========================
-CLOSE POPUP
-========================= */
-
-if(closePopup){
-
-closePopup.addEventListener("click",()=>{
-
-purchasePopup.style.display="none";
+renderCard(data,assetGrid);
 
 });
 
 }
 
-/* =========================
-BUY NOW
-========================= */
+/* ==========================================
+CREATE CARD
+========================================== */
 
-if(buyNow){
+function renderCard(data,target){
 
-buyNow.addEventListener("click",async()=>{
+const card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+
+<div class="img-container">
+
+<img src="${data.image}" alt="${data.title}">
+
+</div>
+
+<div class="card-bottom">
+
+<div>
+
+<h4>${data.title}</h4>
+
+<small>${data.membership==="free"?"Free":"Premium"}</small>
+
+</div>
+
+<button class="apple-btn">
+
+View
+
+</button>
+
+</div>
+
+`;
+
+card.querySelector(".img-container").onclick=()=>{
+
+openImage(data);
+
+};
+
+card.querySelector(".apple-btn").onclick=()=>{
+
+openImage(data);
+
+};
+
+target.appendChild(card);
+
+}
+
+/* ==========================================
+INIT
+========================================== */
+
+window.addEventListener("load",loadAssets);
+/* ==========================================
+2STOCK FINAL SCRIPT.JS
+PART 2
+========================================== */
+
+/* ==========================================
+OPEN IMAGE MODAL
+========================================== */
+
+function openImage(data){
+
+selectedAsset=data;
+
+modalImage.src=data.image;
+
+modalTitle.innerText=data.title;
+
+modalCategory.innerText="Category : "+(data.category || "Photo");
+
+modalMembership.innerText=
+data.membership==="free"
+?
+"Free Download"
+:
+"Premium Asset";
+
+imageModal.style.display="flex";
+
+}
+
+/* ==========================================
+CLOSE IMAGE MODAL
+========================================== */
+
+closeImageModal.onclick=function(){
+
+imageModal.style.display="none";
+
+};
+
+window.addEventListener("click",(e)=>{
+
+if(e.target===imageModal){
+
+imageModal.style.display="none";
+
+}
+
+});
+
+/* ==========================================
+DOWNLOAD BUTTON
+========================================== */
+
+buyImageBtn.onclick=function(){
+
+imageModal.style.display="none";
+
+if(selectedAsset.membership==="free"){
+
+window.open(selectedAsset.image,"_blank");
+
+return;
+
+}
+
+popupTitle.innerText=selectedAsset.title;
+
+purchasePopup.style.display="flex";
+
+};
+
+/* ==========================================
+PURCHASE POPUP
+========================================== */
+
+closePopup.onclick=function(){
+
+purchasePopup.style.display="none";
+
+};
+
+window.addEventListener("click",(e)=>{
+
+if(e.target===purchasePopup){
+
+purchasePopup.style.display="none";
+
+}
+
+});
+
+/* ==========================================
+SAVE ORDER
+========================================== */
+
+buyNow.onclick=async function(){
 
 const email=buyerEmail.value.trim();
 
 const txid=buyerTx.value.trim();
 
-if(!email||!txid){
+if(email==="" || txid===""){
 
 alert("Please fill all fields.");
 
@@ -175,7 +262,9 @@ return;
 
 await db.collection("orders").add({
 
-assetId:selectedAsset,
+assetId:selectedAsset.id,
+
+title:selectedAsset.title,
 
 email:email,
 
@@ -187,179 +276,218 @@ createdAt:firebase.firestore.FieldValue.serverTimestamp()
 
 });
 
-alert("Order Submitted Successfully.");
-
-purchasePopup.style.display="none";
+alert("Order submitted successfully.");
 
 buyerEmail.value="";
 
 buyerTx.value="";
 
-});
-
-}
-
-/* =========================
-SEARCH
-========================= */
-
-const searchInput=document.querySelector(".search input");
-
-const searchButton=document.querySelector(".search button");
-
-if(searchButton){
-
-searchButton.addEventListener("click",()=>{
-
-const keyword=searchInput.value.toLowerCase();
-
-document.querySelectorAll(".asset-card").forEach(card=>{
-
-const text=card.innerText.toLowerCase();
-
-card.style.display=
-
-text.includes(keyword)
-
-?
-
-"block"
-
-:
-
-"none";
-
-});
-
-});
-
-}
-/* =====================================
-PART 2
-POPUP + ORDER SYSTEM
-===================================== */
-
-function attachButtons(){
-
-    document.querySelectorAll(".downloadBtn").forEach(btn=>{
-
-        btn.addEventListener("click",()=>{
-
-            selectedAsset=btn.dataset.id;
-
-            const card=btn.closest(".asset-card");
-
-            popupTitle.innerText=
-            card.querySelector("h3").innerText;
-
-            if(btn.innerText==="Download"){
-
-                window.location.href="#";
-
-                return;
-
-            }
-
-            purchasePopup.style.display="flex";
-
-        });
-
-    });
-
-}
-
-/* =========================
-CLOSE POPUP
-========================= */
-
-if(closePopup){
-
-closePopup.addEventListener("click",()=>{
-
 purchasePopup.style.display="none";
 
-});
+};
 
-}
+/* ==========================================
+SEARCH
+========================================== */
 
-/* =========================
-BUY NOW
-========================= */
+searchButton.onclick=function(){
 
-if(buyNow){
+const keyword=searchInput.value
+.toLowerCase()
+.trim();
 
-buyNow.addEventListener("click",async()=>{
+searchGrid.innerHTML="";
 
-const email=buyerEmail.value.trim();
+if(keyword===""){
 
-const txid=buyerTx.value.trim();
+searchSection.style.display="none";
 
-if(!email||!txid){
-
-alert("Please fill all fields.");
+emptyState.style.display="none";
 
 return;
 
 }
 
-await db.collection("orders").add({
+const result=assets.filter(asset=>{
 
-assetId:selectedAsset,
-
-email:email,
-
-txid:txid,
-
-status:"pending",
-
-createdAt:firebase.firestore.FieldValue.serverTimestamp()
+return asset.title.toLowerCase().includes(keyword);
 
 });
 
-alert("Order Submitted Successfully.");
+if(result.length===0){
 
-purchasePopup.style.display="none";
+searchSection.style.display="none";
 
-buyerEmail.value="";
+emptyState.style.display="block";
 
-buyerTx.value="";
+return;
+
+}
+
+emptyState.style.display="none";
+
+searchSection.style.display="block";
+
+result.forEach(asset=>{
+
+renderCard(asset,searchGrid);
+
+});
+
+};
+
+backHomeBtn.onclick=function(){
+
+searchSection.style.display="none";
+
+emptyState.style.display="none";
+
+searchInput.value="";
+
+};
+
+/* ==========================================
+2STOCK FINAL SCRIPT.JS
+PART 3
+========================================== */
+
+/* ==========================================
+CATEGORY FILTER
+========================================== */
+
+filterButtons.forEach(button=>{
+
+button.onclick=function(){
+
+document.querySelector(".filter-btn.active")
+?.classList.remove("active");
+
+button.classList.add("active");
+
+const filter=button.dataset.category;
+
+assetGrid.innerHTML="";
+
+if(filter==="all"){
+
+assets.forEach(asset=>{
+
+renderCard(asset,assetGrid);
+
+});
+
+return;
+
+}
+
+const filtered=assets.filter(asset=>{
+
+return (
+
+(asset.category||"").toLowerCase()===filter ||
+
+(asset.membership||"").toLowerCase()===filter
+
+);
+
+});
+
+filtered.forEach(asset=>{
+
+renderCard(asset,assetGrid);
+
+});
+
+};
+
+});
+
+/* ==========================================
+CURSOR GLOW
+========================================== */
+
+const cursorGlow=document.getElementById("cursorGlow");
+
+document.addEventListener("mousemove",(e)=>{
+
+cursorGlow.style.left=e.clientX-12+"px";
+
+cursorGlow.style.top=e.clientY-12+"px";
+
+});
+
+/* ==========================================
+DRAGON FOLLOW
+========================================== */
+
+const dragon=document.getElementById("dragonAnimation");
+
+document.addEventListener("mousemove",(e)=>{
+
+dragon.style.left=e.clientX+25+"px";
+
+dragon.style.top=e.clientY+25+"px";
+
+});
+
+/* ==========================================
+SCROLL TO TOP
+========================================== */
+
+const scrollTopBtn=document.getElementById("scrollTop");
+
+if(scrollTopBtn){
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>400){
+
+scrollTopBtn.style.display="block";
+
+}else{
+
+scrollTopBtn.style.display="none";
+
+}
+
+});
+
+scrollTopBtn.onclick=()=>{
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+};
+
+}
+
+/* ==========================================
+PRELOAD IMAGES
+========================================== */
+
+function preloadImages(){
+
+assets.forEach(asset=>{
+
+const img=new Image();
+
+img.src=asset.image;
 
 });
 
 }
 
-/* =========================
-SEARCH
-========================= */
+window.addEventListener("load",()=>{
 
-const searchInput=document.querySelector(".search input");
-
-const searchButton=document.querySelector(".search button");
-
-if(searchButton){
-
-searchButton.addEventListener("click",()=>{
-
-const keyword=searchInput.value.toLowerCase();
-
-document.querySelectorAll(".asset-card").forEach(card=>{
-
-const text=card.innerText.toLowerCase();
-
-card.style.display=
-
-text.includes(keyword)
-
-?
-
-"block"
-
-:
-
-"none";
+setTimeout(preloadImages,1000);
 
 });
 
-});
-
-}
+/* ==========================================
+END OF PART 3
+========================================== */
