@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>2STOCK Upload Panel</title>
+
+<link rel="stylesheet" href="admin.css">
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+
+<script src="../firebase.js"></script>
+
+</head>
+
+<body>
+
+<h1>📤 Upload New Asset</h1>
+
+<div class="order-card">
+
+<label>Asset Title</label><br>
+<input type="text" id="title"><br><br>
+
+<label>Price ($)</label><br>
+<input type="number" id="price" value="1.5"><br><br>
+
+<label>Category</label><br>
+<select id="category">
+
+<option value="photo">Photo</option>
+<option value="vector">Vector</option>
+
+</select>
+
+<br><br>
+
+<label>Access Type</label><br>
+
+<select id="membership">
+
+<option value="free">Free</option>
+<option value="premium">Membership Only</option>
+
+</select>
+
+<br><br>
+
+<label>Select Image</label><br>
+
+<input type="file" id="image">
+
+<br><br>
+
+<button id="uploadBtn">
+
+Upload Asset
+
+</button>
+
+<p id="uploadStatus"></p>
+
+</div>
+
+<script src="upload.js"></script>
+
+</body>
+</html>
