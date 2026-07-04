@@ -85,3 +85,24 @@ window.db = db;
 window.addAsset = addAsset;
 window.createOrder = createOrder;
 window.updateOrder = updateOrder;
+/* =========================
+SAVE ASSET TO FIRESTORE
+========================= */
+
+async function saveAsset(assetData){
+
+    return await db.collection("assets").add({
+
+        title: assetData.title,
+        price: Number(assetData.price),
+        category: assetData.category,
+        membership: assetData.membership,
+        image: assetData.image,
+
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+}
+
+window.saveAsset = saveAsset;
