@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,425 +12,26 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="style.css">
+
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Outfit',sans-serif;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-background:#060713;
-color:#fff;
-overflow-x:hidden;
-}
-
-/* Animated Background */
-
-body::before{
-
-content:"";
-
-position:fixed;
-
-width:100%;
-
-height:100%;
-
-left:0;
-
-top:0;
-
-background:
-
-radial-gradient(circle at 15% 20%,#2f6dff55,transparent 35%),
-
-radial-gradient(circle at 80% 10%,#903cff44,transparent 40%),
-
-radial-gradient(circle at 70% 90%,#00b7ff33,transparent 35%),
-
-#060713;
-
-z-index:-5;
-
-animation:bg 15s linear infinite alternate;
-
-}
-
-@keyframes bg{
-
-0%{
-
-filter:hue-rotate(0deg);
-
-transform:scale(1);
-
-}
-
-100%{
-
-filter:hue-rotate(40deg);
-
-transform:scale(1.2);
-
-}
-
-}
-
-/* NAVBAR */
-
-nav{
-
-position:fixed;
-
-top:20px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-width:94%;
-
-height:75px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:0 35px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-backdrop-filter:blur(30px);
-
-border-radius:22px;
-
-z-index:999;
-
-}
-
-.logo{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-}
-
-.logo img{
-
-height:45px;
-
-}
-
-.logo h2{
-
-font-size:28px;
-
-font-weight:800;
-
-}
-
-.menu{
-
-display:flex;
-
-gap:28px;
-
-align-items:center;
-
-}
-
-.menu a{
-
-text-decoration:none;
-
-color:white;
-
-opacity:.8;
-
-transition:.3s;
-
-}
-
-.menu a:hover{
-
-opacity:1;
-
-color:#63b6ff;
-
-}
-
-.join-btn{
-
-padding:14px 28px;
-
-border:none;
-
-border-radius:14px;
-
-cursor:pointer;
-
-background:linear-gradient(135deg,#4b8cff,#7557ff);
-
-color:white;
-
-font-weight:700;
-
-}
-
-/* HERO */
-
-.hero{
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-padding-top:80px;
-
-}
-
-.hero-wrap{
-
-width:92%;
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:60px;
-
-align-items:center;
-
-}
-
-.hero-left h1{
-
-font-size:72px;
-
-font-weight:800;
-
-line-height:82px;
-
-}
-
-.hero-left span{
-
-background:linear-gradient(90deg,#55c8ff,#7b7dff,#b550ff);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-}
-
-.hero-left p{
-
-margin-top:25px;
-
-font-size:18px;
-
-line-height:34px;
-
-color:#bfc6db;
-
-}
-
-.search{
-
-margin-top:40px;
-
-display:flex;
-
-height:70px;
-
-border-radius:20px;
-
-overflow:hidden;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-backdrop-filter:blur(20px);
-
-}
-
-.search input{
-
-flex:1;
-
-background:none;
-
-border:none;
-
-padding:0 25px;
-
-font-size:17px;
-
-color:white;
-
-outline:none;
-
-}
-
-.search button{
-
-width:170px;
-
-border:none;
-
-background:linear-gradient(135deg,#4d8cff,#7a5dff);
-
-color:white;
-
-font-size:17px;
-
-font-weight:700;
-
-cursor:pointer;
-
-}
-
-.hero-buttons{
-
-margin-top:35px;
-
-display:flex;
-
-gap:20px;
-
-}
-
-.primary{
-
-padding:16px 32px;
-
-border:none;
-
-border-radius:18px;
-
-background:linear-gradient(135deg,#4e90ff,#7558ff);
-
-font-weight:700;
-
-color:white;
-
-cursor:pointer;
-
-}
-
-.secondary{
-
-padding:16px 32px;
-
-border-radius:18px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-color:white;
-
-cursor:pointer;
-
-}
-
-/* Glass Preview */
-
-.preview{
-
-width:100%;
-
-height:580px;
-
-border-radius:35px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-backdrop-filter:blur(35px);
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.preview::before{
-
-content:"";
-
-position:absolute;
-
-width:260px;
-
-height:260px;
-
-background:#5867ff55;
-
-filter:blur(90px);
-
-top:-80px;
-
-left:-50px;
-
-}
-
-.preview::after{
-
-content:"";
-
-position:absolute;
-
-width:240px;
-
-height:240px;
-
-background:#00d0ff55;
-
-filter:blur(90px);
-
-bottom:-70px;
-
-right:-50px;
-
-}
-
-</style>
-
 </head>
 
 <body>
 
-<nav>
+<!-- =========================
+NAVBAR
+========================= -->
+
+<nav class="navbar">
 
 <div class="logo">
 
-<img src="logo.png">
+<img src="assets/logo.png" alt="2STOCK">
 
 <h2>2STOCK</h2>
 
@@ -437,27 +39,25 @@ right:-50px;
 
 <div class="menu">
 
-<a href="#">Home</a>
+<a href="#home">Home</a>
+<a href="#gallery">Photos</a>
+<a href="#collections">Collections</a>
+<a href="#membership">Membership</a>
+<a href="#faq">FAQ</a>
 
-<a href="#">Photos</a>
-
-<a href="#">Vectors</a>
-
-<a href="#">AI Images</a>
-
-<a href="#">Membership</a>
-
-<button class="join-btn">
-
-Join
-
+<button id="joinBtn" class="join-btn">
+Join Now
 </button>
 
 </div>
 
 </nav>
 
-<section class="hero">
+<!-- =========================
+HERO
+========================= -->
+
+<section class="hero" id="home">
 
 <div class="hero-wrap">
 
@@ -475,15 +75,18 @@ Photography
 
 <p>
 
-Download millions of premium stock photos, vectors and AI images with an elegant glassmorphism experience.
+Download millions of premium stock photos, vectors and AI generated images.
 
 </p>
 
 <div class="search">
 
-<input type="text" placeholder="Search premium photos...">
+<input
+type="text"
+id="searchInput"
+placeholder="Search premium assets...">
 
-<button>
+<button id="searchBtn">
 
 Search
 
@@ -493,13 +96,13 @@ Search
 
 <div class="hero-buttons">
 
-<button class="primary">
+<button class="primary" id="exploreBtn">
 
 Explore
 
 </button>
 
-<button class="secondary">
+<button class="secondary" id="membershipOpen">
 
 Membership
 
@@ -509,18 +112,30 @@ Membership
 
 </div>
 
-<div class="preview">
+<div class="hero-right">
+
+<div class="preview-card">
+
+<div class="preview-glow"></div>
+
+<img
+id="heroPreview"
+src="assets/hero.jpg"
+alt="Preview">
+
+</div>
 
 </div>
 
 </div>
 
 </section>
+
 <!-- =========================
-PART 2 START
+MEMBERSHIP
 ========================= -->
 
-<section class="membership-section">
+<section class="membership-section" id="membership">
 
 <div class="membership-card">
 
@@ -528,23 +143,36 @@ PART 2 START
 
 <h5>2STOCK MEMBERSHIP</h5>
 
-<h2>Unlimited Premium Downloads</h2>
+<h2>
+
+Unlimited Premium Downloads
+
+</h2>
 
 <p>
 
-Get access to exclusive premium photos, vectors, AI generated images,
-priority download speed and members only collections.
+Unlimited access to Premium Photos,
+AI Images,
+Commercial License,
+Priority Downloads.
 
 </p>
 
 <div class="membership-buttons">
 
-<button class="primary">
+<button
+id="becomeMember"
+class="primary">
+
 Become Member
+
 </button>
 
-<button class="secondary">
+<button
+class="secondary">
+
 Learn More
+
 </button>
 
 </div>
@@ -555,9 +183,17 @@ Learn More
 
 <div class="price-box">
 
-<h1>$9</h1>
+<h1>
 
-<span>/ Month</span>
+$9
+
+</h1>
+
+<span>
+
+/ Month
+
+</span>
 
 </div>
 
@@ -567,7 +203,11 @@ Learn More
 
 </section>
 
-<section class="gallery-section">
+<!-- =========================
+TRENDING GALLERY
+========================= -->
+
+<section class="gallery-section" id="gallery">
 
 <div class="section-heading">
 
@@ -579,323 +219,106 @@ Trending Premium Photos
 
 <p>
 
-Hand picked collections from professional photographers.
+Uploaded directly from Firebase.
 
 </p>
 
 </div>
 
-<div id="assetGrid" class="gallery-grid">
+<div
+id="assetGrid"
+class="gallery-grid">
 
-<!-- Firebase Images -->
+<!-- Firebase Assets -->
 
 </div>
 
 </section>
+<!-- =========================
+PART 2 START
+========================= -->
 
-<section class="feature-section">
+<!-- Popular Collections -->
 
-<div class="feature-card">
+<section class="collections" id="collections">
 
-<h3>
+<div class="section-heading">
 
-High Resolution
+<h2>
 
-</h3>
-
-<p>
-
-Every image is available in premium quality.
-
-</p>
-
-</div>
-
-<div class="feature-card">
-
-<h3>
-
-Commercial License
-
-</h3>
-
-<p>
-
-Use in personal and commercial projects.
-
-</p>
-
-</div>
-
-<div class="feature-card">
-
-<h3>
-
-Instant Download
-
-</h3>
-
-<p>
-
-Download immediately after approval.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- Flying Dragon -->
-
-<div id="dragon">
-
-<img src="assets/dragon.png" alt="dragon">
-
-</div>
-
-<!-- Eagle -->
-
-<div id="eagle">
-
-<img src="assets/eagle.png" alt="eagle">
-
-</div>
-
-<footer>
-
-<div class="footer-box">
-
-<h2>2STOCK</h2>
-
-<p>
-
-Premium Photography Marketplace
-
-</p>
-
-<div class="footer-links">
-
-<a href="#">Home</a>
-
-<a href="#">Photos</a>
-
-<a href="#">Vectors</a>
-
-<a href="#">Membership</a>
-
-<a href="#">Contact</a>
-
-</div>
-
-<p class="copyright">
-
-© 2026 2STOCK. All Rights Reserved.
-
-</p>
-
-</div>
-
-</footer>
-
-<!-- Purchase Popup -->
-
-<div id="purchasePopup" class="popup">
-
-<div class="popup-box">
-
-<h2 id="popupTitle">
-
-Premium Photo
+Popular Collections
 
 </h2>
 
 <p>
 
-Purchase this image to unlock download.
+Explore our most downloaded premium photography collections.
 
 </p>
-
-<h1 id="popupPrice">
-
-$1.50
-
-</h1>
-
-<input
-type="email"
-id="buyerEmail"
-placeholder="Your Email">
-
-<input
-type="text"
-id="buyerTx"
-placeholder="Transaction ID">
-
-<div class="popup-buttons">
-
-<button id="buyNow">
-
-Submit Order
-
-</button>
-
-<button id="closePopup">
-
-Cancel
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================
-PART 2 END
-========================= -->
-<!-- =========================
-PART 3 START
-========================= -->
-
-<section class="collections">
-
-<div class="section-heading">
-
-<h2>Popular Collections</h2>
-
-<p>Explore our most downloaded premium assets.</p>
 
 </div>
 
 <div class="collection-grid">
 
 <div class="collection-card">
-<img src="assets/demo1.jpg">
+
+<img src="assets/demo1.jpg" alt="Nature">
+
 <div class="overlay">
+
 <h3>Nature</h3>
+
 <span>12,540 Photos</span>
+
 </div>
+
 </div>
 
 <div class="collection-card">
-<img src="assets/demo2.jpg">
+
+<img src="assets/demo2.jpg" alt="Wildlife">
+
 <div class="overlay">
+
 <h3>Wildlife</h3>
+
 <span>8,220 Photos</span>
+
 </div>
+
 </div>
 
 <div class="collection-card">
-<img src="assets/demo3.jpg">
+
+<img src="assets/demo3.jpg" alt="Travel">
+
 <div class="overlay">
+
 <h3>Travel</h3>
+
 <span>19,210 Photos</span>
+
 </div>
+
 </div>
 
 <div class="collection-card">
-<img src="assets/demo4.jpg">
+
+<img src="assets/demo4.jpg" alt="Business">
+
 <div class="overlay">
+
 <h3>Business</h3>
+
 <span>6,580 Photos</span>
-</div>
-</div>
 
 </div>
-
-</section>
-
-<section class="counter-section">
-
-<div class="counter-box">
-<h2>12M+</h2>
-<p>Premium Photos</p>
-</div>
-
-<div class="counter-box">
-<h2>400K+</h2>
-<p>Members</p>
-</div>
-
-<div class="counter-box">
-<h2>150+</h2>
-<p>Countries</p>
-</div>
-
-<div class="counter-box">
-<h2>99%</h2>
-<p>Happy Clients</p>
-</div>
-
-</section>
-
-<section class="newsletter">
-
-<div class="newsletter-box">
-
-<h2>Never Miss New Premium Photos</h2>
-
-<p>Subscribe and receive weekly premium collections.</p>
-
-<div class="newsletter-form">
-
-<input
-type="email"
-placeholder="Enter your email">
-
-<button>
-
-Subscribe
-
-</button>
 
 </div>
 
 </div>
 
 </section>
-
-<!-- Loading -->
-
-<div id="loadingScreen">
-
-<div class="loader"></div>
-
-<p>Loading Premium Assets...</p>
-
-</div>
-
-<!-- Image Preview -->
-
-<div id="previewModal">
-
-<div class="preview-content">
-
-<span id="closePreview">&times;</span>
-
-<img id="previewImage">
-
-<h2 id="previewTitle"></h2>
-
-<p id="previewCategory"></p>
-
-<button id="previewDownload">
-
-Download
-
-</button>
-
-</div>
-
-</div>
-
-<!-- Firebase Config -->
-
-
-<!-- =========================
-PART 4 START
-========================= -->
 
 <!-- Featured Banner -->
 
@@ -903,13 +326,21 @@ PART 4 START
 
 <div class="featured-content">
 
-<h5>EDITOR'S CHOICE</h5>
+<h5>
 
-<h1>Premium Creative Collection</h1>
+EDITOR'S CHOICE
+
+</h5>
+
+<h1>
+
+Premium Creative Collection
+
+</h1>
 
 <p>
 
-Discover exclusive high-quality photography selected by our editors.
+Discover exclusive premium photography selected by our editors.
 
 </p>
 
@@ -929,36 +360,56 @@ Explore Collection
 
 <div class="section-heading">
 
-<h2>Latest Uploads</h2>
+<h2>
 
-<p>Fresh premium content added every day.</p>
+Latest Uploads
+
+</h2>
+
+<p>
+
+Fresh premium content added every day.
+
+</p>
 
 </div>
 
 <div class="latest-grid">
 
 <div class="latest-card">
+
 <img src="assets/latest1.jpg" alt="">
+
 </div>
 
 <div class="latest-card">
+
 <img src="assets/latest2.jpg" alt="">
+
 </div>
 
 <div class="latest-card">
+
 <img src="assets/latest3.jpg" alt="">
+
 </div>
 
 <div class="latest-card">
+
 <img src="assets/latest4.jpg" alt="">
+
 </div>
 
 <div class="latest-card">
+
 <img src="assets/latest5.jpg" alt="">
+
 </div>
 
 <div class="latest-card">
+
 <img src="assets/latest6.jpg" alt="">
+
 </div>
 
 </div>
@@ -971,9 +422,17 @@ Explore Collection
 
 <div class="section-heading">
 
-<h2>Membership Plans</h2>
+<h2>
 
-<p>Choose the plan that fits your needs.</p>
+Membership Plans
+
+</h2>
+
+<p>
+
+Choose the perfect plan.
+
+</p>
 
 </div>
 
@@ -981,21 +440,27 @@ Explore Collection
 
 <div class="plan-card">
 
-<h3>Free</h3>
+<h3>
 
-<h1>$0</h1>
+Free
 
-<p>Limited Downloads</p>
+</h3>
+
+<h1>
+
+$0
+
+</h1>
 
 <ul>
 
 <li>✔ Preview Images</li>
 
-<li>✔ Free Collection</li>
+<li>✔ Free Downloads</li>
 
-<li>✖ Premium Assets</li>
+<li>✖ Premium Images</li>
 
-<li>✖ Unlimited Download</li>
+<li>✖ Unlimited Downloads</li>
 
 </ul>
 
@@ -1009,25 +474,41 @@ Current Plan
 
 <div class="plan-card premium">
 
-<h3>Premium</h3>
+<h3>
 
-<h1>$9</h1>
+Premium
 
-<p>Per Month</p>
+</h3>
+
+<h1>
+
+$9
+
+</h1>
+
+<span>
+
+Per Month
+
+</span>
 
 <ul>
 
-<li>✔ Unlimited Download</li>
+<li>✔ Unlimited Downloads</li>
 
-<li>✔ Premium Assets</li>
+<li>✔ Premium Collection</li>
 
 <li>✔ Full Resolution</li>
+
+<li>✔ Commercial License</li>
 
 <li>✔ Priority Access</li>
 
 </ul>
 
-<button class="primary">
+<button
+id="upgradeMembership"
+class="primary">
 
 Upgrade Now
 
@@ -1039,68 +520,284 @@ Upgrade Now
 
 </section>
 
-<!-- FAQ -->
+<!-- Statistics -->
 
-<section class="faq-section">
+<section class="counter-section">
 
-<div class="section-heading">
+<div class="counter-box">
 
-<h2>Frequently Asked Questions</h2>
+<h2>
 
-</div>
+12M+
 
-<div class="faq-item">
+</h2>
 
-<h3>Can I use images commercially?</h3>
+<p>
 
-<p>Yes. Premium assets include commercial license.</p>
+Premium Photos
 
-</div>
-
-<div class="faq-item">
-
-<h3>Do members get unlimited downloads?</h3>
-
-<p>Yes. Premium members can download unlimited assets.</p>
+</p>
 
 </div>
 
-<div class="faq-item">
+<div class="counter-box">
 
-<h3>How do I become a member?</h3>
+<h2>
 
-<p>Purchase a membership from the Membership page.</p>
+400K+
+
+</h2>
+
+<p>
+
+Members
+
+</p>
+
+</div>
+
+<div class="counter-box">
+
+<h2>
+
+150+
+
+</h2>
+
+<p>
+
+Countries
+
+</p>
+
+</div>
+
+<div class="counter-box">
+
+<h2>
+
+99%
+
+</h2>
+
+<p>
+
+Happy Clients
+
+</p>
 
 </div>
 
 </section>
 
-<!-- Scroll Top Button -->
+<!-- FAQ -->
 
-<button id="scrollTop">
+<section class="faq-section" id="faq">
 
-↑
+<div class="section-heading">
+
+<h2>
+
+Frequently Asked Questions
+
+</h2>
+
+</div>
+
+<div class="faq-item">
+
+<h3>
+
+Can I use images commercially?
+
+</h3>
+
+<p>
+
+Yes. Premium assets include commercial usage rights.
+
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>
+
+Do Premium members get unlimited downloads?
+
+</h3>
+
+<p>
+
+Yes. Premium members can download unlimited premium assets.
+
+</p>
+
+</div>
+
+<div class="faq-item">
+
+<h3>
+
+Can I cancel my membership anytime?
+
+</h3>
+
+<p>
+
+Yes. You can cancel your membership whenever you want.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- Newsletter -->
+
+<section class="newsletter">
+
+<div class="newsletter-box">
+
+<h2>
+
+Never Miss Premium Uploads
+
+</h2>
+
+<p>
+
+Subscribe to receive weekly premium collections.
+
+</p>
+
+<div class="newsletter-form">
+
+<input
+type="email"
+placeholder="Enter your email">
+
+<button>
+
+Subscribe
 
 </button>
 
+</div>
+
+</div>
+
+</section>
+
 <!-- =========================
-PART 4 END
+PART 2 END
 ========================= -->
 <!-- =========================
-PART 5 START
+PART 3 START
 ========================= -->
 
-<!-- Image Details Modal -->
+<!-- SEARCH RESULTS -->
+
+<section id="searchResults" class="gallery-section" style="display:none;">
+
+<div class="section-heading">
+
+<h2>
+
+Search Results
+
+</h2>
+
+<p>
+
+Find exactly what you're looking for.
+
+</p>
+
+</div>
+
+<div id="searchGrid" class="gallery-grid">
+
+</div>
+
+</section>
+
+<!-- EMPTY STATE -->
+
+<section id="emptyState" style="display:none;">
+
+<h2>
+
+No Results Found
+
+</h2>
+
+<p>
+
+Try another keyword.
+
+</p>
+
+<button id="backHomeBtn" class="primary">
+
+Back To Home
+
+</button>
+
+</section>
+
+<!-- CATEGORY FILTER -->
+
+<section class="category-filter">
+
+<button class="filter-btn active" data-category="all">
+
+All
+
+</button>
+
+<button class="filter-btn" data-category="photo">
+
+Photo
+
+</button>
+
+<button class="filter-btn" data-category="vector">
+
+Vector
+
+</button>
+
+<button class="filter-btn" data-category="free">
+
+Free
+
+</button>
+
+<button class="filter-btn" data-category="premium">
+
+Premium
+
+</button>
+
+</section>
+
+<!-- IMAGE MODAL -->
 
 <div id="imageModal" class="image-modal">
 
 <div class="image-modal-content">
 
-<span class="close-image-modal">&times;</span>
+<span class="close-image-modal">
+
+&times;
+
+</span>
 
 <div class="image-left">
 
-<img id="modalImage" src="" alt="">
+<img id="modalImage">
 
 </div>
 
@@ -1112,63 +809,23 @@ Premium Image
 
 </h2>
 
-<p id="modalDescription">
-
-Professional premium stock photography.
-
-</p>
-
-<div class="meta-box">
-
-<div>
-
-<strong>Category</strong>
-
 <p id="modalCategory">
 
-Nature
+Photo
 
 </p>
 
-</div>
+<p id="modalMembership">
 
-<div>
-
-<strong>Resolution</strong>
-
-<p>
-
-6000 × 4000
+Premium
 
 </p>
-
-</div>
-
-<div>
-
-<strong>License</strong>
-
-<p>
-
-Commercial
-
-</p>
-
-</div>
-
-</div>
 
 <div class="price-area">
 
-<h1 id="modalPrice">
-
-$1.50
-
-</h1>
-
 <button id="buyImageBtn" class="primary">
 
-Buy Now
+Download
 
 </button>
 
@@ -1180,7 +837,65 @@ Buy Now
 
 </div>
 
-<!-- Membership Modal -->
+<!-- PURCHASE POPUP -->
+
+<div id="purchasePopup" class="popup">
+
+<div class="popup-box">
+
+<h2 id="popupTitle">
+
+Download Image
+
+</h2>
+
+<p>
+
+Complete your request below.
+
+</p>
+
+<input
+
+type="email"
+
+id="buyerEmail"
+
+placeholder="Your Email"
+
+>
+
+<input
+
+type="text"
+
+id="buyerTx"
+
+placeholder="Transaction ID"
+
+>
+
+<div class="popup-buttons">
+
+<button id="buyNow">
+
+Submit
+
+</button>
+
+<button id="closePopup">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MEMBERSHIP POPUP -->
 
 <div id="membershipModal" class="popup">
 
@@ -1188,7 +903,7 @@ Buy Now
 
 <h2>
 
-Become a Premium Member
+Become Premium
 
 </h2>
 
@@ -1196,11 +911,9 @@ Become a Premium Member
 
 Unlimited Downloads
 
-Premium Collections
-
 Commercial License
 
-Priority Access
+Premium Collection
 
 </p>
 
@@ -1226,7 +939,7 @@ Cancel
 
 </div>
 
-<!-- Login Modal -->
+<!-- LOGIN POPUP -->
 
 <div id="loginModal" class="popup">
 
@@ -1239,14 +952,26 @@ Member Login
 </h2>
 
 <input
+
 type="email"
-placeholder="Email">
+
+id="loginEmail"
+
+placeholder="Email"
+
+>
 
 <input
-type="password"
-placeholder="Password">
 
-<button class="primary">
+type="password"
+
+id="loginPassword"
+
+placeholder="Password"
+
+>
+
+<button id="loginBtn" class="primary">
 
 Login
 
@@ -1262,204 +987,19 @@ Cancel
 
 </div>
 
-<!-- Download Success -->
-
-<div id="downloadSuccess" class="popup">
-
-<div class="popup-box">
-
-<h2>
-
-Download Ready
-
-</h2>
-
-<p>
-
-Your download is now available.
-
-</p>
-
-<a
-href="#"
-id="downloadLink"
-class="primary">
-
-Download
-
-</a>
-
-</div>
-
-</div>
-
-<!-- Loader -->
-
-<div id="globalLoader">
-
-<div class="loader-circle"></div>
-
-<p>
-
-Loading...
-
-</p>
-
-</div>
-
-<!-- Cursor Glow -->
-
-<div id="cursorGlow"></div>
-
-<!-- Flying Dragon -->
+<!-- DRAGON -->
 
 <div id="dragonAnimation"></div>
 
-<!-- Eagle -->
+<!-- EAGLE -->
 
 <div id="eagleAnimation"></div>
 
-<!-- =========================
-PART 5 END
-========================= -->
+<!-- CURSOR GLOW -->
 
-<!-- =========================
-PART 6 START
-========================= -->
+<div id="cursorGlow"></div>
 
-<!-- Search Results -->
-
-<section id="searchResults" class="gallery-section">
-
-<div class="section-heading">
-
-<h2>
-
-Search Results
-
-</h2>
-
-<p>
-
-Find exactly what you're looking for.
-
-</p>
-
-</div>
-
-<div id="searchGrid" class="gallery-grid">
-
-</div>
-
-</section>
-
-<!-- Empty State -->
-
-<section id="emptyState">
-
-<h2>
-
-No Results Found
-
-</h2>
-
-<p>
-
-Try another keyword or browse categories.
-
-</p>
-
-<button class="primary">
-
-Back To Home
-
-</button>
-
-</section>
-
-<!-- Category Filter -->
-
-<section class="category-filter">
-
-<button class="filter-btn active" data-category="all">
-
-All
-
-</button>
-
-<button class="filter-btn" data-category="nature">
-
-Nature
-
-</button>
-
-<button class="filter-btn" data-category="animals">
-
-Animals
-
-</button>
-
-<button class="filter-btn" data-category="travel">
-
-Travel
-
-</button>
-
-<button class="filter-btn" data-category="food">
-
-Food
-
-</button>
-
-<button class="filter-btn" data-category="technology">
-
-Technology
-
-</button>
-
-<button class="filter-btn" data-category="business">
-
-Business
-
-</button>
-
-<button class="filter-btn" data-category="ai">
-
-AI Images
-
-</button>
-
-</section>
-
-<!-- Premium CTA -->
-
-<section class="premium-cta">
-
-<div class="premium-box">
-
-<h2>
-
-Ready to Unlock Everything?
-
-</h2>
-
-<p>
-
-Upgrade today and enjoy unlimited premium downloads.
-
-</p>
-
-<button class="primary">
-
-Get Membership
-
-</button>
-
-</div>
-
-</section>
-
-<!-- Footer -->
+<!-- FOOTER -->
 
 <footer>
 
@@ -1489,13 +1029,13 @@ Quick Links
 
 </h4>
 
-<a href="#">Home</a>
+<a href="#home">Home</a>
 
-<a href="#">Photos</a>
+<a href="#gallery">Photos</a>
 
-<a href="#">Vectors</a>
+<a href="#collections">Collections</a>
 
-<a href="#">Membership</a>
+<a href="#membership">Membership</a>
 
 </div>
 
@@ -1541,16 +1081,18 @@ Community
 
 </footer>
 
-<!-- Main JavaScript -->
+<!-- FIREBASE -->
 
 <script src="firebase.js"></script>
+
+<!-- MAIN SCRIPT -->
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
 
 <!-- =========================
-PART 6 END
+PART 3 END
 ========================= -->
-    
