@@ -22,12 +22,7 @@ uploadBtn.addEventListener("click", async () => {
 
     try {
 
-        /* =========================
-        CLOUDINARY UPLOAD
-        ========================= */
-
         const formData = new FormData();
-
         formData.append("file", image);
         formData.append("upload_preset", "2stock_upload");
 
@@ -42,50 +37,37 @@ uploadBtn.addEventListener("click", async () => {
         const cloudinaryData = await response.json();
 
         if (!cloudinaryData.secure_url) {
-
-            uploadStatus.innerText = "Image upload failed.";
-
             console.log(cloudinaryData);
-
+            uploadStatus.innerText = "Image upload failed.";
             return;
         }
 
-        /* =========================
-        SAVE TO FIRESTORE
-        ========================= */
-
         await saveAsset({
-
-            title: title,
-            price: price,
-            category: category,
-            membership: membership,
-
+            title,
+            price,
+            category,
+            membership,
             image: cloudinaryData.secure_url
-
         });
 
         uploadStatus.innerText = "✅ Asset uploaded successfully.";
 
         document.getElementById("title").value = "";
-        document.getElementById("price").value = "1.5";
+        document.getElementById("price").value = "";
         document.getElementById("image").value = "";
-        previewImage.style.display = "none";
 
-    catch (err) {
+        if (previewImage) {
+            previewImage.style.display = "none";
+        }
 
-    console.error(err);
+    } catch (err) {
 
-    alert(err);
-
-    uploadStatus.innerText = err.message;
-
-}
+        console.error(err);
+        uploadStatus.innerText = err.message;
 
     }
 
 });
-
 
 /* =========================
 IMAGE PREVIEW
@@ -101,7 +83,6 @@ imageInput.addEventListener("change", () => {
     if (!file) return;
 
     previewImage.src = URL.createObjectURL(file);
-
     previewImage.style.display = "block";
 
 });
