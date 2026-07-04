@@ -72,11 +72,15 @@ uploadBtn.addEventListener("click", async () => {
         document.getElementById("image").value = "";
         previewImage.style.display = "none";
 
-    } catch (err) {
+    catch (err) {
 
-        console.error(err);
+    console.error(err);
 
-        uploadStatus.innerText = "❌ Upload failed.";
+    alert(err);
+
+    uploadStatus.innerText = err.message;
+
+}
 
     }
 
