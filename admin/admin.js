@@ -47,3 +47,25 @@ function approveOrder(id) {
 }
 
 window.addEventListener("load", loadOrders);
+/* =========================
+ADMIN LOGIN
+========================= */
+
+const ADMIN_PASSWORD = "2stock2026";
+
+document.getElementById("loginBtn").addEventListener("click", () => {
+
+    const password = document.getElementById("adminPassword").value;
+
+    if (password === ADMIN_PASSWORD) {
+
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("adminPanel").style.display = "block";
+
+    } else {
+
+        document.getElementById("loginError").innerText = "Wrong password!";
+
+    }
+
+});
