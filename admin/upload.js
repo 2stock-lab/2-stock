@@ -19,6 +19,17 @@ uploadBtn.addEventListener("click", async () => {
         return;
     }
 
-    uploadStatus.innerText =
-    "Image upload system will be connected in the next step...";
+await saveAsset({
+
+    title: title,
+    price: price,
+    category: category,
+    membership: membership,
+
+    image: "demo-image"
+
+});
+
+uploadStatus.innerText =
+"Asset information saved successfully.";
 });
