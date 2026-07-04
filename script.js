@@ -1,194 +1,365 @@
-/* =========================
+/* =====================================
 2STOCK SCRIPT.JS
-========================= */
+FINAL VERSION
+PART 1
+===================================== */
 
-/* Firebase Init (already loaded in index.html) */
+/* Firebase */
 const db = firebase.firestore();
 
 /* =========================
-DOM ELEMENTS
+DOM
 ========================= */
 
 const assetGrid = document.getElementById("assetGrid");
-const appleOverlay = document.getElementById("appleOverlay");
-const closeApple = document.getElementById("closeApple");
+const searchGrid = document.getElementById("searchGrid");
+const loadingScreen = document.getElementById("loadingScreen");
+
+const purchasePopup = document.getElementById("purchasePopup");
+const closePopup = document.getElementById("closePopup");
+const buyNow = document.getElementById("buyNow");
+
+const popupTitle = document.getElementById("popupTitle");
+const popupPrice = document.getElementById("popupPrice");
+
+const buyerEmail = document.getElementById("buyerEmail");
+const buyerTx = document.getElementById("buyerTx");
 
 let selectedAsset = null;
 
 /* =========================
-LOAD ASSETS FROM FIREBASE
+LOAD ASSETS
 ========================= */
 
-async function loadAssets() {
-    assetGrid.innerHTML = "";
+async function loadAssets(){
 
-    const snapshot = await db.collection("assets").get();
+    if(loadingScreen){
+        loadingScreen.style.display="flex";
+    }
 
-    snapshot.forEach(doc => {
-        const data = doc.data();
+    assetGrid.innerHTML="";
 
-        const card = document.createElement("div");
-        card.className = "card";
+    const snapshot = await db
+        .collection("assets")
+        .orderBy("createdAt","desc")
+        .get();
 
-        card.innerHTML = `
-            <div class="img-container">
-                <img src="${data.image}" />
-            </div>
+    snapshot.forEach(doc=>{
 
-            <div class="card-bottom">
-                <div>
-                    <h4>${data.title}</h4>
-                    <small>$${data.price || 1.5}</small>
-                </div>
+        const data=doc.data();
 
-                <button class="apple-btn" data-id="${doc.id}">
-                    Buy
-                </button>
-            </div>
+        const card=document.createElement("div");
+
+        card.className="asset-card";
+
+        card.innerHTML=`
+
+        <div class="asset-image">
+
+            <img src="${data.image}" alt="${data.title}">
+
+            ${
+                data.membership==="premium"
+
+                ?
+
+                `<span class="premium-badge">🔒 MEMBERSHIP</span>`
+
+                :
+
+                `<span class="free-badge">FREE</span>`
+            }
+
+        </div>
+
+        <div class="asset-info">
+
+            <h3>${data.title}</h3>
+
+            <p>${data.category}</p>
+
+            <button
+            class="downloadBtn"
+            data-id="${doc.id}">
+
+            ${data.membership==="premium"
+            ?
+            "Unlock"
+            :
+            "Download"}
+
+            </button>
+
+        </div>
+
         `;
 
         assetGrid.appendChild(card);
+
     });
 
-    attachBuyEvents();
+    attachButtons();
+
+    if(loadingScreen){
+        loadingScreen.style.display="none";
+    }
+
 }
+/* =====================================
+PART 2
+POPUP + ORDER SYSTEM
+===================================== */
 
-/* =========================
-BUY BUTTON EVENTS
-========================= */
+function attachButtons(){
 
-function attachBuyEvents() {
-    document.querySelectorAll(".apple-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-            selectedAsset = btn.getAttribute("data-id");
-            openPopup();
-        });
-    });
-}
+    document.querySelectorAll(".downloadBtn").forEach(btn=>{
 
-/* =========================
-POPUP SYSTEM
-========================= */
+        btn.addEventListener("click",()=>{
 
-function openPopup() {
-    appleOverlay.style.display = "flex";
-}
+            selectedAsset=btn.dataset.id;
 
-closeApple.addEventListener("click", () => {
-    appleOverlay.style.display = "none";
-});
+            const card=btn.closest(".asset-card");
 
-/* =========================
-ORDER SYSTEM (SIMPLE)
-========================= */
+            popupTitle.innerText=
+            card.querySelector("h3").innerText;
 
-async function placeOrder(email, txid) {
-    await db.collection("orders").add({
-        assetId: selectedAsset,
-        email: email,
-        txid: txid,
-        status: "pending",
-        created: Date.now()
-    });
+            if(btn.innerText==="Download"){
 
-    alert("Order placed!");
-}
+                window.location.href="#";
 
-/* =========================
-FILTER SYSTEM
-========================= */
+                return;
 
-document.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-
-        document.querySelector(".filter-btn.active")?.classList.remove("active");
-        btn.classList.add("active");
-
-        const filter = btn.dataset.category || "all";
-
-        document.querySelectorAll(".card").forEach(card => {
-            if(filter === "all") {
-                card.style.display = "block";
-            } else {
-                card.style.display =
-                    card.innerText.toLowerCase().includes(filter)
-                    ? "block"
-                    : "none";
             }
+
+            purchasePopup.style.display="flex";
+
         });
 
     });
-});
 
-/* =========================
-DRAGON ANIMATION (FOLLOW CURSOR)
-========================= */
-
-const dragon = document.getElementById("dragonAnimation");
-
-let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
-
-function moveDragon() {
-    if(dragon) {
-        dragon.style.position = "fixed";
-        dragon.style.left = mouseX + 20 + "px";
-        dragon.style.top = mouseY + 20 + "px";
-
-        dragon.style.width = "120px";
-        dragon.style.height = "120px";
-        dragon.style.background = "url('dragon.png') no-repeat center/contain";
-        dragon.style.pointerEvents = "none";
-        dragon.style.zIndex = "9999";
-    }
-
-    requestAnimationFrame(moveDragon);
-}
-moveDragon();
-
-/* =========================
-EAGLE ANIMATION (FLOAT LOGO AREA)
-========================= */
-
-const eagle = document.getElementById("eagleAnimation");
-
-function animateEagle() {
-    if(eagle) {
-        eagle.style.position = "absolute";
-        eagle.style.top = "20px";
-        eagle.style.left = "40px";
-        eagle.style.width = "80px";
-        eagle.style.height = "80px";
-        eagle.style.background = "url('eagle.png') no-repeat center/contain";
-        eagle.style.animation = "floatEagle 3s ease-in-out infinite";
-    }
 }
 
-animateEagle();
-
 /* =========================
-SCROLL ANIMATION
+CLOSE POPUP
 ========================= */
 
-window.addEventListener("scroll", () => {
-    document.querySelectorAll(".card").forEach(card => {
-        const rect = card.getBoundingClientRect();
-        if(rect.top < window.innerHeight) {
-            card.style.opacity = "1";
-            card.style.transform = "translateY(0)";
-        }
+if(closePopup){
+
+closePopup.addEventListener("click",()=>{
+
+purchasePopup.style.display="none";
+
+});
+
+}
+
+/* =========================
+BUY NOW
+========================= */
+
+if(buyNow){
+
+buyNow.addEventListener("click",async()=>{
+
+const email=buyerEmail.value.trim();
+
+const txid=buyerTx.value.trim();
+
+if(!email||!txid){
+
+alert("Please fill all fields.");
+
+return;
+
+}
+
+await db.collection("orders").add({
+
+assetId:selectedAsset,
+
+email:email,
+
+txid:txid,
+
+status:"pending",
+
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
+
+});
+
+alert("Order Submitted Successfully.");
+
+purchasePopup.style.display="none";
+
+buyerEmail.value="";
+
+buyerTx.value="";
+
+});
+
+}
+
+/* =========================
+SEARCH
+========================= */
+
+const searchInput=document.querySelector(".search input");
+
+const searchButton=document.querySelector(".search button");
+
+if(searchButton){
+
+searchButton.addEventListener("click",()=>{
+
+const keyword=searchInput.value.toLowerCase();
+
+document.querySelectorAll(".asset-card").forEach(card=>{
+
+const text=card.innerText.toLowerCase();
+
+card.style.display=
+
+text.includes(keyword)
+
+?
+
+"block"
+
+:
+
+"none";
+
+});
+
+});
+
+}
+/* =====================================
+PART 2
+POPUP + ORDER SYSTEM
+===================================== */
+
+function attachButtons(){
+
+    document.querySelectorAll(".downloadBtn").forEach(btn=>{
+
+        btn.addEventListener("click",()=>{
+
+            selectedAsset=btn.dataset.id;
+
+            const card=btn.closest(".asset-card");
+
+            popupTitle.innerText=
+            card.querySelector("h3").innerText;
+
+            if(btn.innerText==="Download"){
+
+                window.location.href="#";
+
+                return;
+
+            }
+
+            purchasePopup.style.display="flex";
+
+        });
+
     });
-});
+
+}
 
 /* =========================
-INIT
+CLOSE POPUP
 ========================= */
 
-window.addEventListener("load", () => {
-    loadAssets();
+if(closePopup){
+
+closePopup.addEventListener("click",()=>{
+
+purchasePopup.style.display="none";
+
 });
+
+}
+
+/* =========================
+BUY NOW
+========================= */
+
+if(buyNow){
+
+buyNow.addEventListener("click",async()=>{
+
+const email=buyerEmail.value.trim();
+
+const txid=buyerTx.value.trim();
+
+if(!email||!txid){
+
+alert("Please fill all fields.");
+
+return;
+
+}
+
+await db.collection("orders").add({
+
+assetId:selectedAsset,
+
+email:email,
+
+txid:txid,
+
+status:"pending",
+
+createdAt:firebase.firestore.FieldValue.serverTimestamp()
+
+});
+
+alert("Order Submitted Successfully.");
+
+purchasePopup.style.display="none";
+
+buyerEmail.value="";
+
+buyerTx.value="";
+
+});
+
+}
+
+/* =========================
+SEARCH
+========================= */
+
+const searchInput=document.querySelector(".search input");
+
+const searchButton=document.querySelector(".search button");
+
+if(searchButton){
+
+searchButton.addEventListener("click",()=>{
+
+const keyword=searchInput.value.toLowerCase();
+
+document.querySelectorAll(".asset-card").forEach(card=>{
+
+const text=card.innerText.toLowerCase();
+
+card.style.display=
+
+text.includes(keyword)
+
+?
+
+"block"
+
+:
+
+"none";
+
+});
+
+});
+
+}
