@@ -33,3 +33,20 @@ await saveAsset({
 uploadStatus.innerText =
 "Asset information saved successfully.";
 });
+/* =========================
+IMAGE PREVIEW
+========================= */
+
+const imageInput = document.getElementById("image");
+const previewImage = document.getElementById("previewImage");
+
+imageInput.addEventListener("change", () => {
+
+    const file = imageInput.files[0];
+
+    if(!file) return;
+
+    previewImage.src = URL.createObjectURL(file);
+    previewImage.style.display = "block";
+
+});
