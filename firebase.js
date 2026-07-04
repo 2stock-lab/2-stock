@@ -2,99 +2,41 @@
 2STOCK FIREBASE CONFIG
 ========================= */
 
-/* Firebase App */
+const firebaseConfig = {
+    apiKey: "AIzaSyDTnaC48yboc4_9u7gSzrzDgAqnu-Fn6To",
+    authDomain: "stock-db-3f41a.firebaseapp.com",
+    projectId: "stock-db-3f41a",
+    storageBucket: "stock-db-3f41a.firebasestorage.app",
+    messagingSenderId: "1066037651835",
+    appId: "1:1066037651835:web:a57d9a691c16b6c76175de"
+};
+
+/* =========================
+INITIALIZE FIREBASE
+========================= */
+
 firebase.initializeApp(firebaseConfig);
 
-/* Firestore DB */
 const db = firebase.firestore();
 
 /* =========================
-GLOBAL SETTINGS
+OPTIONAL OFFLINE MODE
 ========================= */
 
-// Enable offline persistence (optional but useful)
-db.enablePersistence()
-.catch((err) => {
-    console.log("Persistence error:", err.code);
+db.enablePersistence().catch((err) => {
+    console.log("Persistence:", err.code);
 });
 
 /* =========================
-COLLECTION STRUCTURE
+SAVE ASSET
 ========================= */
 
-/*
-
-assets
-------
-id
-title
-image
-price
-category
-type
-createdAt
-
-orders
-------
-assetId
-email
-txid
-status (pending / approved)
-created
-
-users (future)
------
-email
-membership (free / premium)
-
-*/
-
-/* =========================
-HELPER FUNCTIONS
-========================= */
-
-// Add Asset (for admin later)
-async function addAsset(data) {
-    return await db.collection("assets").add({
-        ...data,
-        createdAt: Date.now()
-    });
-}
-
-// Create Order
-async function createOrder(order) {
-    return await db.collection("orders").add({
-        ...order,
-        status: "pending",
-        created: Date.now()
-    });
-}
-
-// Update Order Status (admin)
-async function updateOrder(id, status) {
-    return await db.collection("orders").doc(id).update({
-        status: status
-    });
-}
-
-/* =========================
-READY EXPORT (GLOBAL USE)
-========================= */
-
-window.db = db;
-window.addAsset = addAsset;
-window.createOrder = createOrder;
-window.updateOrder = updateOrder;
-/* =========================
-SAVE ASSET TO FIRESTORE
-========================= */
-
-async function saveAsset(assetData){
+async function saveAsset(assetData) {
 
     return await db.collection("assets").add({
 
         title: assetData.title,
-        price: Number(assetData.price),
+        price: Number(assetData.price || 0),
         category: assetData.category,
         membership: assetData.membership,
         image: assetData.image,
@@ -105,4 +47,60 @@ async function saveAsset(assetData){
 
 }
 
+/* =========================
+ADD ASSET
+========================= */
+
+async function addAsset(data) {
+
+    return await db.collection("assets").add({
+
+        ...data,
+
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+}
+
+/* =========================
+CREATE ORDER
+========================= */
+
+async function createOrder(order) {
+
+    return await db.collection("orders").add({
+
+        ...order,
+
+        status: "pending",
+
+        created: firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+}
+
+/* =========================
+UPDATE ORDER
+========================= */
+
+async function updateOrder(id, status) {
+
+    return await db.collection("orders").doc(id).update({
+
+        status: status
+
+    });
+
+}
+
+/* =========================
+GLOBAL EXPORT
+========================= */
+
+window.db = db;
 window.saveAsset = saveAsset;
+window.addAsset = addAsset;
+window.createOrder = createOrder;
+window.updateOrder = updateOrder;
