@@ -41,11 +41,31 @@ uploadBtn.addEventListener("click", async () => {
             return;
         }
 
-        await saveAsset({
-            title,
-            category,
-            membership,
-            image: cloudinaryData.secure_url
+       const originalImage = cloudinaryData.secure_url;
+
+let previewImage = originalImage;
+
+// Premium হলে Preview URL তৈরি
+if (membership === "premium") {
+
+    previewImage = originalImage.replace(
+        "/upload/",
+        "/upload/l_text:Arial_60:2STOCK,o_60,co_white,g_center/"
+    );
+
+}
+
+await saveAsset({
+
+    title,
+    category,
+    membership,
+
+    image: originalImage,
+
+    preview: previewImage
+
+});
         });
 
         uploadStatus.innerText = "✅ Asset uploaded successfully.";
