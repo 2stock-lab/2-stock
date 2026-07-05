@@ -43,6 +43,10 @@ const loginPassword=document.getElementById("loginPassword");
 
 const membershipModal = document.getElementById("membershipModal");
 
+const membershipBtn = document.getElementById("membershipBtn");
+
+const transactionId = document.getElementById("transactionId");
+
 const previewDownload = document.getElementById("previewDownload");
 
 const loginBtn=document.getElementById("loginBtn");
@@ -795,3 +799,58 @@ membershipBtn.onclick = () => {
     alert("Membership payment system will be added in the next step.");
 
 };
+
+/* =========================
+MEMBERSHIP PAYMENT
+========================= */
+
+if (membershipBtn) {
+
+    membershipBtn.onclick = async () => {
+
+        if (!currentUser) {
+
+            alert("Please login first.");
+            loginModal.style.display = "flex";
+            return;
+
+        }
+
+        const txid = transactionId.value.trim();
+
+        if (!txid) {
+
+            alert("Please enter your Binance Transaction ID.");
+            return;
+
+        }
+
+        try {
+
+            await createMembershipRequest({
+
+                uid: currentUser.uid,
+
+                email: currentUser.email,
+
+                method: "Binance",
+
+                transactionId: txid
+
+            });
+
+            alert("Payment request submitted successfully. Please wait for admin approval.");
+
+            membershipModal.style.display = "none";
+
+            transactionId.value = "";
+
+        } catch (err) {
+
+            alert(err.message);
+
+        }
+
+    };
+
+}
