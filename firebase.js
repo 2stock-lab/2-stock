@@ -98,6 +98,22 @@ async function updateOrder(id, status) {
     });
 
 }
+/* =========================
+CREATE USER
+========================= */
+
+async function createUser(user) {
+
+    return await db.collection("users").doc(user.uid).set({
+
+        uid: user.uid,
+        email: user.email,
+        membership: "free",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+}
 
 /* =========================
 GLOBAL EXPORT
@@ -110,3 +126,5 @@ window.saveAsset = saveAsset;
 window.addAsset = addAsset;
 window.createOrder = createOrder;
 window.updateOrder = updateOrder;
+window.createUser = createUser;
+
