@@ -572,32 +572,38 @@ alert(err.message);
 
 };
 
-signupBtn.onclick=async()=>{
+signupBtn.onclick = async () => {
 
-try{
+    try {
 
-await register(
+        const result = await register(
 
-loginEmail.value,
+            loginEmail.value.trim(),
 
-loginPassword.value
+            loginPassword.value
 
-);
+        );
 
-alert("Account Created Successfully");
+        await createUser({
 
-loginModal.style.display="none";
+            uid: result.user.uid,
 
-}catch(err){
+            email: result.user.email
 
-alert(err.message);
+        });
 
-}
+        alert("Account created successfully!");
 
-};
+        loginModal.style.display = "none";
 
-closeLogin.onclick=()=>{
+        loginEmail.value = "";
 
-loginModal.style.display="none";
+        loginPassword.value = "";
+
+    } catch (err) {
+
+        alert(err.message);
+
+    }
 
 };
