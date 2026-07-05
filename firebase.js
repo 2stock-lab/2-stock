@@ -19,6 +19,10 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
+const auth = firebase.auth();
+
+window.auth = auth;
+
 /* =========================
 OPTIONAL OFFLINE MODE
 ========================= */
@@ -100,6 +104,8 @@ GLOBAL EXPORT
 ========================= */
 
 window.db = db;
+window.auth = auth;
+
 window.saveAsset = saveAsset;
 window.addAsset = addAsset;
 window.createOrder = createOrder;
