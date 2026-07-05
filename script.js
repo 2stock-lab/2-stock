@@ -13,6 +13,8 @@ const auth = firebase.auth();
 
 let currentUser = null;
 
+let userData = null;
+
 /* ==========================================
 DOM
 ========================================== */
@@ -506,13 +508,19 @@ auth.onAuthStateChanged(async (user) => {
 
         console.log("Logged in:", currentUser.email);
 
+        await loadUserProfile();
+
     } else {
 
         console.log("Not logged in");
 
+        userData = null;
+
     }
 
     loadAssets();
+
+});
 
 });
 
@@ -635,3 +643,59 @@ document.querySelectorAll(".primary").forEach(btn => {
     }
 
 });
+
+/* =========================
+LOAD USER PROFILE
+========================= */
+
+async function loadUserProfile() {
+
+    if (!currentUser) {
+
+        userData = null;
+
+        return;
+
+    }
+
+    const doc = await db.collection("users")
+        .doc(currentUser.uid)
+        .get();
+
+    if (doc.exists) {
+
+        userData = doc.data();
+
+        console.log("User Profile:", userData);
+
+    } else {
+
+        userData = null;
+
+    }
+
+}
+/* =========================
+CHECK PREMIUM ACCESS
+========================= */
+
+function hasPremiumAccess(asset) {
+
+    // Free asset
+    if (asset.membership === "free") {
+        return true;
+    }
+
+    // Not logged in
+    if (!currentUser) {
+        return false;
+    }
+
+    // Premium member
+    if (userData && userData.membership === "premium") {
+        return true;
+    }
+
+    return false;
+
+}
