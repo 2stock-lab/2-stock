@@ -137,4 +137,29 @@ window.addAsset = addAsset;
 window.createOrder = createOrder;
 window.updateOrder = updateOrder;
 window.createUser = createUser;
+window.createMembershipRequest = createMembershipRequest;
+
+/* =========================
+CREATE MEMBERSHIP REQUEST
+========================= */
+
+async function createMembershipRequest(data) {
+
+    return await db.collection("membershipRequests").add({
+
+        uid: data.uid,
+
+        email: data.email,
+
+        method: data.method,
+
+        transactionId: data.transactionId,
+
+        status: "pending",
+
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+}
 
