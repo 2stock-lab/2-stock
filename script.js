@@ -33,6 +33,18 @@ const backHomeBtn = document.getElementById("backHomeBtn");
 
 const filterButtons = document.querySelectorAll(".filter-btn");
 
+const loginModal=document.getElementById("loginModal");
+
+const loginEmail=document.getElementById("loginEmail");
+
+const loginPassword=document.getElementById("loginPassword");
+
+const loginBtn=document.getElementById("loginBtn");
+
+const signupBtn=document.getElementById("signupBtn");
+
+const closeLogin=document.querySelector(".closeLogin");
+
 const purchasePopup = document.getElementById("purchasePopup");
 
 const closePopup = document.getElementById("closePopup");
