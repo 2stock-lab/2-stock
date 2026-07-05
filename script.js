@@ -41,6 +41,10 @@ const loginEmail=document.getElementById("loginEmail");
 
 const loginPassword=document.getElementById("loginPassword");
 
+const membershipModal = document.getElementById("membershipModal");
+
+const previewDownload = document.getElementById("previewDownload");
+
 const loginBtn=document.getElementById("loginBtn");
 
 const signupBtn=document.getElementById("signupBtn");
@@ -179,22 +183,83 @@ OPEN IMAGE MODAL
 
 function openImage(data){
 
-selectedAsset=data;
+    selectedAsset = data;
 
-modalImage.src=data.image;
+    /* Premium Image + User Free */
 
-modalTitle.innerText=data.title;
+    if(
+        data.membership === "premium" &&
+        (!currentUser || !userData || userData.membership !== "premium")
+    ){
 
-modalCategory.innerText="Category : "+(data.category || "Photo");
+        // Watermark Preview
+        modalImage.src = data.image +
+        "?tr=l_text:Arial_60:2STOCK%20PREVIEW,co_white,o_60";
 
-modalMembership.innerText=
-data.membership==="free"
-?
-"Free Download"
-:
-"Premium Asset";
+        modalMembership.innerText =
+        "Premium Preview (Membership Required)";
 
-imageModal.style.display="flex";
+        const downloadBtn =
+        document.getElementById("previewDownload");
+
+        if(downloadBtn){
+
+            downloadBtn.innerText = "Become Premium Member";
+
+            downloadBtn.onclick = ()=>{
+
+                if(!currentUser){
+
+                    loginModal.style.display = "flex";
+
+                }else{
+
+                    membershipModal.style.display = "flex";
+
+                }
+
+            };
+
+        }
+
+    }
+
+    else{
+
+        // Free image OR Premium Member
+
+        modalImage.src = data.image;
+
+        modalMembership.innerText =
+        data.membership==="free"
+        ?
+        "Free Download"
+        :
+        "Premium Download";
+
+        const downloadBtn =
+        document.getElementById("previewDownload");
+
+        if(downloadBtn){
+
+            downloadBtn.innerText = "Download";
+
+            downloadBtn.onclick = ()=>{
+
+                window.open(data.image,"_blank");
+
+            };
+
+        }
+
+    }
+
+    modalTitle.innerText = data.title;
+
+    modalCategory.innerText =
+    "Category : " + (data.category || "Photo");
+
+    imageModal.style.display = "flex";
 
 }
 
@@ -699,3 +764,25 @@ function hasPremiumAccess(asset) {
     return false;
 
 }
+
+/* ==========================================
+MEMBERSHIP MODAL
+========================================== */
+
+const membershipBtn = document.getElementById("membershipBtn");
+
+document.querySelectorAll(".closeMembership").forEach(btn => {
+
+    btn.onclick = () => {
+
+        membershipModal.style.display = "none";
+
+    };
+
+});
+
+membershipBtn.onclick = () => {
+
+    alert("Membership payment system will be added in the next step.");
+
+};
