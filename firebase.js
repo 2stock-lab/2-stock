@@ -40,10 +40,20 @@ async function saveAsset(assetData) {
     return await db.collection("assets").add({
 
         title: assetData.title,
-        price: Number(assetData.price || 0),
+
         category: assetData.category,
+
         membership: assetData.membership,
+
         image: assetData.image,
+
+        preview: assetData.preview || assetData.image,
+
+        downloads: 0,
+
+        views: 0,
+
+        featured: false,
 
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
 
