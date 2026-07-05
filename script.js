@@ -600,11 +600,8 @@ auth.onAuthStateChanged(async (user) => {
 
 });
 
-});
 
 setTimeout(preloadImages,1000);
-
-});
 
 /* ==========================================
 END OF PART 3
