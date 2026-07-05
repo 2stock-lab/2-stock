@@ -779,8 +779,6 @@ function hasPremiumAccess(asset) {
 MEMBERSHIP MODAL
 ========================================== */
 
-const membershipBtn = document.getElementById("membershipBtn");
-
 document.querySelectorAll(".closeMembership").forEach(btn => {
 
     btn.onclick = () => {
@@ -790,12 +788,6 @@ document.querySelectorAll(".closeMembership").forEach(btn => {
     };
 
 });
-
-membershipBtn.onclick = () => {
-
-    alert("Membership payment system will be added in the next step.");
-
-};
 
 /* =========================
 MEMBERSHIP PAYMENT
