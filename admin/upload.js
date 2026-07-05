@@ -8,7 +8,6 @@ const uploadStatus = document.getElementById("uploadStatus");
 uploadBtn.addEventListener("click", async () => {
 
     const title = document.getElementById("title").value.trim();
-    const price = document.getElementById("price").value;
     const category = document.getElementById("category").value;
     const membership = document.getElementById("membership").value;
     const image = document.getElementById("image").files[0];
@@ -44,7 +43,6 @@ uploadBtn.addEventListener("click", async () => {
 
         await saveAsset({
             title,
-            price,
             category,
             membership,
             image: cloudinaryData.secure_url
