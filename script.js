@@ -7,9 +7,8 @@ PART 1
 FIREBASE
 ========================================== */
 
-const db = firebase.firestore();
-
-const auth = firebase.auth();
+const db = window.db;
+const auth = window.auth;
 
 let currentUser = null;
 
