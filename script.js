@@ -9,6 +9,10 @@ FIREBASE
 
 const db = firebase.firestore();
 
+const auth = firebase.auth();
+
+let currentUser = null;
+
 /* ==========================================
 DOM
 ========================================== */
@@ -482,7 +486,23 @@ img.src=asset.image;
 
 }
 
-window.addEventListener("load",()=>{
+auth.onAuthStateChanged(async (user) => {
+
+    currentUser = user || null;
+
+    if (currentUser) {
+
+        console.log("Logged in:", currentUser.email);
+
+    } else {
+
+        console.log("Not logged in");
+
+    }
+
+    loadAssets();
+
+});
 
 setTimeout(preloadImages,1000);
 
@@ -491,3 +511,81 @@ setTimeout(preloadImages,1000);
 /* ==========================================
 END OF PART 3
 ========================================== */
+/* =========================
+AUTH SYSTEM
+========================= */
+
+async function register(email, password) {
+
+    return await auth.createUserWithEmailAndPassword(email, password);
+
+}
+
+async function login(email, password) {
+
+    return await auth.signInWithEmailAndPassword(email, password);
+
+}
+
+async function logout() {
+
+    return await auth.signOut();
+
+}
+/* =========================
+LOGIN SYSTEM
+========================= */
+
+loginBtn.onclick=async()=>{
+
+try{
+
+await login(
+
+loginEmail.value,
+
+loginPassword.value
+
+);
+
+alert("Login Successful");
+
+loginModal.style.display="none";
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+};
+
+signupBtn.onclick=async()=>{
+
+try{
+
+await register(
+
+loginEmail.value,
+
+loginPassword.value
+
+);
+
+alert("Account Created Successfully");
+
+loginModal.style.display="none";
+
+}catch(err){
+
+alert(err.message);
+
+}
+
+};
+
+closeLogin.onclick=()=>{
+
+loginModal.style.display="none";
+
+};
