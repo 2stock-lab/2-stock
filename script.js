@@ -607,3 +607,31 @@ signupBtn.onclick = async () => {
     }
 
 };
+
+/* =========================
+JOIN BUTTON
+========================= */
+
+document.querySelectorAll(".join-btn").forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+        loginModal.style.display = "flex";
+
+    });
+
+});
+
+document.querySelectorAll(".primary").forEach(btn => {
+
+    if (btn.innerText.includes("Become Member")) {
+
+        btn.addEventListener("click", () => {
+
+            loginModal.style.display = "flex";
+
+        });
+
+    }
+
+});
