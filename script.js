@@ -185,34 +185,31 @@ function openImage(data){
 
     selectedAsset = data;
 
-    /* Premium Image + User Free */
+    const downloadBtn = document.getElementById("previewDownload");
 
-    if(
+    // Premium Image + User is NOT Premium
+    if (
         data.membership === "premium" &&
         (!currentUser || !userData || userData.membership !== "premium")
-    ){
+    ) {
 
         // Watermark Preview
-        modalImage.src = data.image +
-        "?tr=l_text:Arial_60:2STOCK%20PREVIEW,co_white,o_60";
+        modalImage.src = data.preview || data.image;
 
         modalMembership.innerText =
         "Premium Preview (Membership Required)";
 
-        const downloadBtn =
-        document.getElementById("previewDownload");
-
-        if(downloadBtn){
+        if (downloadBtn) {
 
             downloadBtn.innerText = "Become Premium Member";
 
-            downloadBtn.onclick = ()=>{
+            downloadBtn.onclick = () => {
 
-                if(!currentUser){
+                if (!currentUser) {
 
                     loginModal.style.display = "flex";
 
-                }else{
+                } else {
 
                     membershipModal.style.display = "flex";
 
@@ -222,31 +219,44 @@ function openImage(data){
 
         }
 
-    }
+    } else {
 
-    else{
-
-        // Free image OR Premium Member
-
+        // Free Image OR Premium Member
         modalImage.src = data.image;
 
         modalMembership.innerText =
-        data.membership==="free"
-        ?
-        "Free Download"
-        :
-        "Premium Download";
+            data.membership === "free"
+            ? "Free Download"
+            : "Premium Download";
 
-        const downloadBtn =
-        document.getElementById("previewDownload");
-
-        if(downloadBtn){
+        if (downloadBtn) {
 
             downloadBtn.innerText = "Download";
 
-            downloadBtn.onclick = ()=>{
+            downloadBtn.onclick = () => {
 
-                window.open(data.image,"_blank");
+                if (data.membership === "free") {
+
+                    window.open(data.image, "_blank");
+                    return;
+
+                }
+
+                if (!currentUser) {
+
+                    loginModal.style.display = "flex";
+                    return;
+
+                }
+
+                if (!userData || userData.membership !== "premium") {
+
+                    membershipModal.style.display = "flex";
+                    return;
+
+                }
+
+                window.open(data.image, "_blank");
 
             };
 
@@ -257,12 +267,11 @@ function openImage(data){
     modalTitle.innerText = data.title;
 
     modalCategory.innerText =
-    "Category : " + (data.category || "Photo");
+        "Category : " + (data.category || "Photo");
 
     imageModal.style.display = "flex";
 
 }
-
 /* ==========================================
 CLOSE IMAGE MODAL
 ========================================== */
