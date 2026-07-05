@@ -138,6 +138,7 @@ window.createOrder = createOrder;
 window.updateOrder = updateOrder;
 window.createUser = createUser;
 window.createMembershipRequest = createMembershipRequest;
+window.isAdmin = isAdmin;
 
 /* =========================
 CREATE MEMBERSHIP REQUEST
@@ -160,6 +161,20 @@ async function createMembershipRequest(data) {
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
 
     });
+
+}
+
+/* =========================
+CHECK ADMIN
+========================= */
+
+async function isAdmin(uid) {
+
+    const doc = await db.collection("admins")
+        .doc(uid)
+        .get();
+
+    return doc.exists;
 
 }
 
